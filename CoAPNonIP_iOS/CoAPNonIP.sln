@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoAPNonIP_iOS", "CoAPNonIP_iOS.csproj", "{E28EF670-C1CD-4223-85E4-B8F4DE2FF30F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E28EF670-C1CD-4223-85E4-B8F4DE2FF30F}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{E28EF670-C1CD-4223-85E4-B8F4DE2FF30F}.Debug|iPhone.Build.0 = Debug|iPhone
+		{E28EF670-C1CD-4223-85E4-B8F4DE2FF30F}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{E28EF670-C1CD-4223-85E4-B8F4DE2FF30F}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{E28EF670-C1CD-4223-85E4-B8F4DE2FF30F}.Release|iPhone.ActiveCfg = Release|iPhone
+		{E28EF670-C1CD-4223-85E4-B8F4DE2FF30F}.Release|iPhone.Build.0 = Release|iPhone
+		{E28EF670-C1CD-4223-85E4-B8F4DE2FF30F}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{E28EF670-C1CD-4223-85E4-B8F4DE2FF30F}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+	EndGlobalSection
+EndGlobal
