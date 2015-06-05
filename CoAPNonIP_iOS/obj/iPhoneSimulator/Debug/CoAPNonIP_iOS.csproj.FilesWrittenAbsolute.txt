@@ -1,0 +1,9 @@
+/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP_iOS/obj/iPhoneSimulator/Debug/Xamarin.iOS,Version=v1.0.AssemblyAttribute.cs
+/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP_iOS/obj/iPhoneSimulator/Debug/ibtool/LaunchScreen.nib
+/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP_iOS/obj/iPhoneSimulator/Debug/actool/partial-info.plist
+/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP_iOS/obj/iPhoneSimulator/Debug/actool/asset-manifest.plist
+/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP_iOS/obj/iPhoneSimulator/Debug/
+/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP_iOS/bin/iPhoneSimulator/Debug/CoAPNonIP_iOS.exe.mdb
+/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP_iOS/bin/iPhoneSimulator/Debug/CoAPNonIP_iOS.exe
+/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP_iOS/obj/iPhoneSimulator/Debug/CoAPNonIP_iOS.exe
+/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP_iOS/obj/iPhoneSimulator/Debug/CoAPNonIP_iOS.exe.mdb

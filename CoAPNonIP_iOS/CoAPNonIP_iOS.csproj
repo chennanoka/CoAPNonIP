@@ -79,6 +79,26 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="LibCoAPNonIP\Utils\AbstractByteUtils.cs" />
+    <Compile Include="LibCoAPNonIP\Utils\AbstractURIUtils.cs" />
+    <Compile Include="LibCoAPNonIP\Utils\AbstractNetworkUtils.cs" />
+    <Compile Include="LibCoAPNonIP\Utils\AbstractNumberUtils.cs" />
+    <Compile Include="LibCoAPNonIP\Utils\AbstractStringUtils.cs" />
+    <Compile Include="LibCoAPNonIP\Exceptions\CoAPFormatException.cs" />
+    <Compile Include="LibCoAPNonIP\Exceptions\UndeliveredException.cs" />
+    <Compile Include="LibCoAPNonIP\Exceptions\UnsupportedException.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\AbstractCoAPMsg.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\CoAPVersion.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\InterfaceParsable.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\CoAPMsgType.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\CoAPToken.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\CoAPMsgCode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="LibCoAPNonIP\" />
+    <Folder Include="LibCoAPNonIP\CoAP\" />
+    <Folder Include="LibCoAPNonIP\Exceptions\" />
+    <Folder Include="LibCoAPNonIP\Utils\" />
+  </ItemGroup>
 </Project>
