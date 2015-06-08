@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoAPNonIP.Android", "CoAPNonIP.Android\CoAPNonIP.Android.csproj", "{522A3CF2-6FC1-4D35-AB76-5F0B5A928F66}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CoAPNonIP.Core", "CoAPNonIP.Core\CoAPNonIP.Core.shproj", "{5EAD8588-007B-479E-8F06-A0FD53BDD2DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{522A3CF2-6FC1-4D35-AB76-5F0B5A928F66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{522A3CF2-6FC1-4D35-AB76-5F0B5A928F66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{522A3CF2-6FC1-4D35-AB76-5F0B5A928F66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{522A3CF2-6FC1-4D35-AB76-5F0B5A928F66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
