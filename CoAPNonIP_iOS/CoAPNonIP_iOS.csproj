@@ -93,6 +93,11 @@
     <Compile Include="LibCoAPNonIP\CoAP\CoAPMsgType.cs" />
     <Compile Include="LibCoAPNonIP\CoAP\CoAPToken.cs" />
     <Compile Include="LibCoAPNonIP\CoAP\CoAPMsgCode.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\CoAPMsgID.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\CoAPHeaderOptions.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\CoAPHeaderOption.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\CoAPContentFormatOption.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\CoAPBlockOption.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

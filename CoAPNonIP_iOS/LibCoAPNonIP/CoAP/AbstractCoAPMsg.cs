@@ -28,7 +28,7 @@ namespace LibCoAPNonIP.CoAPMsg {
         /// <summary>
         /// Accessor/Mutator for the message ID
         /// </summary>
-        public CoAPMessageID ID { get; set; }
+        public CoAPMsgID ID { get; set; }
         /// <summary>
         /// Accessor/Mutator for the message options
         /// </summary>
