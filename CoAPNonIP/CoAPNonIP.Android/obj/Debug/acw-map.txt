@@ -1,0 +1,4 @@
+CoAPNonIP.Android.MainActivity, CoAPNonIP.Android;md56d49b18c07dda4cad9df3ffd72049a97.MainActivity
+CoAPNonIP.Android.MainActivity, CoAPNonIP.Android, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md56d49b18c07dda4cad9df3ffd72049a97.MainActivity
+CoAPNonIP.Android.MainActivity;md56d49b18c07dda4cad9df3ffd72049a97.MainActivity
+coapnonip.android.MainActivity;md56d49b18c07dda4cad9df3ffd72049a97.MainActivity

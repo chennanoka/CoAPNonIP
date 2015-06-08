@@ -1,0 +1,4 @@
+C:\Users\NN\Desktop\CoAPNonIP\CoAPNonIP\CoAPNonIP\CoAPNonIP.Core\bin\Debug\CoAPNonIP.Core.dll
+C:\Users\NN\Desktop\CoAPNonIP\CoAPNonIP\CoAPNonIP\CoAPNonIP.Core\bin\Debug\CoAPNonIP.Core.pdb
+C:\Users\NN\Desktop\CoAPNonIP\CoAPNonIP\CoAPNonIP\CoAPNonIP.Core\obj\Debug\CoAPNonIP.Core.dll
+C:\Users\NN\Desktop\CoAPNonIP\CoAPNonIP\CoAPNonIP\CoAPNonIP.Core\obj\Debug\CoAPNonIP.Core.pdb
