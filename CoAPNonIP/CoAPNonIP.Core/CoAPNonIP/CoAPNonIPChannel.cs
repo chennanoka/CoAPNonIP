@@ -15,6 +15,7 @@ namespace CoAPNonIP.Core
 	 * */ 
 	public class CoAPNonIPChannel{ 
 
+
 		public static readonly string CoAPNonIP_Client="CoAPNonIP_Client";
 		public static readonly string CoAPNonIP_Server="CoAPNonIP_Server";
 

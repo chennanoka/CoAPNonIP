@@ -1,2 +1,2 @@
-C:\Users\NN\Desktop\CoAPNonIP\CoAPNonIP\CoAPNonIP\CoAPNonIP.Android\bin\Debug\CoAPNonIP.Android.dll
-C:\Users\NN\Desktop\CoAPNonIP\CoAPNonIP\CoAPNonIP\CoAPNonIP.Core\bin\Debug\CoAPNonIP.Core.dll
+/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.Android/bin/Debug/CoAPNonIP.Android.dll
+/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.Core/bin/Debug/CoAPNonIP.Core.dll

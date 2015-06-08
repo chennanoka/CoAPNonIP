@@ -87,17 +87,20 @@
     <Compile Include="LibCoAPNonIP\Exceptions\CoAPFormatException.cs" />
     <Compile Include="LibCoAPNonIP\Exceptions\UndeliveredException.cs" />
     <Compile Include="LibCoAPNonIP\Exceptions\UnsupportedException.cs" />
-    <Compile Include="LibCoAPNonIP\CoAP\AbstractCoAPMsg.cs" />
-    <Compile Include="LibCoAPNonIP\CoAP\CoAPVersion.cs" />
-    <Compile Include="LibCoAPNonIP\CoAP\InterfaceParsable.cs" />
-    <Compile Include="LibCoAPNonIP\CoAP\CoAPMsgType.cs" />
-    <Compile Include="LibCoAPNonIP\CoAP\CoAPToken.cs" />
-    <Compile Include="LibCoAPNonIP\CoAP\CoAPMsgCode.cs" />
-    <Compile Include="LibCoAPNonIP\CoAP\CoAPMsgID.cs" />
-    <Compile Include="LibCoAPNonIP\CoAP\CoAPHeaderOptions.cs" />
-    <Compile Include="LibCoAPNonIP\CoAP\CoAPHeaderOption.cs" />
-    <Compile Include="LibCoAPNonIP\CoAP\CoAPContentFormatOption.cs" />
-    <Compile Include="LibCoAPNonIP\CoAP\CoAPBlockOption.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\Fundaments\AbstractCoAPMsg.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\Fundaments\CoAPBlockOption.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\Fundaments\CoAPContentFormatOption.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\Fundaments\CoAPHeaderOption.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\Fundaments\CoAPHeaderOptions.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\Fundaments\CoAPMsgCode.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\Fundaments\CoAPMsgID.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\Fundaments\CoAPMsgType.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\Fundaments\CoAPPayload.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\Fundaments\CoAPToken.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\Fundaments\CoAPVersion.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\Fundaments\InterfaceParsable.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\CoAPRequest.cs" />
+    <Compile Include="LibCoAPNonIP\CoAP\CoAPResponse.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -105,5 +108,6 @@
     <Folder Include="LibCoAPNonIP\CoAP\" />
     <Folder Include="LibCoAPNonIP\Exceptions\" />
     <Folder Include="LibCoAPNonIP\Utils\" />
+    <Folder Include="LibCoAPNonIP\CoAP\Fundaments\" />
   </ItemGroup>
 </Project>
