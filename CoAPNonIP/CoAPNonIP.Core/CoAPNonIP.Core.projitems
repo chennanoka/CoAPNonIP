@@ -10,8 +10,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)CoapNonIP\" />
+    <Folder Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)CoapNonIP\Test.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\CoAPRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\CoAPResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\Fundaments\AbstractCoAPMsg.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\Fundaments\CoAPBlockOption.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\Fundaments\CoAPContentFormatOption.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\Fundaments\CoAPHeaderOption.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\Fundaments\CoAPHeaderOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\Fundaments\CoAPMsgCode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\Fundaments\CoAPMsgID.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\Fundaments\CoAPMsgType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\Fundaments\CoAPPayload.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\Fundaments\CoAPToken.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\Fundaments\CoAPVersion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\CoAP\Fundaments\InterfaceParsable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Exceptions\CoAPFormatException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Exceptions\UndeliveredException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Exceptions\UnsupportedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Utils\AbstractByteUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Utils\AbstractNetworkUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Utils\AbstractNumberUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Utils\AbstractStringUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Utils\AbstractURIUtils.cs" />
   </ItemGroup>
 </Project>

@@ -1,13 +1,10 @@
-﻿<Properties StartupItem="CoAPNonIP.Android\CoAPNonIP.Android.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.HT4A9JT01434" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="CoAPNonIP.Android\MainActivity.cs">
-    <Files>
-      <File FileName="CoAPNonIP.Android\MainActivity.cs" Line="16" Column="52" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+﻿<Properties StartupItem="CoAPNonIP.iOS/CoAPNonIP.iOS.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.Core/LibCoAPNonIP/CoAP/Fundaments/CoAPVersion.cs" line="45" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.CoAPNonIP.Android AndroidDeviceId-Debug="HT4A9JT01434" />
 </Properties>
