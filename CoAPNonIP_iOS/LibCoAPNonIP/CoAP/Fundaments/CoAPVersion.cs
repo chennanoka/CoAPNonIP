@@ -42,7 +42,6 @@ namespace LibCoAPNonIP.CoAPMsg {
         public bool IsValid(UInt16 version) {
             return (version == CurrentVersion);
         }
-        #endregion
 
         #region Overrides
         /// <summary>

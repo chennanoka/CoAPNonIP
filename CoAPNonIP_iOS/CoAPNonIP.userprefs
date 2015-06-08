@@ -1,6 +1,16 @@
 ﻿<Properties StartupItem="CoAPNonIP_iOS.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPadAir.8.3" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="LibCoAPNonIP/CoAP/Fundaments/CoAPToken.cs">
+    <Files>
+      <File FileName="LibCoAPNonIP/CoAP/CoAPRequest.cs" Line="1" Column="1" />
+      <File FileName="LibCoAPNonIP/CoAP/CoAPResponse.cs" Line="66" Column="26" />
+      <File FileName="LibCoAPNonIP/CoAP/Fundaments/CoAPVersion.cs" Line="45" Column="1" />
+      <File FileName="LibCoAPNonIP/Exceptions/UnsupportedException.cs" Line="4" Column="50" />
+      <File FileName="LibCoAPNonIP/Exceptions/UndeliveredException.cs" Line="9" Column="50" />
+      <File FileName="LibCoAPNonIP/Exceptions/CoAPFormatException.cs" Line="14" Column="10" />
+      <File FileName="LibCoAPNonIP/CoAP/Fundaments/CoAPToken.cs" Line="31" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

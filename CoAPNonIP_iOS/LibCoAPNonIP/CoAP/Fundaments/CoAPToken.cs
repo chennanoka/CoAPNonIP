@@ -15,6 +15,20 @@ namespace LibCoAPNonIP.CoAPMsg {
             this.Length = (byte)this.Value.Length;
         }
 
+        /// <summary>
+        /// A CoAP token created from string value
+        /// </summary>
+        /// <param name="tokenValue">The byte array value that represents the CoAP token</param>
+        public CoAPToken(byte[] tokenValue) {
+            if (tokenValue == null || tokenValue.Length == 0) {
+                this.Value = null;    
+                this.Length = 0;            
+            } else {
+                this.Value = tokenValue; 
+                this.Length = (byte)this.Value.Length;                
+            }
+        }
+
         public int Parse(byte[] coapMsgStream, int startIndex, UInt16 extraInfo) {
             if (coapMsgStream == null || coapMsgStream.Length == 0 || startIndex < 0)
                 return startIndex;//do nothing 

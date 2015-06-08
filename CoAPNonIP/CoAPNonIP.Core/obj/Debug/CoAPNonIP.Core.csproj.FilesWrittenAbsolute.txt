@@ -1,5 +1,0 @@
-/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.Core/obj/Debug/.NETPortable,Version=v4.0,Profile=Profile42.AssemblyAttribute.cs
-/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.Core/bin/Debug/CoAPNonIP.Core.dll.mdb
-/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.Core/bin/Debug/CoAPNonIP.Core.dll
-/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.Core/obj/Debug/CoAPNonIP.Core.dll
-/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.Core/obj/Debug/CoAPNonIP.Core.dll.mdb

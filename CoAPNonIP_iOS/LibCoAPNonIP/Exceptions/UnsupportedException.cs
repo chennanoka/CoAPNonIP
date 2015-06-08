@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace LibCoAPNonIP.Exceptions {
-    public class UnsupportedException {
+    public class UnsupportedException : Exception{
         /// <summary>
         /// Default constructor
         /// </summary>

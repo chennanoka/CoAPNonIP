@@ -1,2 +1,0 @@
-/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.Android/bin/Debug/CoAPNonIP.Android.dll
-/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.Core/bin/Debug/CoAPNonIP.Core.dll
