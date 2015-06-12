@@ -39,6 +39,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Utils\AbstractNumberUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Utils\AbstractStringUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Utils\AbstractURIUtils.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Network\InterfaceNetwork.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Network\AbstractNetwork.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Network\Device.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Utils\AbstractTimeUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Network\iOS\PeersNetwork.cs" />
   </ItemGroup>
 </Project>

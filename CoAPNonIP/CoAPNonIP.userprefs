@@ -1,4 +1,4 @@
-﻿<Properties StartupItem="CoAPNonIP.Core/CoAPNonIP.Core.csproj">
+﻿<Properties StartupItem="CoAPNonIP.iOS/CoAPNonIP.iOS.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="CoAPNonIP.Android/MainActivity.cs">
     <Files>
@@ -9,4 +9,7 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>CoAPNonIP.Android/CoAPNonIP.Android.csproj</String>
+  </DisabledProjects>
 </Properties>
