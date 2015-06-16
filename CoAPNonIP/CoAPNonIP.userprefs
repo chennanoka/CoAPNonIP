@@ -1,8 +1,10 @@
 ﻿<Properties StartupItem="CoAPNonIP.iOS/CoAPNonIP.iOS.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="CoAPNonIP.Android/MainActivity.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone4s.8.3" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="CoAPNonIP.Core/LibCoAPNonIP/Network/iOS/PeersNetwork.cs">
     <Files>
-      <File FileName="CoAPNonIP.Android/MainActivity.cs" Line="1" Column="1" />
+      <File FileName="CoAPNonIP.iOS/AppDelegate.cs" Line="1" Column="1" />
+      <File FileName="CoAPNonIP.Core/LibCoAPNonIP/Network/AbstractNetwork.cs" Line="1" Column="1" />
+      <File FileName="CoAPNonIP.Core/LibCoAPNonIP/Network/iOS/PeersNetwork.cs" Line="1" Column="1" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
