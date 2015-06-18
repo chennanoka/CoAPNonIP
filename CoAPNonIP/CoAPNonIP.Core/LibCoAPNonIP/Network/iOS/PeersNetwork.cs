@@ -123,8 +123,17 @@ namespace LibCoAPNonIP.Network.iOS {
         }
     }
     public class NetworkTransmissionCallback {
-        private string TargetDev;
-        //TODO: Think about Copy-On-Write Strategy
+        private string rr_TargetDev;
+
+        public NetworkTransmissionCallback(string TargetDev) {
+            rr_TargetDev = TargetDev;
+        }
+
+        public void ThreadFunc() {
+            //TODO: wait for a semaphore，
+            //Then consume the data from the queue,
+            //If GetData return true, then Remove the message from the queue
+        }
     }
     public class BroadcastDelegate : MCNearbyServiceAdvertiserDelegate {
         public BroadcastDelegate(PeersNetwork Caller ) {
@@ -158,6 +167,7 @@ namespace LibCoAPNonIP.Network.iOS {
             if (rr_WhenPeerFound != null) {
                 rr_WhenPeerFound(new_dev);
             }
+            //TODO: Create a new Data Thread for this Device
         }
 
         public override void LostPeer(MCNearbyServiceBrowser seeker, MCPeerID peerID) {
@@ -168,6 +178,7 @@ namespace LibCoAPNonIP.Network.iOS {
                 rr_WhenPeerLost(dev);
             }
             rr_caller.ActivePeers.Remove(peerID.DisplayName);
+            //TODO: Terminate the relate Data Thread;
         }
 
         public override void DidNotStartBrowsingForPeers(MCNearbyServiceBrowser browser, NSError error) {
