@@ -5,6 +5,7 @@ namespace LibCoAPNonIP.Network {
 //    public delegate void MsgSentCallback(int MsgID , CoAPResponse Resp);// should not be implemented at this level
     public delegate void PeerFoundCallback( Device FoundPeer );
     public delegate void PeerLostCallback( Device LostPeer );
+    public delegate void DataRecvCallback( Device From , byte[] data);
     public abstract class AbstractNetwork {
 
         //boardcast signal
@@ -16,7 +17,7 @@ namespace LibCoAPNonIP.Network {
         //send data
         abstract public int SendData(Device[] Destination, byte[] payload);
         //retrieve data
-        abstract public int RecvData(Device SourceDeivce , out byte[] RecvData);
+        abstract public void SetRecvDataFunc(DataRecvCallback Func);
         
     }
 }
