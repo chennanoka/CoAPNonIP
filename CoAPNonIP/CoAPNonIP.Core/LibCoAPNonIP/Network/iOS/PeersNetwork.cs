@@ -47,6 +47,7 @@ namespace LibCoAPNonIP.Network.iOS {
             CurRole = ROLE.NONE;
             rr_myPeerID = new MCPeerID(rr_myDevice.DisplayName);
             rr_mySession = new MCSession(rr_myPeerID);
+            rr_mySession.Delegate = new SessionDelegate(this);
             PeerTimeout = 60;//s
             strSessionState = "";
             SessionState = SESSION_STATUS.INIT;
@@ -368,6 +369,16 @@ namespace LibCoAPNonIP.Network.iOS {
             //Call User-defined callback function to process the received data;
             DataRecvCallback Func = rr_caller.GetRecvDataFunc();
             Func(new Device(peerID.DisplayName) , data);
+        }
+
+        public override void DidReceiveData(MCSession session, NSData data, MCPeerID peerID) {
+            throw new NotImplementedException();
+        }
+        public override void DidStartReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSProgress progress) {
+            throw new NotImplementedException();
+        }
+        public override void DidFinishReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSUrl localUrl, NSError error) {
+            throw new NotImplementedException();
         }
 
         private PeersNetwork rr_caller;
