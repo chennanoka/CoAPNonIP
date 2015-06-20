@@ -68,7 +68,7 @@ namespace LibCoAPNonIP.Network.iOS {
             return rr_myDevice.DisplayName;
         }
 
-        public override bool Broadcast() {
+        public override void Broadcast() {
             CurRole |= ROLE.BROADCASTER;
             CurStatus = NETWORK_STATUS.WAIT_FOR_DEV;
             NSDictionary emptyDict = new NSDictionary();
@@ -78,7 +78,7 @@ namespace LibCoAPNonIP.Network.iOS {
             rr_broadcaster.StartAdvertisingPeer();//TODO:Consider start in a new thread
         }
 
-        public override bool SearchPeers(PeerFoundCallback WhenPeerFound = null, PeerLostCallback WhenPeerLost = null, double timeout = 60) {
+        public override void SearchPeers(PeerFoundCallback WhenPeerFound = null, PeerLostCallback WhenPeerLost = null, double timeout = 60) {
             this.PeerTimeout = timeout;
             this.rr_WhenPeerFound = WhenPeerFound;
             this.rr_WhenPeerLost = WhenPeerLost;

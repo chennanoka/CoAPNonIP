@@ -9,9 +9,9 @@ namespace LibCoAPNonIP.Network {
     public abstract class AbstractNetwork {
 
         //boardcast signal
-        abstract public bool Broadcast();
+        abstract public void Broadcast();
         //search devices
-        abstract public bool SearchPeers(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, double timeout);
+        abstract public void SearchPeers(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, double timeout);
         //get nodes
         abstract public Device[] GetNodes();
         //send data
