@@ -3,14 +3,13 @@ using LibCoAPNonIP.CoAPMsg;
 using LibCoAPNonIP.Network;
 
 namespace LibCoAPNonIP {
-    public delegate void ResourceHandler(Device sender, CoAPRequest request);
     public class Resource {
-        public Resource(string Name , ResourceHandler Handler) {
+        public Resource(string Name , RequestHandler Handler) {
             rr_name = Name;
             rr_handler = Handler;
         }
 
-        public ResourceHandler GetHandler() {
+        public RequestHandler GetHandler() {
             return rr_handler;
         }
 
@@ -19,11 +18,11 @@ namespace LibCoAPNonIP {
         }
 
         public CoAPResponse ProcessRequest(Device sender , CoAPRequest request) {
-            throw NotImplementedException();
+            throw new NotImplementedException();
         }
 
         private string rr_name;
-        private ResourceHandler rr_handler;
+        private RequestHandler rr_handler;
     }
 }
 

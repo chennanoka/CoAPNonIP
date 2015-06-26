@@ -186,7 +186,7 @@ namespace LibCoAPNonIP.Network.iOS {
             data = rr_data;
             bool rtn = false;
             rr_oplock.WaitOne();
-            if (!--rr_stock)
+            if (--rr_stock == 0)
                 rtn = true;
             rr_oplock.ReleaseMutex();
             return rtn;
@@ -231,7 +231,7 @@ namespace LibCoAPNonIP.Network.iOS {
                     rr_DataStream = rr_Caller.GetSession().StartStream(
                         "MSG:" + rr_Caller.GetMyDeviceName() + ":" + AbstractTimeUtils.UnixTimestamp().ToString(),
                         new MCPeerID(rr_TargetDev),
-                        err
+                        out err
                     );
                     if (rr_DataStream == null) {
                         throw new NetworkException("START STREAM FAIL:" + err.LocalizedDescription);
@@ -244,7 +244,7 @@ namespace LibCoAPNonIP.Network.iOS {
                     }
                     byte[] data;
                     bool is_all_sent;
-                    is_all_sent = rr_Caller.SendQueue[i].GetData(data);
+                    is_all_sent = rr_Caller.SendQueue[i].GetData(out data);
                     rr_DataStream.Write(data);
                     if (is_all_sent) {
                         rr_Caller.oplock_SendQueue.WaitOne();
@@ -345,13 +345,13 @@ namespace LibCoAPNonIP.Network.iOS {
         }
 
         public override void DidReceiveStream(MCSession session, NSInputStream stream, string streamName, MCPeerID peerID) {
-            throw new NotImplementedException();
+//            throw new NotImplementedException();
             int nRecv;
             int total_len = 0;
             List< byte[] > data_list = new List<byte[]>();
             while (true) {
                 byte[] buffer = new byte[1024];
-                nRecv = stream.Read(buffer, 1024);
+                nRecv = (int)stream.Read(buffer, (nuint)1024);
                 data_list.Add(buffer);
                 total_len += nRecv;
                 if (nRecv < 1024) {
