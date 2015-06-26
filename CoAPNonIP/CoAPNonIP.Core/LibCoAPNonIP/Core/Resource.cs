@@ -18,6 +18,10 @@ namespace LibCoAPNonIP {
             return rr_name;
         }
 
+        public CoAPResponse ProcessRequest(Device sender , CoAPRequest request) {
+            throw NotImplementedException();
+        }
+
         private string rr_name;
         private ResourceHandler rr_handler;
     }
