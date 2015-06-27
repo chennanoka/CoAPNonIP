@@ -15,6 +15,7 @@ namespace LibCoAPNonIP.Network.iOS {
         SEEKING_PEERS,
         PEER_JOIN,
         PEER_LOST,
+        SNIFFING_PEERS,
     };
 
     public enum SESSION_STATUS {
@@ -90,6 +91,25 @@ namespace LibCoAPNonIP.Network.iOS {
         }
 
         public override bool SniffPeers(int timeout /*s*/) {
+            CurStatus = NETWORK_STATUS.SNIFFING_PEERS;
+            PeerDetected = false;
+            MCNearbyServiceBrowser sniffer = new MCNearbyServiceBrowser(rr_myPeerID, rr_basicServiceType);
+            sniffer.Delegate = new SnifferDelegate(this);
+            sniffer.StartBrowsingForPeers();
+            Thread sniffer_thread = new Thread(new ThreadStart(() => {
+                int starttime = AbstractTimeUtils.UnixTimestamp();
+                while(true) {
+                    int nowtime = AbstractTimeUtils.UnixTimestamp();
+                    if (PeerDetected || (nowtime - starttime) > timeout) {
+                        return;
+                    }
+                    Thread.Sleep(100);
+                }
+            }));
+            sniffer_thread.Start();
+            sniffer_thread.Join();
+            sniffer.StopBrowsingForPeers();
+            return PeerDetected;
         }
 
         public override Device[] GetNodes() {
@@ -144,6 +164,8 @@ namespace LibCoAPNonIP.Network.iOS {
         public Dictionary< string , Device > ActivePeers;
         public Mutex oplock_SendQueue;
         public List< SendQueueElement > SendQueue;
+
+        public bool PeerDetected{ get; set; }
 
 
         private Device rr_myDevice;
@@ -274,6 +296,16 @@ namespace LibCoAPNonIP.Network.iOS {
 
         private PeersNetwork rr_caller;
 
+    }
+
+    public class SnifferDelegate : MCNearbyServiceBrowserDelegate {
+        public SnifferDelegate(PeersNetwork Caller) {
+            rr_caller = Caller;
+        }
+        public override void FoundPeer(MCNearbyServiceBrowser seeker, MCPeerID peerID, NSDictionary info) {
+            rr_caller.PeerDetected;
+        }
+        private PeersNetwork rr_caller;
     }
 
     public class SeekerDelegate : MCNearbyServiceBrowserDelegate {
