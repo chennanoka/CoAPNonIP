@@ -303,7 +303,10 @@ namespace LibCoAPNonIP.Network.iOS {
             rr_caller = Caller;
         }
         public override void FoundPeer(MCNearbyServiceBrowser seeker, MCPeerID peerID, NSDictionary info) {
-            rr_caller.PeerDetected;
+            rr_caller.PeerDetected = true;
+        }
+        public override void LostPeer(MCNearbyServiceBrowser seeker, MCPeerID peerID) {
+            //Do nothing
         }
         private PeersNetwork rr_caller;
     }

@@ -33,6 +33,8 @@ namespace LibCoAPNonIP {
 
             rr_resources = new Dictionary<string, Resource>();
             rr_oplock_resources = new ReaderWriterLock();
+
+            rr_network = new PeersNetwork(DeviceName + ":" + AppName);
         }
 
         public void RegisterResource( string name , RequestHandler handler) {
@@ -53,9 +55,11 @@ namespace LibCoAPNonIP {
             rr_Senders = new MsgQueueThread[nSenders];
             for (int i = 0; i != nSenders; ++i) {
                 rr_Senders[i] = new MsgQueueThread( (object data) => {
-                    //TODO
                     SenderMsg msg = (SenderMsg)data;
-
+                    if (msg.isRequest) {
+                        CoAPRequest req = (CoAPRequest)msg.Msg;
+//                        rr_network.SendData(msg.Destionations , req.ToBy
+                    }
                 });
             }
         }
