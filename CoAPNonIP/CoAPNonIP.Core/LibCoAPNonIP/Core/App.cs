@@ -58,7 +58,8 @@ namespace LibCoAPNonIP {
                     SenderMsg msg = (SenderMsg)data;
                     if (msg.isRequest) {
                         CoAPRequest req = (CoAPRequest)msg.Msg;
-//                        rr_network.SendData(msg.Destionations , req.ToBy
+                        rr_network.SendData(msg.Destionations , req.ToByteStream());
+                        //TODO
                     }
                 });
             }
