@@ -89,6 +89,9 @@ namespace LibCoAPNonIP.Network.iOS {
             rr_seeker.StartBrowsingForPeers();//TODO: Consider start in a new thread
         }
 
+        public override bool SniffPeers(int timeout /*s*/) {
+        }
+
         public override Device[] GetNodes() {
             Device[] rtn = new Device[ActivePeers.Count];
             int i = 0;

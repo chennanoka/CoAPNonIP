@@ -10,6 +10,8 @@ namespace LibCoAPNonIP.Network {
 
         //boardcast signal
         abstract public void Broadcast();
+        //sinff for devices
+        public override bool SniffPeers(int timeout /*s*/);
         //search devices
         abstract public void SearchPeers(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, double timeout);
         //get nodes
