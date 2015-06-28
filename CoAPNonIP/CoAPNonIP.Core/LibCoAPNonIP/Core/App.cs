@@ -4,6 +4,7 @@ using System.Threading;
 using System.Collections;
 using LibCoAPNonIP.CoAPMsg;
 using LibCoAPNonIP.Network;
+
 #if __IOS__
 using LibCoAPNonIP.Network.iOS;
 #else
@@ -12,11 +13,11 @@ using LibCoAPNonIP.Network.iOS;
 
 namespace LibCoAPNonIP {
     public delegate void MsgHandler(object data);
-    public delegate void RequestHandler(Device sender, CoAPRequest request);
-    public delegate void ResponseHandler(UInt16 MsgID , CoAPResponse Resp);
+    public delegate void RequestHandler(Device sender,CoAPRequest request);
+    public delegate void ResponseHandler(UInt16 MsgID,CoAPResponse Resp);
 
     public class App {
-        public App(string AppName , string DeviceName = "null") {
+        public App(string AppName, string DeviceName = "null") {
             rr_AppName = AppName;
             rr_DevName = DeviceName;
 
@@ -37,37 +38,84 @@ namespace LibCoAPNonIP {
             rr_network = new PeersNetwork(DeviceName + ":" + AppName);
         }
 
-        public void RegisterResource( string name , RequestHandler handler) {
-            throw new NotImplementedException();
+        public void RegisterResource(string name, RequestHandler handler) {
+            rr_resources.Add(name, new Resource(name, handler));
         }
+
         public void DeregisterResource(string name) {
-            throw new NotImplementedException();
+            if (rr_resources.ContainsKey(name)) {
+                rr_resources.Remove((name));
+            } else {
+                return;
+            }
         }
 
        
         public void InitReceiver(DataRecvCallback UserDefinedCallback = null) {
-            throw new NotImplementedException();
+            DataRecvCallback handler = UserDefinedCallback;
+            if (handler == null) {
+                handler = default_data_recv_callback;
+            }
+            rr_network.SetRecvDataFunc(handler);
         }
+
         public void InitSenders(uint nSenders) {
             if (rr_Senders != null) {
                 throw new Exception("Senders can not be initialized twice");
             }
+            rr_nSenders = nSenders;
             rr_Senders = new MsgQueueThread[nSenders];
             for (int i = 0; i != nSenders; ++i) {
-                rr_Senders[i] = new MsgQueueThread( (object data) => {
+                rr_Senders[i] = new MsgQueueThread((object data) => {
                     SenderMsg msg = (SenderMsg)data;
                     if (msg.isRequest) {
                         CoAPRequest req = (CoAPRequest)msg.Msg;
-                        rr_network.SendData(msg.Destionations , req.ToByteStream());
-                        //TODO
+                        rr_network.SendData(msg.Destionations, req.ToByteStream());
+                    } else {
+                        CoAPResponse resp = (CoAPResponse)msg.Msg;
+                        rr_network.SendData(msg.Destionations, resp.ToByteStream());
                     }
                 });
             }
-        }
-        public void InitProcessers(uint nProcessers) {
+            rr_current_sender = 0;
+            for (int i = 0; i != nSenders; ++i) {
+                rr_Senders[i].Run();
+            }
         }
 
-        //TODO: setDefaultResponseHandler, SendRequest
+        public void InitProcessers(uint nProcessers) {
+            if (rr_Processers != null) {
+                throw new Exception("Processers can not be initialized twice");
+            }
+            rr_nProcessers = nProcessers;
+            rr_Processers = new MsgQueueThread[nProcessers];
+            for (int i = 0; i != nProcessers; ++i) {
+                rr_Processers[i] = new MsgQueueThread((object data) => {
+                    ProcesserMsg msg = (ProcesserMsg)data;
+                    string URI = msg.Msg.GetURL();
+                    if (!rr_resources.ContainsKey(URI)) {
+                        //illegal request (resource not found)
+                        Console.WriteLine("illegal request, resource not found");
+                    } else {
+                        //process the request
+                        //TODO: auto send out the response
+                        rr_resources[URI].ProcessRequest(msg.Sender, msg.Msg);
+                    }
+                });
+            }
+            rr_current_processer = 0;
+            for (int i = 0; i != nProcessers; ++i) {
+                rr_Processers[i].Run();
+            }
+        }
+
+        //TODO: setDefaultResponseHandler, SendRequest , SendResponse
+
+        private void default_data_recv_callback( Device From , byte[] data) {
+            //TODO: use CoAPRequest to parse the string, estimate whether it is 
+            //a request from other devices or a response for previous request
+            //Then call different Callback function.
+        }
 
         private uint rr_nSenders;
         private uint rr_current_sender;
@@ -92,11 +140,15 @@ namespace LibCoAPNonIP {
 
     public class SenderMsg {
         public Device[] Destionations{ get; set; }
+
         public AbstractCoAPMsg Msg { get; set; }
+
         public bool isRequest { get; set; }
     }
+
     public class ProcesserMsg {
         public Device Sender { get; set; }
+
         public CoAPRequest Msg;
     }
 

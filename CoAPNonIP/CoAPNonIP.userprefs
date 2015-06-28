@@ -1,10 +1,10 @@
 ﻿<Properties StartupItem="CoAPNonIP.iOS/CoAPNonIP.iOS.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone4s.8.3" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="CoAPNonIP.Core/LibCoAPNonIP/Core/Resource.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="CoAPNonIP.Core/LibCoAPNonIP/Core/App.cs">
     <Files>
       <File FileName="CoAPNonIP.Core/LibCoAPNonIP/Exceptions/NetworkException.cs" Line="1" Column="1" />
       <File FileName="CoAPNonIP.Core/LibCoAPNonIP/Network/AbstractNetwork.cs" Line="1" Column="1" />
-      <File FileName="CoAPNonIP.Core/LibCoAPNonIP/Core/App.cs" Line="12" Column="1" />
+      <File FileName="CoAPNonIP.Core/LibCoAPNonIP/Core/App.cs" Line="70" Column="10" />
       <File FileName="CoAPNonIP.Core/LibCoAPNonIP/Exceptions/CoAPFormatException.cs" Line="1" Column="1" NotebookId="1" />
       <File FileName="CoAPNonIP.Core/LibCoAPNonIP/Network/iOS/PeersNetwork.cs" Line="1" Column="1" NotebookId="1" />
       <File FileName="CoAPNonIP.Core/LibCoAPNonIP/Core/Resource.cs" Line="26" Column="1" NotebookId="1" />
