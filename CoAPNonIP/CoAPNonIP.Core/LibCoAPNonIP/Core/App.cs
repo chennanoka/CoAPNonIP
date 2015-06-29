@@ -30,7 +30,7 @@ namespace LibCoAPNonIP {
             rr_Processers = null;
 
             rr_MsgCallbackMap = new Dictionary<ushort, ResponseHandler>();
-            rr_oplock_msgcallback = new Mutex();
+            rr_oplock_msgcallback = new ReaderWriterLock();
 
             rr_resources = new Dictionary<string, Resource>();
             rr_oplock_resources = new ReaderWriterLock();
@@ -39,12 +39,16 @@ namespace LibCoAPNonIP {
         }
 
         public void RegisterResource(string name, RequestHandler handler) {
+            rr_oplock_resources.AcquireWriterLock(-1);
             rr_resources.Add(name, new Resource(name, handler));
+            rr_oplock_resources.ReleaseWriterLock();
         }
 
         public void DeregisterResource(string name) {
             if (rr_resources.ContainsKey(name)) {
+                rr_oplock_resources.AcquireWriterLock(-1);
                 rr_resources.Remove((name));
+                rr_oplock_resources.ReleaseWriterLock();
             } else {
                 return;
             }
@@ -115,11 +119,38 @@ namespace LibCoAPNonIP {
             //TODO: use CoAPRequest to parse the string, estimate whether it is 
             //a request from other devices or a response for previous request
             //Then call different Callback function.
+            try {
+                CoAPRequest coapMsg = new CoAPRequest();
+                coapMsg.FromByteStream(data);
+                ushort msgid = coapMsg.GetMessageId();
+                if (coapMsg.MessageType.Value == CoAPMsgType.CON || coapMsg.MessageType.Value == CoAPMsgType.NON) {
+                    //this is a request from another device, put it into processers' queue
+                    rr_Processers[(rr_current_processer++)%rr_nProcessers].Push(coapMsg);
+                } else if (coapMsg.MessageType.Value == CoAPMsgType.ACK || coapMsg.MessageType.Value == CoAPMsgType.RST) {
+                    //this is a response for previous request sent by this device, call response handler
+                    rr_oplock_msgcallback.AcquireReaderLock(-1);
+                    if (rr_MsgCallbackMap.ContainsKey(msgid)) {
+                        rr_MsgCallbackMap[msgid](msgid , (CoAPResponse)coapMsg);
+                    } else {
+                        if (rr_default_response_handler == null) {
+                            throw new Exception("No default Response Handler");
+                        }
+                        rr_default_response_handler(msgid , (CoAPResponse)coapMsg);
+                    }
+                    rr_oplock_msgcallback.ReleaseReaderLock();
+                } else {
+                    //invalid message type
+                    Console.WriteLine("Invalid Message Type");
+                }
+            } catch {
+                ;
+            }
         }
 
         private uint rr_nSenders;
         private uint rr_current_sender;
         private MsgQueueThread[] rr_Senders;
+        //TODO: add a mutex lock to rr_current_sender and access funtion for it
 
         private uint rr_nProcessers;
         private uint rr_current_processer;
@@ -127,7 +158,8 @@ namespace LibCoAPNonIP {
 
 
         private Dictionary< UInt16 , ResponseHandler > rr_MsgCallbackMap;
-        private Mutex rr_oplock_msgcallback;
+        private ReaderWriterLock rr_oplock_msgcallback;
+        private ResponseHandler rr_default_response_handler;
 
         private Dictionary< string , Resource > rr_resources;
         private ReaderWriterLock rr_oplock_resources;
@@ -161,7 +193,7 @@ namespace LibCoAPNonIP {
             rr_MsgHandler = handler;
         }
 
-        public void Push(byte[] data) {
+        public void Push(object data) {
             rr_oplock_msgQ.WaitOne();
             rr_MsgQueue.Enqueue(data);
             rr_oplock_msgQ.ReleaseMutex();
