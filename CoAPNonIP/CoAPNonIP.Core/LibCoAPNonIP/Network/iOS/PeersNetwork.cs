@@ -8,6 +8,7 @@ using LibCoAPNonIP.Exceptions;
 using LibCoAPNonIP.Utils;
 using System.Threading;
 
+
 namespace LibCoAPNonIP.Network.iOS {
     public enum NETWORK_STATUS {
         WAIT_FOR_DEV = 1,
@@ -25,13 +26,6 @@ namespace LibCoAPNonIP.Network.iOS {
         PEER_DISCONNECTED
     }
 
-    public enum ROLE {
-        NONE = 0x00,
-        BROADCASTER = 0x01,
-        SEEKER = 0x02,
-        MIX = 0x04}
-
-    ;
 
     public class PeersNetwork : AbstractNetwork {
         public PeersNetwork() {

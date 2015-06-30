@@ -110,6 +110,17 @@ namespace LibCoAPNonIP.CoAPMsg {
         }
 
         #endregion
+
+        public static explicit operator CoAPResponse(CoAPRequest s) {
+            CoAPResponse rtn = new CoAPResponse();
+            rtn.Version = s.Version;
+            rtn.MessageType = s.MessageType;
+            rtn.Token = s.Token;
+            rtn.Code = s.Code;
+            rtn.ID = s.ID;
+            rtn.Options = s.Options;
+            rtn.Payload = s.Payload;
+        }
     }
 }
 

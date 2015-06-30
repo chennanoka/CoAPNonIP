@@ -2,6 +2,12 @@
 using LibCoAPNonIP.CoAPMsg;
 
 namespace LibCoAPNonIP.Network {
+    public enum ROLE {
+        NONE = 0x00,
+        BROADCASTER = 0x01,
+        SEEKER = 0x02,
+        MIX = 0x04
+    };
 //    public delegate void MsgSentCallback(int MsgID , CoAPResponse Resp);// should not be implemented at this level
     public delegate void PeerFoundCallback( Device FoundPeer );
     public delegate void PeerLostCallback( Device LostPeer );
