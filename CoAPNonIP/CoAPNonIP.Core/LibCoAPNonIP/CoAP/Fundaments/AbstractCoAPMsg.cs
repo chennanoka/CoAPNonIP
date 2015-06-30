@@ -265,7 +265,7 @@ namespace LibCoAPNonIP.CoAPMsg {
             if (data == null || data.Length < AbstractCoAPMsg.HEADER_LENGTH) throw new ArgumentNullException("Invalid byte stream to parse");
             byte mCode = data[1];
             CoAPMsgCode msgCode = new CoAPMsgCode();
-            return (msgCode.IsValid(data[1]) && CoAPMsgCode.DoesMessageCodeRepresentARequest(data[1]));
+            return (msgCode.IsValid(mCode) && CoAPMsgCode.DoesMessageCodeRepresentARequest(mCode));
         }
         /// <summary>
         /// From the given byte stream, just check what is the message Id (CON/NON/ACK/RST).

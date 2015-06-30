@@ -120,6 +120,7 @@ namespace LibCoAPNonIP.CoAPMsg {
             rtn.ID = s.ID;
             rtn.Options = s.Options;
             rtn.Payload = s.Payload;
+            return rtn;
         }
     }
 }

@@ -17,13 +17,13 @@ namespace LibCoAPNonIP {
     public delegate void RequestHandler(Device sender,CoAPRequest request);
     public delegate void ResponseHandler(UInt16 MsgID,CoAPResponse Resp);
 
-    public enum APP_STATUS_CHECK {
-        ALL_CHECKED     = 0x00000000,
-        RECV_SET        = 0x00000001,
-        RESOURCE_SET    = 0x00000002,
-        DEFT_RESP_SET   = 0x00000004,
-        SENDER_SET      = 0x00000008,
-        PROCESSER_SET   = 0x00000010,
+    public class APP_STATUS_CHECK {
+        public const UInt32 ALL_CHECKED     = 0x00000000;
+        public const UInt32 RECV_SET        = 0x00000001;
+        public const UInt32 RESOURCE_SET    = 0x00000002;
+        public const UInt32 DEFT_RESP_SET   = 0x00000004;
+        public const UInt32 SENDER_SET      = 0x00000008;
+        public const UInt32 PROCESSER_SET   = 0x00000010;
     }
 
     public class App {
@@ -46,7 +46,7 @@ namespace LibCoAPNonIP {
             rr_resources = new Dictionary<string, Resource>();
             rr_oplock_resources = new ReaderWriterLock();
 
-            rr_network = new PeersNetwork(DeviceName + ":" + AppName);
+            rr_network = new PeersNetwork(rr_DevName + ":" + rr_AppName);
             rr_default_response_handler = null;
 
             rr_PeerFoundFunc = null;
@@ -99,6 +99,14 @@ namespace LibCoAPNonIP {
         }
 
        
+        public string GetAppName() {
+            return rr_AppName;
+        }
+
+        public string GetDeviceName() {
+            return rr_DevName;
+        }
+
         public void InitReceiver(DataRecvCallback UserDefinedCallback = null) {
             rr_status_check &= ~APP_STATUS_CHECK.RECV_SET;
             DataRecvCallback handler = UserDefinedCallback;
