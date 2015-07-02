@@ -1,6 +1,6 @@
-# Version: 8.10.1.74 (6916d0e)
+# Version: 8.10.3.2 (8b265d6)
 # [first argument, ignore] # /Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/mtouch.exe
-/Library/Frameworks/Xamarin.iOS.framework/Versions/8.10.1.74/bin/mtouch \
+/Library/Frameworks/Xamarin.iOS.framework/Versions/8.10.3.2/bin/mtouch \
 	--cache \
 	/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/mtouch-cache \
 	--sim \
