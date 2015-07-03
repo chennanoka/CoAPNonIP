@@ -1,0 +1,254 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2839A5BF0000000000000000 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BCAB25D0000000000000000 /* UIKit.framework */; };
+		9CF48F200000000000000000 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D60559000000000000000000 /* MapKit.framework */; };
+		1F02B18A0000000000000000 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2293BE280000000000000000 /* Foundation.framework */; };
+		126D93D30000000000000000 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FEA0710000000000000000 /* CoreGraphics.framework */; };
+		C83450400000000000000000 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 101451A20000000000000000 /* Images.xcassets */; };
+		21B6AD9C0000000000000000 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2547BA3A0000000000000000 /* LaunchScreen.xib */; };
+		115DA02B0000000000000000 /* iPadMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 14EEACC90000000000000000 /* iPadMainView.xib */; };
+		386647D90000000000000000 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF754770000000000000000 /* Info.plist */; };
+		14BBC9AD0000000000000000 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 184CD64B0000000000000000 /* Entitlements.plist */; };
+		1BAAFFCD0000000000000000 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F3C0C6B0000000000000000 /* Default-568h@2x.png */; };
+		39AF96620000000000000000 /* AppDelegate.h in Sources */ = {isa = PBXBuildFile; fileRef = 3D40A3000000000000000000 /* AppDelegate.h */; };
+		397CB3460000000000000000 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0DBFE40000000000000000 /* AppDelegate.m */; };
+		15D2351A0000000000000000 /* iPadMainView.h in Sources */ = {isa = PBXBuildFile; fileRef = 196341B80000000000000000 /* iPadMainView.h */; };
+		1CC16B3A0000000000000000 /* iPadMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 205277D80000000000000000 /* iPadMainView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2099CA6A0000000000000000 /* CoAPNonIP.iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "CoAPNonIP.iOS.app"; path = "CoAPNonIP.iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BCAB25D0000000000000000 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "UIKit.framework"; path = "System/Library/Frameworks/UIKit.framework"; sourceTree = SDKROOT; };
+		D60559000000000000000000 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "MapKit.framework"; path = "System/Library/Frameworks/MapKit.framework"; sourceTree = SDKROOT; };
+		2293BE280000000000000000 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Foundation.framework"; path = "System/Library/Frameworks/Foundation.framework"; sourceTree = SDKROOT; };
+		15FEA0710000000000000000 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "CoreGraphics.framework"; path = "System/Library/Frameworks/CoreGraphics.framework"; sourceTree = SDKROOT; };
+		101451A20000000000000000 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Images.xcassets"; path = "Images.xcassets"; sourceTree = "<group>"; };
+		2547BA3A0000000000000000 /* LaunchScreen.xib */ = {isa = PBXFileReference; name = "LaunchScreen.xib"; path = "LaunchScreen.xib"; sourceTree = "<group>"; };
+		14EEACC90000000000000000 /* iPadMainView.xib */ = {isa = PBXFileReference; name = "iPadMainView.xib"; path = "Screens/designs/iPadMainView.xib"; sourceTree = "<group>"; };
+		3BF754770000000000000000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info.plist"; path = "Info.plist"; sourceTree = "<group>"; };
+		184CD64B0000000000000000 /* Entitlements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Entitlements.plist"; path = "Entitlements.plist"; sourceTree = "<group>"; };
+		1F3C0C6B0000000000000000 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		3D40A3000000000000000000 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppDelegate.h"; path = "AppDelegate.h"; sourceTree = "<group>"; };
+		3D0DBFE40000000000000000 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppDelegate.m"; path = "AppDelegate.m"; sourceTree = "<group>"; };
+		196341B80000000000000000 /* iPadMainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "iPadMainView.h"; path = "iPadMainView.h"; sourceTree = "<group>"; };
+		205277D80000000000000000 /* iPadMainView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "iPadMainView.m"; path = "iPadMainView.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1B8C8C270000000000000000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2839A5BF0000000000000000 /* UIKit.framework in Frameworks */,
+				9CF48F200000000000000000 /* MapKit.framework in Frameworks */,
+				1F02B18A0000000000000000 /* Foundation.framework in Frameworks */,
+				126D93D30000000000000000 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3BA5FDB50000000000000000 = {
+			isa = PBXGroup;
+			children = (
+				263FB2010000000000000000 /* CoAPNonIP.iOS */,
+				9EA302D00000000000000000 /* Frameworks */,
+				30F2D7DB0000000000000000 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		30F2D7DB0000000000000000 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2099CA6A0000000000000000 /* CoAPNonIP.iOS.app */,
+			);
+			name = "Products";
+			sourceTree = "<group>";
+		};
+		9EA302D00000000000000000 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2BCAB25D0000000000000000 /* UIKit.framework */,
+				D60559000000000000000000 /* MapKit.framework */,
+				2293BE280000000000000000 /* Foundation.framework */,
+				15FEA0710000000000000000 /* CoreGraphics.framework */,
+			);
+			name = "Frameworks";
+			sourceTree = "<group>";
+		};
+		263FB2010000000000000000 /* CoAPNonIP.iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3D40A3000000000000000000 /* AppDelegate.h */,
+				1F3C0C6B0000000000000000 /* Default-568h@2x.png */,
+				184CD64B0000000000000000 /* Entitlements.plist */,
+				101451A20000000000000000 /* Images.xcassets */,
+				3BF754770000000000000000 /* Info.plist */,
+				196341B80000000000000000 /* iPadMainView.h */,
+				2547BA3A0000000000000000 /* LaunchScreen.xib */,
+				3C2A37930000000000000000 /* Screens */,
+				30AB85490000000000000000 /* Supporting Files */,
+			);
+			name = "CoAPNonIP.iOS";
+			sourceTree = "<group>";
+		};
+		3C2A37930000000000000000 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				26C3EBDF0000000000000000 /* designs */,
+			);
+			name = "Screens";
+			sourceTree = "<group>";
+		};
+		26C3EBDF0000000000000000 /* designs */ = {
+			isa = PBXGroup;
+			children = (
+				14EEACC90000000000000000 /* iPadMainView.xib */,
+			);
+			name = "designs";
+			sourceTree = "<group>";
+		};
+		30AB85490000000000000000 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3D0DBFE40000000000000000 /* AppDelegate.m */,
+				205277D80000000000000000 /* iPadMainView.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2066E74E0000000000000000 /* CoAPNonIP.iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15E6A4900000000000000000 /* Build configuration list for PBXNativeTarget "CoAPNonIP.iOS" */;
+			buildPhases = (
+				626407300000000000000000 /* Sources */,
+				1B8C8C270000000000000000 /* Frameworks */,
+				2F10DFFE0000000000000000 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CoAPNonIP.iOS";
+			productName = "CoAPNonIP.iOS";
+			productReference = 2099CA6A0000000000000000 /* CoAPNonIP.iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		15B3C1740000000000000000 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 7A2721800000000000000000 /* Build configuration list for PBXProject "CoAPNonIP.iOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3BA5FDB50000000000000000;
+			productRefGroup = 30F2D7DB0000000000000000 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2066E74E0000000000000000 /* CoAPNonIP.iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2F10DFFE0000000000000000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C83450400000000000000000 /* Images.xcassets in Resources */,
+				21B6AD9C0000000000000000 /* LaunchScreen.xib in Resources */,
+				115DA02B0000000000000000 /* iPadMainView.xib in Resources */,
+				386647D90000000000000000 /* Info.plist in Resources */,
+				14BBC9AD0000000000000000 /* Entitlements.plist in Resources */,
+				1BAAFFCD0000000000000000 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		626407300000000000000000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				39AF96620000000000000000 /* AppDelegate.h in Sources */,
+				397CB3460000000000000000 /* AppDelegate.m in Sources */,
+				15D2351A0000000000000000 /* iPadMainView.h in Sources */,
+				1CC16B3A0000000000000000 /* iPadMainView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2EAB19C60000000000000000 /* MonoTouch */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				SDKROOT = iphoneos;
+			};
+			name = MonoTouch;
+		};
+		3CEF4C3E0000000000000000 /* MonoTouch */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				PRODUCT_NAME = "CoAPNonIP.iOS";
+				WRAPPER_EXTENSION = app;
+			};
+			name = MonoTouch;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7A2721800000000000000000 /* Build configuration list for PBXProject "CoAPNonIP.iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2EAB19C60000000000000000 /* MonoTouch */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = MonoTouch;
+		};
+		15E6A4900000000000000000 /* Build configuration list for PBXNativeTarget "CoAPNonIP.iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3CEF4C3E0000000000000000 /* MonoTouch */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = MonoTouch;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 15B3C1740000000000000000 /* Project object */;
+}

@@ -18,7 +18,10 @@ namespace LibCoAPNonIP {
         }
 
         public CoAPResponse ProcessRequest(Device sender , CoAPRequest request) {
-            throw new NotImplementedException();
+            if (rr_handler == null) {
+                throw new Exception("[Resource:ProcessRequest] invalid handler");
+            }
+            return rr_handler(sender, request);
         }
 
         private string rr_name;

@@ -86,6 +86,7 @@
       <DependentUpon>iPadMainView.cs</DependentUpon>
     </Compile>
     <Compile Include="Screens\Sources\DeviceListSource.cs" />
+    <Compile Include="Screens\Sources\MsgCodePickerSource.cs" />
   </ItemGroup>
   <Import Project="..\CoAPNonIP.Core\CoAPNonIP.Core.projitems" Label="Shared" Condition="Exists('..\CoAPNonIP.Core\CoAPNonIP.Core.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

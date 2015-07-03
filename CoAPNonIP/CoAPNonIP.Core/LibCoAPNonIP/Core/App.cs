@@ -4,6 +4,7 @@ using System.Threading;
 using System.Collections;
 using LibCoAPNonIP.CoAPMsg;
 using LibCoAPNonIP.Network;
+using LibCoAPNonIP.Utils;
 
 #if __IOS__
 using LibCoAPNonIP.Network.iOS;
@@ -14,7 +15,7 @@ using LibCoAPNonIP.Network.iOS;
 
 namespace LibCoAPNonIP {
     public delegate void MsgHandler(object data);
-    public delegate void RequestHandler(Device sender,CoAPRequest request);
+    public delegate CoAPResponse RequestHandler(Device sender,CoAPRequest request);
     public delegate void ResponseHandler(UInt16 MsgID,CoAPResponse Resp);
 
     public class APP_STATUS_CHECK {
@@ -40,7 +41,7 @@ namespace LibCoAPNonIP {
             rr_current_processer = 0;
             rr_Processers = null;
 
-            rr_MsgCallbackMap = new Dictionary<ushort, ResponseHandler>();
+            rr_MsgCallbackMap = new Dictionary<ushort, MsgRecord>();
             rr_oplock_msgcallback = new Mutex();
 
             rr_resources = new Dictionary<string, Resource>();
@@ -163,8 +164,12 @@ namespace LibCoAPNonIP {
                         CoAPResponse resp = rr_resources[URI].ProcessRequest(msg.Sender, msg.Msg);
                         rr_oplock_resources.ReleaseReaderLock();
                         if (resp != null) {
+                            SenderMsg MsgTobeSent = new SenderMsg();
+                            MsgTobeSent.Destionations = new Device[]{msg.Sender};
+                            MsgTobeSent.Msg = resp;
+                            MsgTobeSent.isRequest = false;
                             uint sender = get_current_sender();
-                            rr_Senders[sender].Push(resp);
+                            rr_Senders[sender].Push(MsgTobeSent);
                         }
                     }
                 });
@@ -189,8 +194,9 @@ namespace LibCoAPNonIP {
             msg.isRequest = true;
             rr_Senders[sender].Push(msg);
             if (Callback != null) {
+                MsgRecord record = new MsgRecord((uint)Destinations.Length, Callback);
                 rr_oplock_msgcallback.WaitOne();
-                rr_MsgCallbackMap[Request.GetMessageId()] = Callback;
+                rr_MsgCallbackMap[Request.GetMessageId()] = record;
                 rr_oplock_msgcallback.ReleaseMutex();
             }
         }
@@ -223,8 +229,10 @@ namespace LibCoAPNonIP {
                     ResponseHandler handler = null;
                     rr_oplock_msgcallback.WaitOne();
                     if (rr_MsgCallbackMap.ContainsKey(msgid)) {
-                        handler = rr_MsgCallbackMap[msgid];
-                        rr_MsgCallbackMap.Remove(msgid);
+                        handler = rr_MsgCallbackMap[msgid].RespHandleFunc;
+                        if (rr_MsgCallbackMap[msgid].IncrRecvResp()) {
+                            rr_MsgCallbackMap.Remove(msgid);//if all response to this request has been received, delete this callback record
+                        }
                     } else {
                         if (rr_default_response_handler == null) {
                             rr_oplock_msgcallback.ReleaseMutex();
@@ -262,7 +270,7 @@ namespace LibCoAPNonIP {
         private MsgQueueThread[] rr_Processers;
 
 
-        private Dictionary< UInt16 , ResponseHandler > rr_MsgCallbackMap;
+        private Dictionary< UInt16 , MsgRecord > rr_MsgCallbackMap;
         private Mutex rr_oplock_msgcallback;
         private ResponseHandler rr_default_response_handler;
 
@@ -286,6 +294,32 @@ namespace LibCoAPNonIP {
         public AbstractCoAPMsg Msg { get; set; }
 
         public bool isRequest { get; set; }
+    }
+
+    public class MsgRecord {
+        public int  SentTime { get; set; }
+        public uint Count{ get; set; }
+        public ResponseHandler RespHandleFunc{get;set;}
+
+        public MsgRecord(uint nReceiver , ResponseHandler Handler) {
+            SentTime = AbstractTimeUtils.UnixTimestamp();
+            Count = nReceiver;
+            RespHandleFunc = Handler;
+            rr_ReceivedResponse = 0;
+            rr_oplock_recvresp = new Mutex();
+        }
+
+        public bool IncrRecvResp() {
+            uint cur;
+            rr_oplock_recvresp.WaitOne();
+            cur = ++rr_ReceivedResponse;
+            rr_oplock_recvresp.ReleaseMutex();
+            return (cur >= Count);
+
+        }
+
+        private uint rr_ReceivedResponse;
+        private Mutex rr_oplock_recvresp;
     }
 
     public class ProcesserMsg {
