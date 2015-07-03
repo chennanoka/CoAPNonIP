@@ -7,3 +7,5 @@
 /Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/bin/iPhoneSimulator/Debug/CoAPNonIP.iOS.exe
 /Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/CoAPNonIP.iOS.exe
 /Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/CoAPNonIP.iOS.exe.mdb
+/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/ibtool/iPadMainView.nib
+/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/Default-568h@2x.png

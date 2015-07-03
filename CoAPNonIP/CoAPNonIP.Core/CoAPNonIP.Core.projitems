@@ -44,5 +44,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Utils\AbstractTimeUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Network\iOS\PeersNetwork.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Exceptions\NetworkException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Core\App.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Core\Resource.cs" />
   </ItemGroup>
 </Project>

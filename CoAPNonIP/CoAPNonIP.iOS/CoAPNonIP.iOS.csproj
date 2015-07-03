@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
+    <InterfaceDefinition Include="Screens\designs\iPadMainView.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -79,7 +80,24 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Screens\MainViewCtl.cs" />
+    <Compile Include="Screens\designs\iPadMainView.cs" />
+    <Compile Include="Screens\designs\iPadMainView.designer.cs">
+      <DependentUpon>iPadMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\Sources\DeviceListSource.cs" />
+    <Compile Include="Screens\Sources\MsgCodePickerSource.cs" />
+    <Compile Include="Screens\Bases\UIMainView.cs" />
   </ItemGroup>
   <Import Project="..\CoAPNonIP.Core\CoAPNonIP.Core.projitems" Label="Shared" Condition="Exists('..\CoAPNonIP.Core\CoAPNonIP.Core.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Screens\" />
+    <Folder Include="Screens\designs\" />
+    <Folder Include="Screens\Sources\" />
+    <Folder Include="Screens\Bases\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Default-568h%402x.png" />
+  </ItemGroup>
 </Project>

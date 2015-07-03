@@ -1,0 +1,33 @@
+# Version: 8.10.3.2 (8b265d6)
+# [first argument, ignore] # /Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/mtouch.exe
+/Library/Frameworks/Xamarin.iOS.framework/Versions/8.10.3.2/bin/mtouch \
+	--cache \
+	/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhone/Debug/mtouch-cache \
+	--dev \
+	/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/bin/iPhone/Debug/CoAPNonIP.iOS.app \
+	--executable \
+	CoAPNonIP.iOS \
+	--debug \
+	--profiling \
+	--linksdkonly \
+	--sdkroot \
+	/Applications/Xcode.app/Contents/Developer \
+	--sdk \
+	8.3 \
+	--targetver \
+	8.3 \
+	--abi=armv7,arm64 \
+	--symbollist \
+	/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhone/Debug/mtouch-symbols.list \
+	--dsym=no \
+	-r \
+	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/System.dll \
+	-r \
+	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/System.Xml.dll \
+	-r \
+	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/Xamarin.iOS.dll \
+	-r \
+	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/System.Core.dll \
+	-r \
+	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/mscorlib.dll \
+	/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/bin/iPhone/Debug//CoAPNonIP.iOS.exe \
