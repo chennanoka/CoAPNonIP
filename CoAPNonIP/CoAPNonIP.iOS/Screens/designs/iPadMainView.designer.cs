@@ -12,24 +12,16 @@ namespace CoAPNonIP.iOS
 	partial class iPadMainView
 	{
 		[Outlet]
-		UIKit.UIButton BtnStartBenchmark { get; set; }
+		public UIKit.UIButton BtnStartBenchmark { get; private set; }
 
 		[Outlet]
-		UIKit.UIPickerView MsgCode { get; set; }
-
-		[Outlet]
-		UIKit.UITableView UIDeviceList { get; set; }
+		public UIKit.UITableView UIDeviceList { get; private set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
 			if (BtnStartBenchmark != null) {
 				BtnStartBenchmark.Dispose ();
 				BtnStartBenchmark = null;
-			}
-
-			if (MsgCode != null) {
-				MsgCode.Dispose ();
-				MsgCode = null;
 			}
 
 			if (UIDeviceList != null) {

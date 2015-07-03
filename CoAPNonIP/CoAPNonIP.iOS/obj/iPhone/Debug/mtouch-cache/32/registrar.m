@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 
 id native_to_managed_trampoline_1 (id self, SEL _cmd, MonoMethod **managed_method_ptr, const char *r0, const char *r1)
@@ -200,7 +201,341 @@ void native_to_managed_trampoline_6 (id self, SEL _cmd, MonoMethod **managed_met
 }
 
 
-void native_to_managed_trampoline_7 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, id p1, id p2, void * p3, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4, const char *r5)
+NSInteger native_to_managed_trampoline_7 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, const char *r0, const char *r1, const char *r2)
+{
+	MonoMethod *managed_method = *managed_method_ptr;
+	void *arg_ptrs [1];
+	MonoObject *mthis;
+	if (mono_domain_get () == NULL)
+		mono_jit_thread_attach (NULL);
+	mthis = NULL;
+	if (self) {
+		mthis = xamarin_get_managed_object_for_ptr_fast (self);
+	}
+	if (!managed_method) {
+		const char *paramptr[1] = { r0 };
+		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r1, r2, 1, paramptr));
+		*managed_method_ptr = managed_method;
+	}
+	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
+	NSObject *nsobj0 = (NSObject *) p0;
+	MonoObject *mobj0 = NULL;
+	bool created0 = false;
+	if (nsobj0) {
+		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
+		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
+		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
+	}
+	arg_ptrs [0] = mobj0;
+
+	void * retval = mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
+
+	NSInteger res;
+	res = *(NSInteger *) mono_object_unbox (retval);
+
+	return res;
+}
+
+
+NSInteger native_to_managed_trampoline_8 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, NSInteger p1, const char *r0, const char *r1, const char *r2, const char *r3)
+{
+	MonoMethod *managed_method = *managed_method_ptr;
+	void *arg_ptrs [2];
+	MonoObject *mthis;
+	if (mono_domain_get () == NULL)
+		mono_jit_thread_attach (NULL);
+	mthis = NULL;
+	if (self) {
+		mthis = xamarin_get_managed_object_for_ptr_fast (self);
+	}
+	if (!managed_method) {
+		const char *paramptr[2] = { r0, r1 };
+		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r2, r3, 2, paramptr));
+		*managed_method_ptr = managed_method;
+	}
+	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
+	NSObject *nsobj0 = (NSObject *) p0;
+	MonoObject *mobj0 = NULL;
+	bool created0 = false;
+	if (nsobj0) {
+		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
+		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
+		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
+	}
+	arg_ptrs [0] = mobj0;
+	arg_ptrs [1] = &p1;
+
+	void * retval = mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
+
+	NSInteger res;
+	res = *(NSInteger *) mono_object_unbox (retval);
+
+	return res;
+}
+
+
+NSString * native_to_managed_trampoline_9 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, NSInteger p1, const char *r0, const char *r1, const char *r2, const char *r3)
+{
+	MonoMethod *managed_method = *managed_method_ptr;
+	void *arg_ptrs [2];
+	MonoObject *mthis;
+	if (mono_domain_get () == NULL)
+		mono_jit_thread_attach (NULL);
+	mthis = NULL;
+	if (self) {
+		mthis = xamarin_get_managed_object_for_ptr_fast (self);
+	}
+	if (!managed_method) {
+		const char *paramptr[2] = { r0, r1 };
+		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r2, r3, 2, paramptr));
+		*managed_method_ptr = managed_method;
+	}
+	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
+	NSObject *nsobj0 = (NSObject *) p0;
+	MonoObject *mobj0 = NULL;
+	bool created0 = false;
+	if (nsobj0) {
+		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
+		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
+		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
+	}
+	arg_ptrs [0] = mobj0;
+	arg_ptrs [1] = &p1;
+
+	void * retval = mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
+
+	NSString * res;
+	if (!retval) {
+		res = NULL;
+	} else {
+		char *str = mono_string_to_utf8 ((MonoString *) retval);
+		NSString *nsstr = [[NSString alloc] initWithUTF8String:str];
+		[nsstr autorelease];
+		mono_free (str);
+		res = nsstr;
+	}
+
+	return res;
+}
+
+
+id native_to_managed_trampoline_10 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, id p1, const char *r0, const char *r1, const char *r2, const char *r3)
+{
+	MonoMethod *managed_method = *managed_method_ptr;
+	void *arg_ptrs [2];
+	MonoObject *mthis;
+	if (mono_domain_get () == NULL)
+		mono_jit_thread_attach (NULL);
+	mthis = NULL;
+	if (self) {
+		mthis = xamarin_get_managed_object_for_ptr_fast (self);
+	}
+	if (!managed_method) {
+		const char *paramptr[2] = { r0, r1 };
+		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r2, r3, 2, paramptr));
+		*managed_method_ptr = managed_method;
+	}
+	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
+	NSObject *nsobj0 = (NSObject *) p0;
+	MonoObject *mobj0 = NULL;
+	bool created0 = false;
+	if (nsobj0) {
+		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
+		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
+		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
+	}
+	arg_ptrs [0] = mobj0;
+	NSObject *nsobj1 = (NSObject *) p1;
+	MonoObject *mobj1 = NULL;
+	bool created1 = false;
+	if (nsobj1) {
+		MonoType *paramtype1 = xamarin_get_parameter_type (managed_method, 1);
+		mobj1 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj1, false, paramtype1, &created1);
+		xamarin_verify_parameter (mobj1, _cmd, self, nsobj1, 1, mono_class_from_mono_type (paramtype1), managed_method);
+	}
+	arg_ptrs [1] = mobj1;
+
+	void * retval = mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
+
+	id res;
+	if (!retval) {
+		res = NULL;
+	} else {
+		id retobj;
+		retobj = xamarin_get_nsobject_handle ((MonoObject *) retval);
+		xamarin_framework_peer_lock ();
+		[retobj retain];
+		xamarin_framework_peer_unlock ();
+		[retobj autorelease];
+		mt_dummy_use (retval);
+		res = retobj;
+	}
+
+	return res;
+}
+
+
+void native_to_managed_trampoline_11 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, id p1, const char *r0, const char *r1, const char *r2, const char *r3)
+{
+	MonoMethod *managed_method = *managed_method_ptr;
+	void *arg_ptrs [2];
+	MonoObject *mthis;
+	if (mono_domain_get () == NULL)
+		mono_jit_thread_attach (NULL);
+	mthis = NULL;
+	if (self) {
+		mthis = xamarin_get_managed_object_for_ptr_fast (self);
+	}
+	if (!managed_method) {
+		const char *paramptr[2] = { r0, r1 };
+		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r2, r3, 2, paramptr));
+		*managed_method_ptr = managed_method;
+	}
+	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
+	NSObject *nsobj0 = (NSObject *) p0;
+	MonoObject *mobj0 = NULL;
+	bool created0 = false;
+	if (nsobj0) {
+		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
+		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
+		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
+	}
+	arg_ptrs [0] = mobj0;
+	NSObject *nsobj1 = (NSObject *) p1;
+	MonoObject *mobj1 = NULL;
+	bool created1 = false;
+	if (nsobj1) {
+		MonoType *paramtype1 = xamarin_get_parameter_type (managed_method, 1);
+		mobj1 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj1, false, paramtype1, &created1);
+		xamarin_verify_parameter (mobj1, _cmd, self, nsobj1, 1, mono_class_from_mono_type (paramtype1), managed_method);
+	}
+	arg_ptrs [1] = mobj1;
+
+	mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
+
+	return;
+}
+
+
+NSString * native_to_managed_trampoline_12 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, NSInteger p1, NSInteger p2, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4)
+{
+	MonoMethod *managed_method = *managed_method_ptr;
+	void *arg_ptrs [3];
+	MonoObject *mthis;
+	if (mono_domain_get () == NULL)
+		mono_jit_thread_attach (NULL);
+	mthis = NULL;
+	if (self) {
+		mthis = xamarin_get_managed_object_for_ptr_fast (self);
+	}
+	if (!managed_method) {
+		const char *paramptr[3] = { r0, r1, r2 };
+		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r3, r4, 3, paramptr));
+		*managed_method_ptr = managed_method;
+	}
+	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
+	NSObject *nsobj0 = (NSObject *) p0;
+	MonoObject *mobj0 = NULL;
+	bool created0 = false;
+	if (nsobj0) {
+		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
+		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
+		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
+	}
+	arg_ptrs [0] = mobj0;
+	arg_ptrs [1] = &p1;
+	arg_ptrs [2] = &p2;
+
+	void * retval = mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
+
+	NSString * res;
+	if (!retval) {
+		res = NULL;
+	} else {
+		char *str = mono_string_to_utf8 ((MonoString *) retval);
+		NSString *nsstr = [[NSString alloc] initWithUTF8String:str];
+		[nsstr autorelease];
+		mono_free (str);
+		res = nsstr;
+	}
+
+	return res;
+}
+
+
+void native_to_managed_trampoline_13 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, NSInteger p1, NSInteger p2, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4)
+{
+	MonoMethod *managed_method = *managed_method_ptr;
+	void *arg_ptrs [3];
+	MonoObject *mthis;
+	if (mono_domain_get () == NULL)
+		mono_jit_thread_attach (NULL);
+	mthis = NULL;
+	if (self) {
+		mthis = xamarin_get_managed_object_for_ptr_fast (self);
+	}
+	if (!managed_method) {
+		const char *paramptr[3] = { r0, r1, r2 };
+		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r3, r4, 3, paramptr));
+		*managed_method_ptr = managed_method;
+	}
+	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
+	NSObject *nsobj0 = (NSObject *) p0;
+	MonoObject *mobj0 = NULL;
+	bool created0 = false;
+	if (nsobj0) {
+		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
+		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
+		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
+	}
+	arg_ptrs [0] = mobj0;
+	arg_ptrs [1] = &p1;
+	arg_ptrs [2] = &p2;
+
+	mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
+
+	return;
+}
+
+
+CGFloat native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, NSInteger p1, const char *r0, const char *r1, const char *r2, const char *r3)
+{
+	MonoMethod *managed_method = *managed_method_ptr;
+	void *arg_ptrs [2];
+	MonoObject *mthis;
+	if (mono_domain_get () == NULL)
+		mono_jit_thread_attach (NULL);
+	mthis = NULL;
+	if (self) {
+		mthis = xamarin_get_managed_object_for_ptr_fast (self);
+	}
+	if (!managed_method) {
+		const char *paramptr[2] = { r0, r1 };
+		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r2, r3, 2, paramptr));
+		*managed_method_ptr = managed_method;
+	}
+	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
+	NSObject *nsobj0 = (NSObject *) p0;
+	MonoObject *mobj0 = NULL;
+	bool created0 = false;
+	if (nsobj0) {
+		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
+		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
+		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
+	}
+	arg_ptrs [0] = mobj0;
+	arg_ptrs [1] = &p1;
+
+	void * retval = mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
+
+	CGFloat res;
+	res = *(CGFloat *) mono_object_unbox (retval);
+
+	return res;
+}
+
+
+void native_to_managed_trampoline_15 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, id p1, id p2, void * p3, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4, const char *r5)
 {
 	MonoMethod *managed_method = *managed_method_ptr;
 	void *arg_ptrs [4];
@@ -255,7 +590,7 @@ void native_to_managed_trampoline_7 (id self, SEL _cmd, MonoMethod **managed_met
 }
 
 
-void native_to_managed_trampoline_8 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, id p1, id p2, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4)
+void native_to_managed_trampoline_16 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, id p1, id p2, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4)
 {
 	MonoMethod *managed_method = *managed_method_ptr;
 	void *arg_ptrs [3];
@@ -306,49 +641,7 @@ void native_to_managed_trampoline_8 (id self, SEL _cmd, MonoMethod **managed_met
 }
 
 
-void native_to_managed_trampoline_9 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, id p1, const char *r0, const char *r1, const char *r2, const char *r3)
-{
-	MonoMethod *managed_method = *managed_method_ptr;
-	void *arg_ptrs [2];
-	MonoObject *mthis;
-	if (mono_domain_get () == NULL)
-		mono_jit_thread_attach (NULL);
-	mthis = NULL;
-	if (self) {
-		mthis = xamarin_get_managed_object_for_ptr_fast (self);
-	}
-	if (!managed_method) {
-		const char *paramptr[2] = { r0, r1 };
-		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r2, r3, 2, paramptr));
-		*managed_method_ptr = managed_method;
-	}
-	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
-	NSObject *nsobj0 = (NSObject *) p0;
-	MonoObject *mobj0 = NULL;
-	bool created0 = false;
-	if (nsobj0) {
-		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
-		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
-		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
-	}
-	arg_ptrs [0] = mobj0;
-	NSObject *nsobj1 = (NSObject *) p1;
-	MonoObject *mobj1 = NULL;
-	bool created1 = false;
-	if (nsobj1) {
-		MonoType *paramtype1 = xamarin_get_parameter_type (managed_method, 1);
-		mobj1 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj1, false, paramtype1, &created1);
-		xamarin_verify_parameter (mobj1, _cmd, self, nsobj1, 1, mono_class_from_mono_type (paramtype1), managed_method);
-	}
-	arg_ptrs [1] = mobj1;
-
-	mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
-
-	return;
-}
-
-
-void native_to_managed_trampoline_10 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, id p1, NSInteger p2, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4)
+void native_to_managed_trampoline_17 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, id p1, NSInteger p2, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4)
 {
 	MonoMethod *managed_method = *managed_method_ptr;
 	void *arg_ptrs [3];
@@ -392,7 +685,7 @@ void native_to_managed_trampoline_10 (id self, SEL _cmd, MonoMethod **managed_me
 }
 
 
-void native_to_managed_trampoline_11 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, id p1, NSString * p2, id p3, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4, const char *r5)
+void native_to_managed_trampoline_18 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, id p1, NSString * p2, id p3, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4, const char *r5)
 {
 	MonoMethod *managed_method = *managed_method_ptr;
 	void *arg_ptrs [4];
@@ -444,7 +737,7 @@ void native_to_managed_trampoline_11 (id self, SEL _cmd, MonoMethod **managed_me
 }
 
 
-void native_to_managed_trampoline_12 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, NSString * p1, id p2, id p3, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4, const char *r5)
+void native_to_managed_trampoline_19 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, NSString * p1, id p2, id p3, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4, const char *r5)
 {
 	MonoMethod *managed_method = *managed_method_ptr;
 	void *arg_ptrs [4];
@@ -496,7 +789,7 @@ void native_to_managed_trampoline_12 (id self, SEL _cmd, MonoMethod **managed_me
 }
 
 
-void native_to_managed_trampoline_13 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, NSString * p1, id p2, id p3, id p4, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4, const char *r5, const char *r6)
+void native_to_managed_trampoline_20 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, NSString * p1, id p2, id p3, id p4, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4, const char *r5, const char *r6)
 {
 	MonoMethod *managed_method = *managed_method_ptr;
 	void *arg_ptrs [5];
@@ -557,7 +850,7 @@ void native_to_managed_trampoline_13 (id self, SEL _cmd, MonoMethod **managed_me
 }
 
 
-void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, const char *r0, const char *r1, const char *r2)
+void native_to_managed_trampoline_21 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, const char *r0, const char *r1, const char *r2)
 {
 	MonoMethod *managed_method = *managed_method_ptr;
 	void *arg_ptrs [1];
@@ -579,6 +872,201 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 	arg_ptrs [0] = mobj0;
 
 	mono_runtime_invoke (managed_method, NULL, arg_ptrs, NULL);
+
+	return;
+}
+
+
+void native_to_managed_trampoline_22 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, BOOL p1, const char *r0, const char *r1, const char *r2, const char *r3)
+{
+	MonoMethod *managed_method = *managed_method_ptr;
+	void *arg_ptrs [2];
+	MonoObject *mthis;
+	if (mono_domain_get () == NULL)
+		mono_jit_thread_attach (NULL);
+	mthis = NULL;
+	if (self) {
+		mthis = xamarin_get_managed_object_for_ptr_fast (self);
+	}
+	if (!managed_method) {
+		const char *paramptr[2] = { r0, r1 };
+		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r2, r3, 2, paramptr));
+		*managed_method_ptr = managed_method;
+	}
+	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
+	NSObject *nsobj0 = (NSObject *) p0;
+	MonoObject *mobj0 = NULL;
+	bool created0 = false;
+	if (nsobj0) {
+		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
+		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
+		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
+	}
+	arg_ptrs [0] = mobj0;
+	arg_ptrs [1] = &p1;
+
+	mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
+
+	return;
+}
+
+
+BOOL native_to_managed_trampoline_23 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, const char *r0, const char *r1, const char *r2)
+{
+	MonoMethod *managed_method = *managed_method_ptr;
+	void *arg_ptrs [1];
+	MonoObject *mthis;
+	if (mono_domain_get () == NULL)
+		mono_jit_thread_attach (NULL);
+	mthis = NULL;
+	if (self) {
+		mthis = xamarin_get_managed_object_for_ptr_fast (self);
+	}
+	if (!managed_method) {
+		const char *paramptr[1] = { r0 };
+		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r1, r2, 1, paramptr));
+		*managed_method_ptr = managed_method;
+	}
+	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
+	NSObject *nsobj0 = (NSObject *) p0;
+	MonoObject *mobj0 = NULL;
+	bool created0 = false;
+	if (nsobj0) {
+		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
+		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
+		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
+	}
+	arg_ptrs [0] = mobj0;
+
+	void * retval = mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
+
+	BOOL res;
+	res = *(BOOL *) mono_object_unbox (retval);
+
+	return res;
+}
+
+
+id native_to_managed_trampoline_24 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, const char *r0, const char *r1, const char *r2)
+{
+	MonoMethod *managed_method = *managed_method_ptr;
+	void *arg_ptrs [1];
+	MonoObject *mthis;
+	if (mono_domain_get () == NULL)
+		mono_jit_thread_attach (NULL);
+	mthis = NULL;
+	if (self) {
+		mthis = xamarin_get_managed_object_for_ptr_fast (self);
+	}
+	if (!managed_method) {
+		const char *paramptr[1] = { r0 };
+		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r1, r2, 1, paramptr));
+		*managed_method_ptr = managed_method;
+	}
+	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
+	NSObject *nsobj0 = (NSObject *) p0;
+	MonoObject *mobj0 = NULL;
+	bool created0 = false;
+	if (nsobj0) {
+		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
+		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
+		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
+	}
+	arg_ptrs [0] = mobj0;
+
+	void * retval = mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
+
+	id res;
+	if (!retval) {
+		res = NULL;
+	} else {
+		id retobj;
+		retobj = xamarin_get_nsobject_handle ((MonoObject *) retval);
+		xamarin_framework_peer_lock ();
+		[retobj retain];
+		xamarin_framework_peer_unlock ();
+		[retobj autorelease];
+		mt_dummy_use (retval);
+		res = retobj;
+	}
+
+	return res;
+}
+
+
+void native_to_managed_trampoline_25 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, CGPoint p1, CGPoint* p2, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4)
+{
+	MonoMethod *managed_method = *managed_method_ptr;
+	void *arg_ptrs [3];
+	MonoObject *mthis;
+	if (mono_domain_get () == NULL)
+		mono_jit_thread_attach (NULL);
+	mthis = NULL;
+	if (self) {
+		mthis = xamarin_get_managed_object_for_ptr_fast (self);
+	}
+	if (!managed_method) {
+		const char *paramptr[3] = { r0, r1, r2 };
+		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r3, r4, 3, paramptr));
+		*managed_method_ptr = managed_method;
+	}
+	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
+	NSObject *nsobj0 = (NSObject *) p0;
+	MonoObject *mobj0 = NULL;
+	bool created0 = false;
+	if (nsobj0) {
+		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
+		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
+		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
+	}
+	arg_ptrs [0] = mobj0;
+	arg_ptrs [1] = &p1;
+	arg_ptrs [2] = p2;
+
+	mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
+
+	return;
+}
+
+
+void native_to_managed_trampoline_26 (id self, SEL _cmd, MonoMethod **managed_method_ptr, id p0, id p1, CGFloat p2, const char *r0, const char *r1, const char *r2, const char *r3, const char *r4)
+{
+	MonoMethod *managed_method = *managed_method_ptr;
+	void *arg_ptrs [3];
+	MonoObject *mthis;
+	if (mono_domain_get () == NULL)
+		mono_jit_thread_attach (NULL);
+	mthis = NULL;
+	if (self) {
+		mthis = xamarin_get_managed_object_for_ptr_fast (self);
+	}
+	if (!managed_method) {
+		const char *paramptr[3] = { r0, r1, r2 };
+		managed_method = xamarin_get_reflection_method_method (xamarin_get_method_direct(r3, r4, 3, paramptr));
+		*managed_method_ptr = managed_method;
+	}
+	xamarin_check_for_gced_object (mthis, _cmd, self, managed_method);
+	NSObject *nsobj0 = (NSObject *) p0;
+	MonoObject *mobj0 = NULL;
+	bool created0 = false;
+	if (nsobj0) {
+		MonoType *paramtype0 = xamarin_get_parameter_type (managed_method, 0);
+		mobj0 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj0, false, paramtype0, &created0);
+		xamarin_verify_parameter (mobj0, _cmd, self, nsobj0, 0, mono_class_from_mono_type (paramtype0), managed_method);
+	}
+	arg_ptrs [0] = mobj0;
+	NSObject *nsobj1 = (NSObject *) p1;
+	MonoObject *mobj1 = NULL;
+	bool created1 = false;
+	if (nsobj1) {
+		MonoType *paramtype1 = xamarin_get_parameter_type (managed_method, 1);
+		mobj1 = xamarin_get_nsobject_with_type_for_ptr_created (nsobj1, false, paramtype1, &created1);
+		xamarin_verify_parameter (mobj1, _cmd, self, nsobj1, 1, mono_class_from_mono_type (paramtype1), managed_method);
+	}
+	arg_ptrs [1] = mobj1;
+	arg_ptrs [2] = &p2;
+
+	mono_runtime_invoke (managed_method, mthis, arg_ptrs, NULL);
 
 	return;
 }
@@ -736,22 +1224,16 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 	}
 @end
 
-@interface iPadMainView : UIView {
+@interface CoAPNonIP_iOS_UIMainView : UIView {
 	void *__monoObjectGCHandle;
 }
-	@property (nonatomic, assign) id BtnStartBenchmark;
-	@property (nonatomic, assign) id UIDeviceList;
 	-(void) release;
 	-(id) retain;
 	-(void) dealloc;
-	-(id) BtnStartBenchmark;
-	-(void) setBtnStartBenchmark:(id)p0;
-	-(id) UIDeviceList;
-	-(void) setUIDeviceList:(id)p0;
 	-(BOOL) conformsToProtocol:(void *)p0;
 	-(id) init;
 @end
-@implementation iPadMainView { } 
+@implementation CoAPNonIP_iOS_UIMainView { } 
 	-(void) release
 	{
 		xamarin_release_trampoline (self, _cmd);
@@ -772,6 +1254,31 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 		mono_thread_detach_if_exiting ();
 		[super dealloc];
 	}
+
+	-(BOOL) conformsToProtocol:(void *)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_4 (self, _cmd, &managed_method, p0, "System.IntPtr, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", "Foundation.NSObject, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "InvokeConformsToProtocol");
+	}
+
+	-(id) init
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_5 (self, _cmd, &managed_method, "CoAPNonIP.iOS.UIMainView, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", ".ctor");
+	}
+@end
+
+@interface iPadMainView : CoAPNonIP_iOS_UIMainView {
+}
+	@property (nonatomic, assign) id BtnStartBenchmark;
+	@property (nonatomic, assign) id UIDeviceList;
+	-(id) BtnStartBenchmark;
+	-(void) setBtnStartBenchmark:(id)p0;
+	-(id) UIDeviceList;
+	-(void) setUIDeviceList:(id)p0;
+	-(id) init;
+@end
+@implementation iPadMainView { } 
 
 	-(id) BtnStartBenchmark
 	{
@@ -797,16 +1304,171 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 		native_to_managed_trampoline_2 (self, _cmd, &managed_method, p0, "UIKit.UITableView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoAPNonIP.iOS.iPadMainView, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "set_UIDeviceList");
 	}
 
+	-(id) init
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_5 (self, _cmd, &managed_method, "CoAPNonIP.iOS.iPadMainView, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", ".ctor");
+	}
+@end
+
+@interface CoAPNonIP_iOS_DeviceListSource : NSObject<UIScrollViewDelegate> {
+	void *__monoObjectGCHandle;
+}
+	-(void) release;
+	-(id) retain;
+	-(void) dealloc;
+	-(NSInteger) numberOfSectionsInTableView:(id)p0;
+	-(NSInteger) tableView:(id)p0 numberOfRowsInSection:(NSInteger)p1;
+	-(NSString *) tableView:(id)p0 titleForHeaderInSection:(NSInteger)p1;
+	-(NSString *) tableView:(id)p0 titleForFooterInSection:(NSInteger)p1;
+	-(id) tableView:(id)p0 cellForRowAtIndexPath:(id)p1;
+	-(void) tableView:(id)p0 didSelectRowAtIndexPath:(id)p1;
+	-(BOOL) conformsToProtocol:(void *)p0;
+@end
+@implementation CoAPNonIP_iOS_DeviceListSource { } 
+	-(void) release
+	{
+		xamarin_release_trampoline (self, _cmd);
+	}
+
+	-(id) retain
+	{
+		return xamarin_retain_trampoline (self, _cmd);
+	}
+
+	-(void) dealloc
+	{
+		if (mono_domain_get () == NULL)
+			mono_jit_thread_attach (NULL);
+		int gchandle = xamarin_get_gchandle (self);
+		xamarin_unregister_nsobject (self, mono_gchandle_get_target (gchandle));
+		xamarin_free_gchandle (self, gchandle);
+		mono_thread_detach_if_exiting ();
+		[super dealloc];
+	}
+
+	-(NSInteger) numberOfSectionsInTableView:(id)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_7 (self, _cmd, &managed_method, p0, "UIKit.UITableView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoAPNonIP.iOS.DeviceListSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "NumberOfSections");
+	}
+
+	-(NSInteger) tableView:(id)p0 numberOfRowsInSection:(NSInteger)p1
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_8 (self, _cmd, &managed_method, p0, p1, "UIKit.UITableView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.nint, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoAPNonIP.iOS.DeviceListSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "RowsInSection");
+	}
+
+	-(NSString *) tableView:(id)p0 titleForHeaderInSection:(NSInteger)p1
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_9 (self, _cmd, &managed_method, p0, p1, "UIKit.UITableView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.nint, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoAPNonIP.iOS.DeviceListSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "TitleForHeader");
+	}
+
+	-(NSString *) tableView:(id)p0 titleForFooterInSection:(NSInteger)p1
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_9 (self, _cmd, &managed_method, p0, p1, "UIKit.UITableView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.nint, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoAPNonIP.iOS.DeviceListSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "TitleForFooter");
+	}
+
+	-(id) tableView:(id)p0 cellForRowAtIndexPath:(id)p1
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_10 (self, _cmd, &managed_method, p0, p1, "UIKit.UITableView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSIndexPath, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoAPNonIP.iOS.DeviceListSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "GetCell");
+	}
+
+	-(void) tableView:(id)p0 didSelectRowAtIndexPath:(id)p1
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_11 (self, _cmd, &managed_method, p0, p1, "UIKit.UITableView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSIndexPath, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoAPNonIP.iOS.DeviceListSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "RowSelected");
+	}
+
 	-(BOOL) conformsToProtocol:(void *)p0
 	{
 		static MonoMethod *managed_method = NULL;
 		return native_to_managed_trampoline_4 (self, _cmd, &managed_method, p0, "System.IntPtr, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", "Foundation.NSObject, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "InvokeConformsToProtocol");
 	}
+@end
 
-	-(id) init
+@protocol UIPickerViewModel<UIPickerViewDataSource, UIPickerViewDelegate>
+@end
+
+@interface CoAPNonIP_iOS_MsgCodePickerSource : NSObject<UIPickerViewModel> {
+	void *__monoObjectGCHandle;
+}
+	-(void) release;
+	-(id) retain;
+	-(void) dealloc;
+	-(NSInteger) numberOfComponentsInPickerView:(id)p0;
+	-(NSInteger) pickerView:(id)p0 numberOfRowsInComponent:(NSInteger)p1;
+	-(NSString *) pickerView:(id)p0 titleForRow:(NSInteger)p1 forComponent:(NSInteger)p2;
+	-(void) pickerView:(id)p0 didSelectRow:(NSInteger)p1 inComponent:(NSInteger)p2;
+	-(CGFloat) pickerView:(id)p0 widthForComponent:(NSInteger)p1;
+	-(CGFloat) pickerView:(id)p0 rowHeightForComponent:(NSInteger)p1;
+	-(BOOL) conformsToProtocol:(void *)p0;
+@end
+@implementation CoAPNonIP_iOS_MsgCodePickerSource { } 
+	-(void) release
+	{
+		xamarin_release_trampoline (self, _cmd);
+	}
+
+	-(id) retain
+	{
+		return xamarin_retain_trampoline (self, _cmd);
+	}
+
+	-(void) dealloc
+	{
+		if (mono_domain_get () == NULL)
+			mono_jit_thread_attach (NULL);
+		int gchandle = xamarin_get_gchandle (self);
+		xamarin_unregister_nsobject (self, mono_gchandle_get_target (gchandle));
+		xamarin_free_gchandle (self, gchandle);
+		mono_thread_detach_if_exiting ();
+		[super dealloc];
+	}
+
+	-(NSInteger) numberOfComponentsInPickerView:(id)p0
 	{
 		static MonoMethod *managed_method = NULL;
-		return native_to_managed_trampoline_5 (self, _cmd, &managed_method, "CoAPNonIP.iOS.iPadMainView, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", ".ctor");
+		return native_to_managed_trampoline_7 (self, _cmd, &managed_method, p0, "UIKit.UIPickerView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoAPNonIP.iOS.MsgCodePickerSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "GetComponentCount");
+	}
+
+	-(NSInteger) pickerView:(id)p0 numberOfRowsInComponent:(NSInteger)p1
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_8 (self, _cmd, &managed_method, p0, p1, "UIKit.UIPickerView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.nint, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoAPNonIP.iOS.MsgCodePickerSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "GetRowsInComponent");
+	}
+
+	-(NSString *) pickerView:(id)p0 titleForRow:(NSInteger)p1 forComponent:(NSInteger)p2
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_12 (self, _cmd, &managed_method, p0, p1, p2, "UIKit.UIPickerView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.nint, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.nint, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoAPNonIP.iOS.MsgCodePickerSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "GetTitle");
+	}
+
+	-(void) pickerView:(id)p0 didSelectRow:(NSInteger)p1 inComponent:(NSInteger)p2
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_13 (self, _cmd, &managed_method, p0, p1, p2, "UIKit.UIPickerView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.nint, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.nint, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoAPNonIP.iOS.MsgCodePickerSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "Selected");
+	}
+
+	-(CGFloat) pickerView:(id)p0 widthForComponent:(NSInteger)p1
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_14 (self, _cmd, &managed_method, p0, p1, "UIKit.UIPickerView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.nint, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoAPNonIP.iOS.MsgCodePickerSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "GetComponentWidth");
+	}
+
+	-(CGFloat) pickerView:(id)p0 rowHeightForComponent:(NSInteger)p1
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_14 (self, _cmd, &managed_method, p0, p1, "UIKit.UIPickerView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.nint, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoAPNonIP.iOS.MsgCodePickerSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "GetRowHeight");
+	}
+
+	-(BOOL) conformsToProtocol:(void *)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_4 (self, _cmd, &managed_method, p0, "System.IntPtr, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", "Foundation.NSObject, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "InvokeConformsToProtocol");
 	}
 @end
 
@@ -844,7 +1506,7 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 	-(void) advertiser:(id)p0 didReceiveInvitationFromPeer:(id)p1 withContext:(id)p2 invitationHandler:(void *)p3
 	{
 		static MonoMethod *managed_method = NULL;
-		native_to_managed_trampoline_7 (self, _cmd, &managed_method, p0, p1, p2, p3, "MultipeerConnectivity.MCNearbyServiceAdvertiser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSData, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCNearbyServiceAdvertiserInvitationHandler, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.BroadcastDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidReceiveInvitationFromPeer");
+		native_to_managed_trampoline_15 (self, _cmd, &managed_method, p0, p1, p2, p3, "MultipeerConnectivity.MCNearbyServiceAdvertiser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSData, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCNearbyServiceAdvertiserInvitationHandler, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.BroadcastDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidReceiveInvitationFromPeer");
 	}
 
 	-(BOOL) conformsToProtocol:(void *)p0
@@ -889,13 +1551,13 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 	-(void) browser:(id)p0 foundPeer:(id)p1 withDiscoveryInfo:(id)p2
 	{
 		static MonoMethod *managed_method = NULL;
-		native_to_managed_trampoline_8 (self, _cmd, &managed_method, p0, p1, p2, "MultipeerConnectivity.MCNearbyServiceBrowser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSDictionary, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SnifferDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "FoundPeer");
+		native_to_managed_trampoline_16 (self, _cmd, &managed_method, p0, p1, p2, "MultipeerConnectivity.MCNearbyServiceBrowser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSDictionary, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SnifferDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "FoundPeer");
 	}
 
 	-(void) browser:(id)p0 lostPeer:(id)p1
 	{
 		static MonoMethod *managed_method = NULL;
-		native_to_managed_trampoline_9 (self, _cmd, &managed_method, p0, p1, "MultipeerConnectivity.MCNearbyServiceBrowser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SnifferDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "LostPeer");
+		native_to_managed_trampoline_11 (self, _cmd, &managed_method, p0, p1, "MultipeerConnectivity.MCNearbyServiceBrowser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SnifferDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "LostPeer");
 	}
 
 	-(BOOL) conformsToProtocol:(void *)p0
@@ -941,19 +1603,19 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 	-(void) browser:(id)p0 foundPeer:(id)p1 withDiscoveryInfo:(id)p2
 	{
 		static MonoMethod *managed_method = NULL;
-		native_to_managed_trampoline_8 (self, _cmd, &managed_method, p0, p1, p2, "MultipeerConnectivity.MCNearbyServiceBrowser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSDictionary, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SeekerDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "FoundPeer");
+		native_to_managed_trampoline_16 (self, _cmd, &managed_method, p0, p1, p2, "MultipeerConnectivity.MCNearbyServiceBrowser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSDictionary, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SeekerDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "FoundPeer");
 	}
 
 	-(void) browser:(id)p0 lostPeer:(id)p1
 	{
 		static MonoMethod *managed_method = NULL;
-		native_to_managed_trampoline_9 (self, _cmd, &managed_method, p0, p1, "MultipeerConnectivity.MCNearbyServiceBrowser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SeekerDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "LostPeer");
+		native_to_managed_trampoline_11 (self, _cmd, &managed_method, p0, p1, "MultipeerConnectivity.MCNearbyServiceBrowser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SeekerDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "LostPeer");
 	}
 
 	-(void) browser:(id)p0 didNotStartBrowsingForPeers:(id)p1
 	{
 		static MonoMethod *managed_method = NULL;
-		native_to_managed_trampoline_9 (self, _cmd, &managed_method, p0, p1, "MultipeerConnectivity.MCNearbyServiceBrowser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSError, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SeekerDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidNotStartBrowsingForPeers");
+		native_to_managed_trampoline_11 (self, _cmd, &managed_method, p0, p1, "MultipeerConnectivity.MCNearbyServiceBrowser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSError, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SeekerDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidNotStartBrowsingForPeers");
 	}
 
 	-(BOOL) conformsToProtocol:(void *)p0
@@ -1001,31 +1663,31 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 	-(void) session:(id)p0 peer:(id)p1 didChangeState:(NSInteger)p2
 	{
 		static MonoMethod *managed_method = NULL;
-		native_to_managed_trampoline_10 (self, _cmd, &managed_method, p0, p1, p2, "MultipeerConnectivity.MCSession, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCSessionState, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SessionDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidChangeState");
+		native_to_managed_trampoline_17 (self, _cmd, &managed_method, p0, p1, p2, "MultipeerConnectivity.MCSession, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCSessionState, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SessionDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidChangeState");
 	}
 
 	-(void) session:(id)p0 didReceiveStream:(id)p1 withName:(NSString *)p2 fromPeer:(id)p3
 	{
 		static MonoMethod *managed_method = NULL;
-		native_to_managed_trampoline_11 (self, _cmd, &managed_method, p0, p1, p2, p3, "MultipeerConnectivity.MCSession, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSInputStream, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SessionDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidReceiveStream");
+		native_to_managed_trampoline_18 (self, _cmd, &managed_method, p0, p1, p2, p3, "MultipeerConnectivity.MCSession, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSInputStream, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SessionDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidReceiveStream");
 	}
 
 	-(void) session:(id)p0 didReceiveData:(id)p1 fromPeer:(id)p2
 	{
 		static MonoMethod *managed_method = NULL;
-		native_to_managed_trampoline_8 (self, _cmd, &managed_method, p0, p1, p2, "MultipeerConnectivity.MCSession, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSData, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SessionDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidReceiveData");
+		native_to_managed_trampoline_16 (self, _cmd, &managed_method, p0, p1, p2, "MultipeerConnectivity.MCSession, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSData, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SessionDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidReceiveData");
 	}
 
 	-(void) session:(id)p0 didStartReceivingResourceWithName:(NSString *)p1 fromPeer:(id)p2 withProgress:(id)p3
 	{
 		static MonoMethod *managed_method = NULL;
-		native_to_managed_trampoline_12 (self, _cmd, &managed_method, p0, p1, p2, p3, "MultipeerConnectivity.MCSession, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSProgress, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SessionDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidStartReceivingResource");
+		native_to_managed_trampoline_19 (self, _cmd, &managed_method, p0, p1, p2, p3, "MultipeerConnectivity.MCSession, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSProgress, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SessionDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidStartReceivingResource");
 	}
 
 	-(void) session:(id)p0 didFinishReceivingResourceWithName:(NSString *)p1 fromPeer:(id)p2 atURL:(id)p3 withError:(id)p4
 	{
 		static MonoMethod *managed_method = NULL;
-		native_to_managed_trampoline_13 (self, _cmd, &managed_method, p0, p1, p2, p3, p4, "MultipeerConnectivity.MCSession, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSUrl, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSError, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SessionDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidFinishReceivingResource");
+		native_to_managed_trampoline_20 (self, _cmd, &managed_method, p0, p1, p2, p3, p4, "MultipeerConnectivity.MCSession, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", "MultipeerConnectivity.MCPeerID, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSUrl, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSError, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "LibCoAPNonIP.Network.iOS.SessionDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", "DidFinishReceivingResource");
 	}
 
 	-(BOOL) conformsToProtocol:(void *)p0
@@ -1123,6 +1785,50 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 	}
 @end
 
+@interface UIKit_UIControlEventProxy : NSObject {
+	void *__monoObjectGCHandle;
+}
+	-(void) release;
+	-(id) retain;
+	-(void) dealloc;
+	-(void) BridgeSelector;
+	-(BOOL) conformsToProtocol:(void *)p0;
+@end
+@implementation UIKit_UIControlEventProxy { } 
+	-(void) release
+	{
+		xamarin_release_trampoline (self, _cmd);
+	}
+
+	-(id) retain
+	{
+		return xamarin_retain_trampoline (self, _cmd);
+	}
+
+	-(void) dealloc
+	{
+		if (mono_domain_get () == NULL)
+			mono_jit_thread_attach (NULL);
+		int gchandle = xamarin_get_gchandle (self);
+		xamarin_unregister_nsobject (self, mono_gchandle_get_target (gchandle));
+		xamarin_free_gchandle (self, gchandle);
+		mono_thread_detach_if_exiting ();
+		[super dealloc];
+	}
+
+	-(void) BridgeSelector
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_6 (self, _cmd, &managed_method, "UIKit.UIControlEventProxy, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Activated");
+	}
+
+	-(BOOL) conformsToProtocol:(void *)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_4 (self, _cmd, &managed_method, p0, "System.IntPtr, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", "Foundation.NSObject, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "InvokeConformsToProtocol");
+	}
+@end
+
 @interface __NSObject_Disposer : NSObject {
 	void *__monoObjectGCHandle;
 }
@@ -1158,7 +1864,7 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 	+(void) drain:(id)p0
 	{
 		static MonoMethod *managed_method = NULL;
-		native_to_managed_trampoline_14 (self, _cmd, &managed_method, p0, "Foundation.NSObject, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSObject+NSObject_Disposer, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Drain");
+		native_to_managed_trampoline_21 (self, _cmd, &managed_method, p0, "Foundation.NSObject, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Foundation.NSObject+NSObject_Disposer, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Drain");
 	}
 
 	-(BOOL) conformsToProtocol:(void *)p0
@@ -1174,6 +1880,134 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 	}
 @end
 
+@interface UIKit_UIScrollView__UIScrollViewDelegate : NSObject<UIScrollViewDelegate> {
+	void *__monoObjectGCHandle;
+}
+	-(void) release;
+	-(id) retain;
+	-(void) dealloc;
+	-(void) scrollViewDidEndDecelerating:(id)p0;
+	-(void) scrollViewWillBeginDecelerating:(id)p0;
+	-(void) scrollViewDidZoom:(id)p0;
+	-(void) scrollViewDidEndDragging:(id)p0 willDecelerate:(BOOL)p1;
+	-(void) scrollViewWillBeginDragging:(id)p0;
+	-(void) scrollViewDidEndScrollingAnimation:(id)p0;
+	-(void) scrollViewDidScroll:(id)p0;
+	-(void) scrollViewDidScrollToTop:(id)p0;
+	-(BOOL) scrollViewShouldScrollToTop:(id)p0;
+	-(id) viewForZoomingInScrollView:(id)p0;
+	-(void) scrollViewWillEndDragging:(id)p0 withVelocity:(CGPoint)p1 targetContentOffset:(CGPoint*)p2;
+	-(void) scrollViewDidEndZooming:(id)p0 withView:(id)p1 atScale:(CGFloat)p2;
+	-(void) scrollViewWillBeginZooming:(id)p0 withView:(id)p1;
+	-(BOOL) conformsToProtocol:(void *)p0;
+@end
+@implementation UIKit_UIScrollView__UIScrollViewDelegate { } 
+	-(void) release
+	{
+		xamarin_release_trampoline (self, _cmd);
+	}
+
+	-(id) retain
+	{
+		return xamarin_retain_trampoline (self, _cmd);
+	}
+
+	-(void) dealloc
+	{
+		if (mono_domain_get () == NULL)
+			mono_jit_thread_attach (NULL);
+		int gchandle = xamarin_get_gchandle (self);
+		xamarin_unregister_nsobject (self, mono_gchandle_get_target (gchandle));
+		xamarin_free_gchandle (self, gchandle);
+		mono_thread_detach_if_exiting ();
+		[super dealloc];
+	}
+
+	-(void) scrollViewDidEndDecelerating:(id)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_2 (self, _cmd, &managed_method, p0, "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "DecelerationEnded");
+	}
+
+	-(void) scrollViewWillBeginDecelerating:(id)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_2 (self, _cmd, &managed_method, p0, "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "DecelerationStarted");
+	}
+
+	-(void) scrollViewDidZoom:(id)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_2 (self, _cmd, &managed_method, p0, "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "DidZoom");
+	}
+
+	-(void) scrollViewDidEndDragging:(id)p0 willDecelerate:(BOOL)p1
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_22 (self, _cmd, &managed_method, p0, p1, "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.Boolean, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "DraggingEnded");
+	}
+
+	-(void) scrollViewWillBeginDragging:(id)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_2 (self, _cmd, &managed_method, p0, "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "DraggingStarted");
+	}
+
+	-(void) scrollViewDidEndScrollingAnimation:(id)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_2 (self, _cmd, &managed_method, p0, "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "ScrollAnimationEnded");
+	}
+
+	-(void) scrollViewDidScroll:(id)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_2 (self, _cmd, &managed_method, p0, "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "Scrolled");
+	}
+
+	-(void) scrollViewDidScrollToTop:(id)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_2 (self, _cmd, &managed_method, p0, "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "ScrolledToTop");
+	}
+
+	-(BOOL) scrollViewShouldScrollToTop:(id)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_23 (self, _cmd, &managed_method, p0, "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "ShouldScrollToTop");
+	}
+
+	-(id) viewForZoomingInScrollView:(id)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_24 (self, _cmd, &managed_method, p0, "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "ViewForZoomingInScrollView");
+	}
+
+	-(void) scrollViewWillEndDragging:(id)p0 withVelocity:(CGPoint)p1 targetContentOffset:(CGPoint*)p2
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_25 (self, _cmd, &managed_method, p0, p1, p2, "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoreGraphics.CGPoint, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "CoreGraphics.CGPoint&, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "WillEndDragging");
+	}
+
+	-(void) scrollViewDidEndZooming:(id)p0 withView:(id)p1 atScale:(CGFloat)p2
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_26 (self, _cmd, &managed_method, p0, p1, p2, "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "System.nfloat, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "ZoomingEnded");
+	}
+
+	-(void) scrollViewWillBeginZooming:(id)p0 withView:(id)p1
+	{
+		static MonoMethod *managed_method = NULL;
+		native_to_managed_trampoline_11 (self, _cmd, &managed_method, p0, p1, "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "ZoomingStarted");
+	}
+
+	-(BOOL) conformsToProtocol:(void *)p0
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_4 (self, _cmd, &managed_method, p0, "System.IntPtr, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e", "Foundation.NSObject, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", "InvokeConformsToProtocol");
+	}
+@end
+
 	static MTClassMap __xamarin_class_map [] = {
 		{"NSObject", "Foundation.NSObject, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"AppDelegate", "CoAPNonIP.iOS.AppDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
@@ -1181,7 +2015,10 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 		{"UIViewController", "UIKit.UIViewController, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"CoAPNonIP_iOS_MainViewCtl", "CoAPNonIP.iOS.MainViewCtl, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
 		{"UIView", "UIKit.UIView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
+		{"CoAPNonIP_iOS_UIMainView", "CoAPNonIP.iOS.UIMainView, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
 		{"iPadMainView", "CoAPNonIP.iOS.iPadMainView, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
+		{"CoAPNonIP_iOS_DeviceListSource", "CoAPNonIP.iOS.DeviceListSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
+		{"CoAPNonIP_iOS_MsgCodePickerSource", "CoAPNonIP.iOS.MsgCodePickerSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
 		{"LibCoAPNonIP_Network_iOS_BroadcastDelegate", "LibCoAPNonIP.Network.iOS.BroadcastDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
 		{"LibCoAPNonIP_Network_iOS_SnifferDelegate", "LibCoAPNonIP.Network.iOS.SnifferDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
 		{"LibCoAPNonIP_Network_iOS_SeekerDelegate", "LibCoAPNonIP.Network.iOS.SeekerDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
@@ -1189,6 +2026,7 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 		{"NSArray", "Foundation.NSArray, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"NSBundle", "Foundation.NSBundle, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"NSCoder", "Foundation.NSCoder, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
+		{"NSIndexPath", "Foundation.NSIndexPath, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"NSStream", "Foundation.NSStream, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"NSInputStream", "Foundation.NSInputStream, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"NSOutputStream", "Foundation.NSOutputStream, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
@@ -1200,13 +2038,17 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 		{"NSAutoreleasePool", "Foundation.NSAutoreleasePool, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"NSError", "Foundation.NSError, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"MCSession", "MultipeerConnectivity.MCSession, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
+		{"UIAlertView", "UIKit.UIAlertView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"UIApplication", "UIKit.UIApplication, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"UIControl", "UIKit.UIControl, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"UIButton", "UIKit.UIButton, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
+		{"UIKit_UIControlEventProxy", "UIKit.UIControlEventProxy, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"UIDevice", "UIKit.UIDevice, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
+		{"UIPickerView", "UIKit.UIPickerView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"UIScreen", "UIKit.UIScreen, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"UIScrollView", "UIKit.UIScrollView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"UITableView", "UIKit.UITableView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
+		{"UITableViewCell", "UIKit.UITableViewCell, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"UIWindow", "UIKit.UIWindow, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"NSException", "Foundation.NSException, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"NSNull", "Foundation.NSNull, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
@@ -1216,10 +2058,12 @@ void native_to_managed_trampoline_14 (id self, SEL _cmd, MonoMethod **managed_me
 		{"MCNearbyServiceAdvertiser", "MultipeerConnectivity.MCNearbyServiceAdvertiser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"MCNearbyServiceBrowser", "MultipeerConnectivity.MCNearbyServiceBrowser, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"UILocalNotification", "UIKit.UILocalNotification, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
+		{"UILabel", "UIKit.UILabel, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"UITraitCollection", "UIKit.UITraitCollection, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"NSData", "Foundation.NSData, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"NSDictionary", "Foundation.NSDictionary, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"__NSObject_Disposer", "Foundation.NSObject+NSObject_Disposer, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
+		{"UIKit_UIScrollView__UIScrollViewDelegate", "UIKit.UIScrollView+_UIScrollViewDelegate, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{ NULL, NULL, NULL },
 	};
 
@@ -1231,45 +2075,55 @@ void xamarin_create_classes () {
 	__xamarin_class_map [3].handle = objc_getClass ("UIViewController");
 	__xamarin_class_map [4].handle = [CoAPNonIP_iOS_MainViewCtl class];
 	__xamarin_class_map [5].handle = objc_getClass ("UIView");
-	__xamarin_class_map [6].handle = [iPadMainView class];
-	__xamarin_class_map [7].handle = [LibCoAPNonIP_Network_iOS_BroadcastDelegate class];
-	__xamarin_class_map [8].handle = [LibCoAPNonIP_Network_iOS_SnifferDelegate class];
-	__xamarin_class_map [9].handle = [LibCoAPNonIP_Network_iOS_SeekerDelegate class];
-	__xamarin_class_map [10].handle = [LibCoAPNonIP_Network_iOS_SessionDelegate class];
-	__xamarin_class_map [11].handle = objc_getClass ("NSArray");
-	__xamarin_class_map [12].handle = objc_getClass ("NSBundle");
-	__xamarin_class_map [13].handle = objc_getClass ("NSCoder");
-	__xamarin_class_map [14].handle = objc_getClass ("NSStream");
-	__xamarin_class_map [15].handle = objc_getClass ("NSInputStream");
-	__xamarin_class_map [16].handle = objc_getClass ("NSOutputStream");
-	__xamarin_class_map [17].handle = objc_getClass ("NSRunLoop");
-	__xamarin_class_map [18].handle = objc_getClass ("NSString");
-	__xamarin_class_map [19].handle = objc_getClass ("NSURL");
-	__xamarin_class_map [20].handle = objc_getClass ("__MonoMac_NSActionDispatcher");
-	__xamarin_class_map [21].handle = objc_getClass ("__MonoMac_NSAsyncActionDispatcher");
-	__xamarin_class_map [22].handle = objc_getClass ("NSAutoreleasePool");
-	__xamarin_class_map [23].handle = objc_getClass ("NSError");
-	__xamarin_class_map [24].handle = objc_getClass ("MCSession");
-	__xamarin_class_map [25].handle = objc_getClass ("UIApplication");
-	__xamarin_class_map [26].handle = objc_getClass ("UIControl");
-	__xamarin_class_map [27].handle = objc_getClass ("UIButton");
-	__xamarin_class_map [28].handle = objc_getClass ("UIDevice");
-	__xamarin_class_map [29].handle = objc_getClass ("UIScreen");
-	__xamarin_class_map [30].handle = objc_getClass ("UIScrollView");
-	__xamarin_class_map [31].handle = objc_getClass ("UITableView");
-	__xamarin_class_map [32].handle = objc_getClass ("UIWindow");
-	__xamarin_class_map [33].handle = objc_getClass ("NSException");
-	__xamarin_class_map [34].handle = objc_getClass ("NSNull");
-	__xamarin_class_map [35].handle = objc_getClass ("NSUserActivity");
-	__xamarin_class_map [36].handle = objc_getClass ("NSProgress");
-	__xamarin_class_map [37].handle = objc_getClass ("MCPeerID");
-	__xamarin_class_map [38].handle = objc_getClass ("MCNearbyServiceAdvertiser");
-	__xamarin_class_map [39].handle = objc_getClass ("MCNearbyServiceBrowser");
-	__xamarin_class_map [40].handle = objc_getClass ("UILocalNotification");
-	__xamarin_class_map [41].handle = objc_getClass ("UITraitCollection");
-	__xamarin_class_map [42].handle = objc_getClass ("NSData");
-	__xamarin_class_map [43].handle = objc_getClass ("NSDictionary");
-	__xamarin_class_map [44].handle = objc_getClass ("__NSObject_Disposer");
-	xamarin_setup_classmap (__xamarin_class_map, 45);
+	__xamarin_class_map [6].handle = [CoAPNonIP_iOS_UIMainView class];
+	__xamarin_class_map [7].handle = [iPadMainView class];
+	__xamarin_class_map [8].handle = [CoAPNonIP_iOS_DeviceListSource class];
+	__xamarin_class_map [9].handle = [CoAPNonIP_iOS_MsgCodePickerSource class];
+	__xamarin_class_map [10].handle = [LibCoAPNonIP_Network_iOS_BroadcastDelegate class];
+	__xamarin_class_map [11].handle = [LibCoAPNonIP_Network_iOS_SnifferDelegate class];
+	__xamarin_class_map [12].handle = [LibCoAPNonIP_Network_iOS_SeekerDelegate class];
+	__xamarin_class_map [13].handle = [LibCoAPNonIP_Network_iOS_SessionDelegate class];
+	__xamarin_class_map [14].handle = objc_getClass ("NSArray");
+	__xamarin_class_map [15].handle = objc_getClass ("NSBundle");
+	__xamarin_class_map [16].handle = objc_getClass ("NSCoder");
+	__xamarin_class_map [17].handle = objc_getClass ("NSIndexPath");
+	__xamarin_class_map [18].handle = objc_getClass ("NSStream");
+	__xamarin_class_map [19].handle = objc_getClass ("NSInputStream");
+	__xamarin_class_map [20].handle = objc_getClass ("NSOutputStream");
+	__xamarin_class_map [21].handle = objc_getClass ("NSRunLoop");
+	__xamarin_class_map [22].handle = objc_getClass ("NSString");
+	__xamarin_class_map [23].handle = objc_getClass ("NSURL");
+	__xamarin_class_map [24].handle = objc_getClass ("__MonoMac_NSActionDispatcher");
+	__xamarin_class_map [25].handle = objc_getClass ("__MonoMac_NSAsyncActionDispatcher");
+	__xamarin_class_map [26].handle = objc_getClass ("NSAutoreleasePool");
+	__xamarin_class_map [27].handle = objc_getClass ("NSError");
+	__xamarin_class_map [28].handle = objc_getClass ("MCSession");
+	__xamarin_class_map [29].handle = objc_getClass ("UIAlertView");
+	__xamarin_class_map [30].handle = objc_getClass ("UIApplication");
+	__xamarin_class_map [31].handle = objc_getClass ("UIControl");
+	__xamarin_class_map [32].handle = objc_getClass ("UIButton");
+	__xamarin_class_map [33].handle = objc_getClass ("UIKit_UIControlEventProxy");
+	__xamarin_class_map [34].handle = objc_getClass ("UIDevice");
+	__xamarin_class_map [35].handle = objc_getClass ("UIPickerView");
+	__xamarin_class_map [36].handle = objc_getClass ("UIScreen");
+	__xamarin_class_map [37].handle = objc_getClass ("UIScrollView");
+	__xamarin_class_map [38].handle = objc_getClass ("UITableView");
+	__xamarin_class_map [39].handle = objc_getClass ("UITableViewCell");
+	__xamarin_class_map [40].handle = objc_getClass ("UIWindow");
+	__xamarin_class_map [41].handle = objc_getClass ("NSException");
+	__xamarin_class_map [42].handle = objc_getClass ("NSNull");
+	__xamarin_class_map [43].handle = objc_getClass ("NSUserActivity");
+	__xamarin_class_map [44].handle = objc_getClass ("NSProgress");
+	__xamarin_class_map [45].handle = objc_getClass ("MCPeerID");
+	__xamarin_class_map [46].handle = objc_getClass ("MCNearbyServiceAdvertiser");
+	__xamarin_class_map [47].handle = objc_getClass ("MCNearbyServiceBrowser");
+	__xamarin_class_map [48].handle = objc_getClass ("UILocalNotification");
+	__xamarin_class_map [49].handle = objc_getClass ("UILabel");
+	__xamarin_class_map [50].handle = objc_getClass ("UITraitCollection");
+	__xamarin_class_map [51].handle = objc_getClass ("NSData");
+	__xamarin_class_map [52].handle = objc_getClass ("NSDictionary");
+	__xamarin_class_map [53].handle = objc_getClass ("__NSObject_Disposer");
+	__xamarin_class_map [54].handle = objc_getClass ("UIKit_UIScrollView__UIScrollViewDelegate");
+	xamarin_setup_classmap (__xamarin_class_map, 55);
 }
 
