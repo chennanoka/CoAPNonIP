@@ -17,7 +17,7 @@ namespace LibCoAPNonIP.Network {
         //boardcast signal
         abstract public void Broadcast();
         //sinff for devices
-        abstract public bool SniffPeers(int timeout /*s*/);
+        abstract public bool SniffPeers(int timeout /*s*/);//TODO: add search pattern support to SniffPeers & SearchPeers
         //search devices
         abstract public void SearchPeers(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, double timeout);
         //get nodes
