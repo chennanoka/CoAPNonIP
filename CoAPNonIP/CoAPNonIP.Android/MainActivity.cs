@@ -6,7 +6,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using CoAPNonIP.Core; 
+using CoAPNonIP.Core;
+using LibCoAPNonIP.Network.Android; 
 
 namespace CoAPNonIP.Android
 {
@@ -19,7 +20,25 @@ namespace CoAPNonIP.Android
 
 			SetContentView (Resource.Layout.Main);
 
-			Test test = new Test (); 
+			//create a server 
+			//
+//						PeersNetwork pnetwork = new PeersNetwork (this,111,222);
+//			
+//						pnetwork.Broadcast (); 
+			//
+			//create a client 
+
+			//			PeersNetwork cnetwork = new PeersNetwork (this,222,333);
+			//			cnetwork.SearchPeers (delegate(Device device) {
+			//				Console.WriteLine("Found peer "+device.DisplayName);
+			//				Device[] haha=cnetwork.GetNodes();
+			//				Console.WriteLine(haha.Length);
+			//			},delegate(Device lostdevice) {
+			//				Console.WriteLine("Lost peer "+lostdevice.DisplayName);
+			//			},60);
+			//
+			PeersNetwork cnetwork = new PeersNetwork (this,222,333);
+						cnetwork.SniffPeers (10).ContinueWith(t=>{Console.WriteLine(cnetwork.foundpeer);}); 
 
 		}
 	}

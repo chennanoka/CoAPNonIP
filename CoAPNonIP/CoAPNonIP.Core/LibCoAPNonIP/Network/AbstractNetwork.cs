@@ -1,5 +1,6 @@
 ﻿using System;
 using LibCoAPNonIP.CoAPMsg;
+using System.Threading.Tasks;
 
 namespace LibCoAPNonIP.Network {
     public enum ROLE {
@@ -16,8 +17,16 @@ namespace LibCoAPNonIP.Network {
 
         //boardcast signal
         abstract public void Broadcast();
+
+		#if __IOS__
         //sinff for devices
         abstract public bool SniffPeers(int timeout /*s*/);//TODO: add search pattern support to SniffPeers & SearchPeers
+		#endif
+
+		#if __ANDROID__
+		abstract public Task SniffPeers(int timeout /*s*/);//TODO: add search pattern support to SniffPeers & SearchPeers
+		#endif
+
         //search devices
         abstract public void SearchPeers(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, double timeout);
         //get nodes

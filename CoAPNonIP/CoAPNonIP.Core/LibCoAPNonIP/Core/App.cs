@@ -6,11 +6,13 @@ using LibCoAPNonIP.CoAPMsg;
 using LibCoAPNonIP.Network;
 using LibCoAPNonIP.Utils;
 
-#if __IOS__
-using LibCoAPNonIP.Network.iOS;
 
-#else
-//using LibCoAPNonIP.Network.Android;
+#if __IOS__
+using LibCoAPNonIP.Network.iOS; 
+#endif
+#if __ANDROID__
+using LibCoAPNonIP.Network.Android;
+using Android.Content;
 #endif
 
 namespace LibCoAPNonIP {
@@ -28,6 +30,7 @@ namespace LibCoAPNonIP {
     }
 
     public class App {
+		#if __IOS__
         public App(string AppName, string DeviceName = "null") {
             rr_AppName = AppName;
             rr_DevName = DeviceName;
@@ -55,18 +58,63 @@ namespace LibCoAPNonIP {
 
             rr_status_check = APP_STATUS_CHECK.RECV_SET | APP_STATUS_CHECK.RESOURCE_SET | APP_STATUS_CHECK.DEFT_RESP_SET | APP_STATUS_CHECK.SENDER_SET | APP_STATUS_CHECK.PROCESSER_SET;
         }
+		#endif
+
+		#if __ANDROID__
+		public App(Context context,int userid,int appid){ 
+			rr_nSenders = 0;
+			rr_current_sender = 0;
+			rr_Senders = null;
+			rr_oplock_sender_ptr = new Mutex();
+
+			rr_nProcessers = 0;
+			rr_current_processer = 0;
+			rr_Processers = null;
+
+			rr_MsgCallbackMap = new Dictionary<ushort, MsgRecord>();
+			rr_oplock_msgcallback = new Mutex();
+
+			rr_resources = new Dictionary<string, Resource>();
+			rr_oplock_resources = new ReaderWriterLock();
+
+			rr_network = new PeersNetwork(context,userid,appid);
+			rr_default_response_handler = null;
+
+			rr_PeerFoundFunc = null;
+			rr_PeerLostFunc = null;
+
+			rr_status_check = APP_STATUS_CHECK.RECV_SET | APP_STATUS_CHECK.RESOURCE_SET | APP_STATUS_CHECK.DEFT_RESP_SET | APP_STATUS_CHECK.SENDER_SET | APP_STATUS_CHECK.PROCESSER_SET;
+		}
+		#endif
+
+
 
         public void Run(ROLE role = ROLE.MIX) {
             if (rr_status_check != APP_STATUS_CHECK.ALL_CHECKED) {
                 throw new Exception("The minimum requirement for running this app is not satisfied. Status Code:" + rr_status_check.ToString());
             }
             if (role == ROLE.MIX) {
+				#if __IOS__
                 bool isAnyBroadcasterExist = rr_network.SniffPeers(5);
-                if (isAnyBroadcasterExist) {
-                    rr_network.SearchPeers(rr_PeerFoundFunc, rr_PeerLostFunc);
-                } else {
-                    rr_network.Broadcast();
-                }
+				if (isAnyBroadcasterExist) {
+				rr_network.SearchPeers(rr_PeerFoundFunc, rr_PeerLostFunc);
+				} else {
+				rr_network.Broadcast();
+				}
+				#endif
+
+				#if __ANDROID__ 
+				rr_network.SniffPeers(5).ContinueWith(t=>{ 
+					if (rr_network.foundpeer) {
+						rr_network.SearchPeers(rr_PeerFoundFunc, rr_PeerLostFunc);
+					} else {
+						rr_network.Broadcast();
+					}  
+				}); 
+				#endif
+
+
+
             } else if (role == ROLE.SEEKER) {
                 rr_network.SearchPeers(rr_PeerFoundFunc, rr_PeerLostFunc);
             } else {

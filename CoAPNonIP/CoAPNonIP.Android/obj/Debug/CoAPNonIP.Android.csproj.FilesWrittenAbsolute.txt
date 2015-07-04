@@ -1,0 +1,17 @@
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/obj/Debug/MonoAndroid,Version=v5.0.AssemblyAttribute.cs
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/bin/Debug/CoAPNonIP.Android.dll.mdb
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/bin/Debug/CoAPNonIP.Android.dll
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/bin/Debug/com.coapnonip.android.apk
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/obj/Debug/android/bin/com.coapnonip.android.apk
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/obj/Debug/res/layout/main.xml
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/obj/Debug/res/values/strings.xml
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/obj/Debug/res/drawable-hdpi/icon.png
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/obj/Debug/res/drawable-mdpi/icon.png
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/obj/Debug/res/drawable-xhdpi/icon.png
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/obj/Debug/res/drawable-xxhdpi/icon.png
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/obj/Debug/res/drawable-xxxhdpi/icon.png
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/obj/Debug/R.cs.flag
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/bin/Debug/com.coapnonip.android-Signed.apk
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/obj/Debug/uploadflags.txt
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/obj/Debug/CoAPNonIP.Android.dll
+/Users/chenn/Documents/CoAPNonIP_GitHub/CoAPNonIP/CoAPNonIP.Android/obj/Debug/CoAPNonIP.Android.dll.mdb

@@ -15,7 +15,7 @@
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>CoAPNonIP.Android</AssemblyName>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,6 +47,23 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CallBack\NP2PCBLECallBack.cs" />
+    <Compile Include="CallBack\NP2PSBLECallBack.cs" />
+    <Compile Include="CallBack\NP2PSearchPeersCallBack.cs" />
+    <Compile Include="Global\NP2PGlobal.cs" />
+    <Compile Include="NP2PPacket\NP2PMessage.cs" />
+    <Compile Include="NP2PPacket\NP2PReceivePacket.cs" />
+    <Compile Include="NP2PPacket\NP2PSendPacket.cs" />
+    <Compile Include="NP2PPacket\NP2PSendPacketListBuilder.cs" />
+    <Compile Include="Objects\OnAddList.cs" />
+    <Compile Include="Objects\UserIDAppID.cs" />
+    <Compile Include="Service\NP2PClientBLEService.cs" />
+    <Compile Include="Service\NP2PServerBLEService.cs" />
+    <Compile Include="Thread\NP2PCScanedNewServerThread.cs" />
+    <Compile Include="Thread\NP2PCSendThread.cs" />
+    <Compile Include="Thread\NP2PSSendThread.cs" />
+    <Compile Include="Util\ByteUtil.cs" />
+    <Compile Include="Util\StringUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -66,5 +83,12 @@
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
     <Folder Include="..\CoAPNonIP.Core\" />
+    <Folder Include="CallBack\" />
+    <Folder Include="Global\" />
+    <Folder Include="NP2PPacket\" />
+    <Folder Include="Objects\" />
+    <Folder Include="Service\" />
+    <Folder Include="Thread\" />
+    <Folder Include="Util\" />
   </ItemGroup>
 </Project>

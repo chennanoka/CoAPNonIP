@@ -14,6 +14,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Core\" />
     <Folder Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Network\" />
     <Folder Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Network\iOS\" />
+    <Folder Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Network\Android\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)CoapNonIP\Test.cs" />
@@ -42,9 +43,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Network\AbstractNetwork.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Network\Device.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Utils\AbstractTimeUtils.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Network\iOS\PeersNetwork.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Exceptions\NetworkException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Core\App.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Core\Resource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Network\Android\PeersNetwork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)LibCoAPNonIP\Network\iOS\PeersNetwork.cs" />
   </ItemGroup>
 </Project>
