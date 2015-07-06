@@ -63,14 +63,28 @@ namespace LibCoAPNonIP.Network.iOS {
             return rr_myDevice.DisplayName;
         }
 
-        public override void Broadcast() {
+        public void WhenPeerFound(Device peer) {
+            if (rr_WhenPeerFound != null) {
+                rr_WhenPeerFound(peer);
+            }
+        }
+        public void WhenPeerLost(Device peer) {
+            if (rr_WhenPeerLost != null) {
+                rr_WhenPeerLost(peer);
+            }
+        }
+
+        public override void Broadcast(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost) {
             CurRole |= ROLE.BROADCASTER;
             CurStatus = NETWORK_STATUS.WAIT_FOR_DEV;
+            this.rr_WhenPeerFound = WhenPeerFound;
+            this.rr_WhenPeerLost = WhenPeerLost;
+
             NSDictionary emptyDict = new NSDictionary();
 
             rr_broadcaster = new MCNearbyServiceAdvertiser(rr_myPeerID, emptyDict, rr_basicServiceType);
             rr_broadcaster.Delegate = new BroadcastDelegate(this);
-            rr_broadcaster.StartAdvertisingPeer();//TODO:Consider start in a new thread
+            rr_broadcaster.StartAdvertisingPeer();
         }
 
         public override void SearchPeers(PeerFoundCallback WhenPeerFound = null, PeerLostCallback WhenPeerLost = null, double timeout = 60) {
@@ -81,7 +95,7 @@ namespace LibCoAPNonIP.Network.iOS {
             CurStatus = NETWORK_STATUS.SEEKING_PEERS;
             rr_seeker = new MCNearbyServiceBrowser(rr_myPeerID, rr_basicServiceType);
             rr_seeker.Delegate = new SeekerDelegate(this, rr_WhenPeerFound, rr_WhenPeerLost, PeerTimeout);
-            rr_seeker.StartBrowsingForPeers();//TODO: Consider start in a new thread
+            rr_seeker.StartBrowsingForPeers();
         }
 
         public override bool SniffPeers(int timeout /*s*/) {
@@ -90,19 +104,23 @@ namespace LibCoAPNonIP.Network.iOS {
             MCNearbyServiceBrowser sniffer = new MCNearbyServiceBrowser(rr_myPeerID, rr_basicServiceType);
             sniffer.Delegate = new SnifferDelegate(this);
             sniffer.StartBrowsingForPeers();
-            Thread sniffer_thread = new Thread(new ThreadStart(() => {
+            Console.WriteLine("Start sniffing");
+            Thread sniffer_monitor_thread = new Thread(new ThreadStart(() => {
                 int starttime = AbstractTimeUtils.UnixTimestamp();
-                while(true) {
+                while (true) {
                     int nowtime = AbstractTimeUtils.UnixTimestamp();
                     if (PeerDetected || (nowtime - starttime) > timeout) {
-                        return;
+                        Console.WriteLine("----====RETURN===----");
+                        Console.WriteLine(PeerDetected.ToString() + ":" + (nowtime - starttime).ToString());
+                        break;
                     }
-                    Thread.Sleep(100);
                 }
+                Console.WriteLine("Stop sniffing");
+                sniffer.StopBrowsingForPeers();
             }));
-            sniffer_thread.Start();
-            sniffer_thread.Join();
-            sniffer.StopBrowsingForPeers();
+            sniffer_monitor_thread.Start();
+            sniffer_monitor_thread.Join();
+            Console.WriteLine("Stop sniffing");
             return PeerDetected;
         }
 
@@ -129,6 +147,7 @@ namespace LibCoAPNonIP.Network.iOS {
         public override void SetRecvDataFunc(DataRecvCallback Func) {
             rr_WhenDataRecv = Func;
         }
+
         public DataRecvCallback GetRecvDataFunc() {
             if (rr_WhenDataRecv == null) {
                 throw new NetworkException("Do not have callback handler for received data");
@@ -156,6 +175,7 @@ namespace LibCoAPNonIP.Network.iOS {
         public ROLE CurRole;
         public double PeerTimeout;
         public Dictionary< string , Device > ActivePeers;
+        //TODO: add oplock and thread-safe operations to ActivePeers
         public Mutex oplock_SendQueue;
         public List< SendQueueElement > SendQueue;
 
@@ -296,12 +316,16 @@ namespace LibCoAPNonIP.Network.iOS {
         public SnifferDelegate(PeersNetwork Caller) {
             rr_caller = Caller;
         }
+
         public override void FoundPeer(MCNearbyServiceBrowser seeker, MCPeerID peerID, NSDictionary info) {
             rr_caller.PeerDetected = true;
+            Console.WriteLine("Set TRUE");
         }
+
         public override void LostPeer(MCNearbyServiceBrowser seeker, MCPeerID peerID) {
             //Do nothing
         }
+
         private PeersNetwork rr_caller;
     }
 
@@ -362,14 +386,30 @@ namespace LibCoAPNonIP.Network.iOS {
                 case MCSessionState.Connected:
                     rr_caller.SessionState = SESSION_STATUS.PEER_CONNECTED;
                     rr_caller.strSessionState = "Connected to: " + peerID.DisplayName;
+                    if ((rr_caller.CurRole & ROLE.BROADCASTER) != ROLE.NONE) {
+                        Device new_dev = new Device(peerID.DisplayName);
+                        rr_caller.ActivePeers.Add(peerID.DisplayName, new_dev);
+                        //Create a new Data Thread for this Device
+                        rr_caller.NewDataThread(peerID.DisplayName);
+                        rr_caller.WhenPeerFound(new_dev);
+                    }
                     break;
                 case MCSessionState.Connecting:
+                    rr_caller.CurStatus = NETWORK_STATUS.PEER_JOIN;
                     rr_caller.SessionState = SESSION_STATUS.PEER_CONNECTING;
                     rr_caller.strSessionState = "Connecting: " + peerID.DisplayName;
                     break;
                 case MCSessionState.NotConnected:
                     rr_caller.SessionState = SESSION_STATUS.PEER_DISCONNECTED;
                     rr_caller.strSessionState = "Lost connection from: " + peerID.DisplayName;
+                    if ((rr_caller.CurRole & ROLE.BROADCASTER) != ROLE.NONE) {
+                        rr_caller.CurStatus = NETWORK_STATUS.PEER_LOST;
+                        Device dev = new Device(peerID.DisplayName);
+                        rr_caller.WhenPeerLost(dev);
+                        rr_caller.ActivePeers.Remove(peerID.DisplayName);
+                        //Terminate the relate Data Thread;
+                        rr_caller.DeleteDataThread(peerID.DisplayName);
+                    }
                     break;
                 default:
                     throw new NotImplementedException();
@@ -400,15 +440,17 @@ namespace LibCoAPNonIP.Network.iOS {
             Array.Copy(data_list[upper], 0, data, offset, nRecv);
             //Call User-defined callback function to process the received data;
             DataRecvCallback Func = rr_caller.GetRecvDataFunc();
-            Func(new Device(peerID.DisplayName) , data);
+            Func(new Device(peerID.DisplayName), data);
         }
 
         public override void DidReceiveData(MCSession session, NSData data, MCPeerID peerID) {
             throw new NotImplementedException();
         }
+
         public override void DidStartReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSProgress progress) {
             throw new NotImplementedException();
         }
+
         public override void DidFinishReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSUrl localUrl, NSError error) {
             throw new NotImplementedException();
         }

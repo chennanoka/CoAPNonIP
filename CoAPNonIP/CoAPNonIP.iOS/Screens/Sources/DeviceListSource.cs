@@ -9,6 +9,7 @@ namespace CoAPNonIP.iOS {
         public DeviceListSource(List< string > Content) {
             rr_content = Content;
         }
+
         public override nint NumberOfSections(UITableView tableView) {
             return 1;
         }
@@ -24,6 +25,7 @@ namespace CoAPNonIP.iOS {
         public override string TitleForFooter(UITableView tableView, nint section) {
             return null;
         }
+
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath) {
             string str = rr_content[indexPath.Row];
             var cell = tableView.DequeueReusableCell(cellIdentifier);
@@ -32,12 +34,34 @@ namespace CoAPNonIP.iOS {
                 cell.Tag = Environment.TickCount;
                 cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
             }
+            // if the row is selected show checkmark
+            if (true) {
+                cell.Accessory = UITableViewCellAccessory.Checkmark;
+            }
+//            else
+//            {
+//                cell.Accessory = UITableViewCellAccessory.None;
+//            }
+
             cell.TextLabel.Text = str;
             return cell;
         }
+
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath) {
             string str = rr_content[indexPath.Row];
             new  UIAlertView("Selected", str, null, "OK", null).Show();
+        }
+
+        public void AddDevice(string DevName) {
+            rr_content.Add(DevName);
+        }
+
+        public void RemoveDevice(string DevName) {
+            rr_content.Remove(DevName);
+        }
+
+        public void UpdateList(List<string> src) {
+            rr_content = src;
         }
 
         private List< string > rr_content;

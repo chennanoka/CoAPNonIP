@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -17,7 +17,7 @@
                     </items>
                 </navigationBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="tzQ-E8-Mex">
-                    <rect key="frame" x="0.0" y="70" width="344" height="883"/>
+                    <rect key="frame" x="0.0" y="70" width="344" height="505"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V6N-SV-kj8">
@@ -167,7 +167,6 @@
                     <accessibility key="accessibilityConfiguration">
                         <bool key="isElement" value="NO"/>
                     </accessibility>
-                    <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
@@ -177,12 +176,97 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Server Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvf-bf-UYd">
+                    <rect key="frame" x="113" y="596" width="119" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Role:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kkV-MQ-eaa">
+                    <rect key="frame" x="49" y="625" width="102" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Status:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9QO-cW-iVG">
+                    <rect key="frame" x="35" y="654" width="116" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Devices in Cluster:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C05-GX-vdh">
+                    <rect key="frame" x="8" y="683" width="143" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Messages Sent:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zE9-3N-PwI">
+                    <rect key="frame" x="28" y="712" width="123" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Messages Recv:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fr-tA-8rW">
+                    <rect key="frame" x="24" y="741" width="127" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="N/A" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jWj-yh-zL6">
+                    <rect key="frame" x="169" y="625" width="118" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="N/A" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDz-Lz-jFT">
+                    <rect key="frame" x="169" y="654" width="118" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="N/A" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vI9-2G-2Ut">
+                    <rect key="frame" x="169" y="683" width="118" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="N/A" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zR8-7a-Jed">
+                    <rect key="frame" x="169" y="712" width="118" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="N/A" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fc0-ga-uwL">
+                    <rect key="frame" x="169" y="741" width="118" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="BtnDel" destination="xtd-st-0Rb" id="OJE-qj-ZjM"/>
+                <outlet property="BtnGet" destination="U38-tc-hJ7" id="buc-Uh-BMl"/>
+                <outlet property="BtnPost" destination="dbc-mN-KK5" id="pmE-eC-9EH"/>
+                <outlet property="BtnPut" destination="826-ae-4lC" id="kUi-BP-nDC"/>
+                <outlet property="BtnRecMsgQ" destination="JPH-yb-9YN" id="gBc-J6-VWQ"/>
                 <outlet property="BtnStartBenchmark" destination="V6N-SV-kj8" id="NVX-fX-Lbh"/>
+                <outlet property="BtnTestBandWidth" destination="Cdu-rT-HM3" id="fKC-5k-vtf"/>
+                <outlet property="BtnTestCoAPPerf" destination="Abx-G0-7Qd" id="zWd-YD-9XX"/>
+                <outlet property="BtnTestLatency" destination="2zE-RS-OGa" id="dvU-U1-b5y"/>
+                <outlet property="BtnTestThroughput" destination="6C5-1a-BRc" id="O9H-Fo-5k9"/>
+                <outlet property="LblDevCount" destination="vI9-2G-2Ut" id="FSd-r5-bqb"/>
+                <outlet property="LblMsgRecvCnt" destination="fc0-ga-uwL" id="WcA-ks-Ne6"/>
+                <outlet property="LblMsgSentCnt" destination="zR8-7a-Jed" id="du4-gV-nHi"/>
+                <outlet property="LblRole" destination="jWj-yh-zL6" id="Rsm-Ph-6K4"/>
+                <outlet property="LblStatus" destination="bDz-Lz-jFT" id="kYm-xp-Pp1"/>
+                <outlet property="TxtFCoAPMsg" destination="VUK-Nx-UrT" id="iYS-eO-cwZ"/>
+                <outlet property="TxtFMaxPayload" destination="azu-1u-3iW" id="SFR-aG-fBV"/>
+                <outlet property="TxtFMinPayload" destination="L18-1K-JNa" id="P4D-wx-dsh"/>
+                <outlet property="TxtFRepeatTime" destination="NgB-DF-Kgk" id="rhG-qr-26n"/>
+                <outlet property="TxtRespHistory" destination="hay-yF-jZS" id="1zb-qE-dDh"/>
                 <outlet property="UIDeviceList" destination="tzQ-E8-Mex" id="vve-ve-dwH"/>
             </connections>
         </view>

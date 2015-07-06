@@ -9,3 +9,13 @@
 /Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/CoAPNonIP.iOS.exe.mdb
 /Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/ibtool/iPadMainView.nib
 /Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/Default-568h@2x.png
+/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/Xamarin.iOS,Version=v1.0.AssemblyAttribute.cs
+/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/ibtool/LaunchScreen.nib
+/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/ibtool/iPadMainView.nib
+/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/actool/partial-info.plist
+/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/actool/asset-manifest.plist
+/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/Default-568h@2x.png
+/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/bin/iPhoneSimulator/Debug/CoAPNonIP.iOS.exe.mdb
+/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/bin/iPhoneSimulator/Debug/CoAPNonIP.iOS.exe
+/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/CoAPNonIP.iOS.exe
+/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/CoAPNonIP.iOS.exe.mdb

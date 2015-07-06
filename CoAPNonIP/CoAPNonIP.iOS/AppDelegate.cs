@@ -1,5 +1,9 @@
 ﻿using Foundation;
 using UIKit;
+using LibCoAPNonIP;
+using LibCoAPNonIP.Network;
+using LibCoAPNonIP.CoAPMsg;
+using System;
 
 namespace CoAPNonIP.iOS {
     // The UIApplicationDelegate for the application. This class is responsible for launching the
@@ -12,7 +16,22 @@ namespace CoAPNonIP.iOS {
             get;
             set;
         }
-
+        public override bool WillFinishLaunching(UIApplication application, NSDictionary launchOptions) {
+            CoAPService = new App("CoAP_Demo", UIDevice.CurrentDevice.Name);
+            CoAPService.InitSenders(5);
+            CoAPService.InitReceiver();
+            CoAPService.InitProcessers(10);
+            CoAPService.RegisterResource("Benchmark",(Device sender , CoAPRequest request)=>{
+                CoAPResponse resp = new CoAPResponse(CoAPMsgType.ACK , CoAPMsgCode.CONTENT , request);
+                resp.AddPayload("OK");
+                return resp;
+            } );
+            CoAPService.SetDefaultResponseHandler(((ushort MsgID, CoAPResponse Resp) => {
+                Console.WriteLine("Received Response for " + MsgID.ToString());
+            }));
+            CoAPService.Run();
+            return true;
+        }
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions) {
             // create a new window instance based on the screen size
             Window = new UIWindow(UIScreen.MainScreen.Bounds);
@@ -22,7 +41,6 @@ namespace CoAPNonIP.iOS {
 
             // make the window visible
             Window.MakeKeyAndVisible();
-
             return true;
         }
 
@@ -51,6 +69,8 @@ namespace CoAPNonIP.iOS {
         public override void WillTerminate(UIApplication application) {
             // Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
         }
+
+        public static App CoAPService{ get; set; }
     }
 }
 

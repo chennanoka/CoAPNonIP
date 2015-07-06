@@ -60,18 +60,22 @@ namespace LibCoAPNonIP {
             if (rr_status_check != APP_STATUS_CHECK.ALL_CHECKED) {
                 throw new Exception("The minimum requirement for running this app is not satisfied. Status Code:" + rr_status_check.ToString());
             }
-            if (role == ROLE.MIX) {
-                bool isAnyBroadcasterExist = rr_network.SniffPeers(5);
-                if (isAnyBroadcasterExist) {
+
+            Thread run_thread = new Thread(new ThreadStart(() => {
+                if (role == ROLE.MIX) {
+                    bool isAnyBroadcasterExist = rr_network.SniffPeers(5);
+                    if (isAnyBroadcasterExist) {
+                        rr_network.SearchPeers(rr_PeerFoundFunc, rr_PeerLostFunc);
+                    } else {
+                        rr_network.Broadcast(rr_PeerFoundFunc,rr_PeerLostFunc);
+                    }
+                } else if (role == ROLE.SEEKER) {
                     rr_network.SearchPeers(rr_PeerFoundFunc, rr_PeerLostFunc);
                 } else {
-                    rr_network.Broadcast();
+                    rr_network.Broadcast(rr_PeerFoundFunc,rr_PeerLostFunc);
                 }
-            } else if (role == ROLE.SEEKER) {
-                rr_network.SearchPeers(rr_PeerFoundFunc, rr_PeerLostFunc);
-            } else {
-                rr_network.Broadcast();
-            }
+            }));
+            run_thread.Start();
         }
 
         public void SetPeerFoundCallback(PeerFoundCallback Func) {
@@ -210,6 +214,36 @@ namespace LibCoAPNonIP {
             rr_Senders[sender].Push(msg);
         }
 
+        public string[] GetDevsInCluster() {
+            //NOTE: The following code hasn't been add to abstract yet
+            //Which means it is iOS-only code.
+            //should be considered rewrite later
+            Device[] devs = rr_network.GetNodes();
+            string[] rtn = new string[devs.Length];
+            for (int i = 0; i != devs.Length; ++i) {
+                rtn[i] = devs[i].DisplayName;
+            }
+            return rtn;
+        }
+
+        public Dictionary<string , string> GetNetworkStatus() {
+            Dictionary<string , string> rtn = new Dictionary<string, string>();
+            //NOTE: The following code hasn't been add to abstract yet
+            //Which means it is iOS-only code.
+            //should be considered rewrite later
+            rtn.Add("Role" , rr_role2string[(int)rr_network.CurRole]);
+            rtn.Add("DeviceCnt" , rr_network.ActivePeers.Count.ToString());
+            return rtn;
+        }
+
+        private static string[] rr_role2string = new string[]{
+            "NONE",
+            "Broadcaster",
+            "Seeker",
+            "N/A",
+            "MIX",
+        };
+
         private void default_data_recv_callback(Device From, byte[] data) {
             //use CoAPRequest to parse the string, estimate whether it is 
             //a request from other devices or a response for previous request
@@ -259,6 +293,7 @@ namespace LibCoAPNonIP {
             return current_sender;
 
         }
+
 
         private uint rr_nSenders;
         private uint rr_current_sender;

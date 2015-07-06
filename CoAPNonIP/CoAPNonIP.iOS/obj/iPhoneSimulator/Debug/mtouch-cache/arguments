@@ -1,10 +1,10 @@
 # Version: 8.10.3.2 (8b265d6)
-# [first argument, ignore] # /Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/mtouch.exe
+# [first argument, ignore] # /Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/mtouch.exe
 /Library/Frameworks/Xamarin.iOS.framework/Versions/8.10.3.2/bin/mtouch \
 	--cache \
-	/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/mtouch-cache \
+	/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/mtouch-cache \
 	--sim \
-	/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/bin/iPhoneSimulator/Debug/CoAPNonIP.iOS.app \
+	/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/bin/iPhoneSimulator/Debug/CoAPNonIP.iOS.app \
 	--executable \
 	CoAPNonIP.iOS \
 	--debug \
@@ -18,7 +18,7 @@
 	8.3 \
 	--abi=i386 \
 	--symbollist \
-	/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/mtouch-symbols.list \
+	/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/obj/iPhoneSimulator/Debug/mtouch-symbols.list \
 	--dsym=no \
 	-r \
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/System.dll \
@@ -30,4 +30,4 @@
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/System.Core.dll \
 	-r \
 	/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/mscorlib.dll \
-	/Users/houselee/Documents/WorkSpaces/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/bin/iPhoneSimulator/Debug//CoAPNonIP.iOS.exe \
+	/Users/House_Lee/Workspace/MadMuc/Projects/CoAPNonIP/CoAPNonIP/CoAPNonIP.iOS/bin/iPhoneSimulator/Debug//CoAPNonIP.iOS.exe \

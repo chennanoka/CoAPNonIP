@@ -15,7 +15,7 @@ namespace LibCoAPNonIP.Network {
     public abstract class AbstractNetwork {
 
         //boardcast signal
-        abstract public void Broadcast();
+        abstract public void Broadcast(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost);
         //sinff for devices
         abstract public bool SniffPeers(int timeout /*s*/);
         //search devices
