@@ -17,11 +17,17 @@ namespace CoAPNonIP.iOS {
             set;
         }
         public override bool WillFinishLaunching(UIApplication application, NSDictionary launchOptions) {
+            rr_mainviewctl = new MainViewCtl();
             CoAPService = new App("CoAP_Demo", UIDevice.CurrentDevice.Name);
             CoAPService.InitSenders(5);
             CoAPService.InitReceiver();
             CoAPService.InitProcessers(10);
-            CoAPService.RegisterResource("Benchmark",(Device sender , CoAPRequest request)=>{
+            CoAPService.RegisterResource("benchmark",(Device sender , CoAPRequest request)=>{
+                rr_mainviewctl.RequestReceived(
+                    sender.DisplayName , 
+                    request.GetMessageId(),
+                    request.GetPayload()
+                );
                 CoAPResponse resp = new CoAPResponse(CoAPMsgType.ACK , CoAPMsgCode.CONTENT , request);
                 resp.AddPayload("OK");
                 return resp;
@@ -37,7 +43,7 @@ namespace CoAPNonIP.iOS {
             Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
             // If you have defined a root view controller, set it here:
-            Window.RootViewController = new MainViewCtl();
+            Window.RootViewController = rr_mainviewctl;
 
             // make the window visible
             Window.MakeKeyAndVisible();
@@ -71,6 +77,7 @@ namespace CoAPNonIP.iOS {
         }
 
         public static App CoAPService{ get; set; }
+        private MainViewCtl rr_mainviewctl;
     }
 }
 

@@ -3,6 +3,7 @@ using Foundation;
 using UIKit;
 using ObjCRuntime;
 using System.Reflection;
+using LibCoAPNonIP.Network;
 
 namespace CoAPNonIP.iOS {
     public class MainViewCtl:UIViewController {
@@ -24,6 +25,10 @@ namespace CoAPNonIP.iOS {
         public override void TouchesBegan(NSSet touches, UIEvent evt) {
             base.TouchesBegan(touches, evt);
             rr_mainview.CancelKeyboard();
+        }
+
+        public void RequestReceived(string from , ushort msgid ,string msg) {
+            rr_mainview.RecvRequestMsg(from , msgid , msg);
         }
 
         private iPadMainView rr_mainview;

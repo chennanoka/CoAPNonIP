@@ -51,6 +51,9 @@ namespace CoAPNonIP.iOS
 		UIKit.UILabel LblMsgSentCnt { get; set; }
 
 		[Outlet]
+		UIKit.UILabel LblMyID { get; set; }
+
+		[Outlet]
 		UIKit.UILabel LblRole { get; set; }
 
 		[Outlet]
@@ -76,14 +79,34 @@ namespace CoAPNonIP.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (BtnDel != null) {
+				BtnDel.Dispose ();
+				BtnDel = null;
+			}
+
+			if (BtnGet != null) {
+				BtnGet.Dispose ();
+				BtnGet = null;
+			}
+
+			if (BtnPost != null) {
+				BtnPost.Dispose ();
+				BtnPost = null;
+			}
+
+			if (BtnPut != null) {
+				BtnPut.Dispose ();
+				BtnPut = null;
+			}
+
+			if (BtnRecMsgQ != null) {
+				BtnRecMsgQ.Dispose ();
+				BtnRecMsgQ = null;
+			}
+
 			if (BtnStartBenchmark != null) {
 				BtnStartBenchmark.Dispose ();
 				BtnStartBenchmark = null;
-			}
-
-			if (UIDeviceList != null) {
-				UIDeviceList.Dispose ();
-				UIDeviceList = null;
 			}
 
 			if (BtnTestBandWidth != null) {
@@ -96,21 +119,6 @@ namespace CoAPNonIP.iOS
 				BtnTestCoAPPerf = null;
 			}
 
-			if (TxtFMinPayload != null) {
-				TxtFMinPayload.Dispose ();
-				TxtFMinPayload = null;
-			}
-
-			if (TxtFMaxPayload != null) {
-				TxtFMaxPayload.Dispose ();
-				TxtFMaxPayload = null;
-			}
-
-			if (TxtFRepeatTime != null) {
-				TxtFRepeatTime.Dispose ();
-				TxtFRepeatTime = null;
-			}
-
 			if (BtnTestLatency != null) {
 				BtnTestLatency.Dispose ();
 				BtnTestLatency = null;
@@ -121,39 +129,19 @@ namespace CoAPNonIP.iOS
 				BtnTestThroughput = null;
 			}
 
-			if (BtnRecMsgQ != null) {
-				BtnRecMsgQ.Dispose ();
-				BtnRecMsgQ = null;
+			if (LblDevCount != null) {
+				LblDevCount.Dispose ();
+				LblDevCount = null;
 			}
 
-			if (TxtFCoAPMsg != null) {
-				TxtFCoAPMsg.Dispose ();
-				TxtFCoAPMsg = null;
+			if (LblMsgRecvCnt != null) {
+				LblMsgRecvCnt.Dispose ();
+				LblMsgRecvCnt = null;
 			}
 
-			if (BtnPost != null) {
-				BtnPost.Dispose ();
-				BtnPost = null;
-			}
-
-			if (BtnGet != null) {
-				BtnGet.Dispose ();
-				BtnGet = null;
-			}
-
-			if (BtnPut != null) {
-				BtnPut.Dispose ();
-				BtnPut = null;
-			}
-
-			if (BtnDel != null) {
-				BtnDel.Dispose ();
-				BtnDel = null;
-			}
-
-			if (TxtRespHistory != null) {
-				TxtRespHistory.Dispose ();
-				TxtRespHistory = null;
+			if (LblMsgSentCnt != null) {
+				LblMsgSentCnt.Dispose ();
+				LblMsgSentCnt = null;
 			}
 
 			if (LblRole != null) {
@@ -166,19 +154,39 @@ namespace CoAPNonIP.iOS
 				LblStatus = null;
 			}
 
-			if (LblDevCount != null) {
-				LblDevCount.Dispose ();
-				LblDevCount = null;
+			if (TxtFCoAPMsg != null) {
+				TxtFCoAPMsg.Dispose ();
+				TxtFCoAPMsg = null;
 			}
 
-			if (LblMsgSentCnt != null) {
-				LblMsgSentCnt.Dispose ();
-				LblMsgSentCnt = null;
+			if (TxtFMaxPayload != null) {
+				TxtFMaxPayload.Dispose ();
+				TxtFMaxPayload = null;
 			}
 
-			if (LblMsgRecvCnt != null) {
-				LblMsgRecvCnt.Dispose ();
-				LblMsgRecvCnt = null;
+			if (TxtFMinPayload != null) {
+				TxtFMinPayload.Dispose ();
+				TxtFMinPayload = null;
+			}
+
+			if (TxtFRepeatTime != null) {
+				TxtFRepeatTime.Dispose ();
+				TxtFRepeatTime = null;
+			}
+
+			if (TxtRespHistory != null) {
+				TxtRespHistory.Dispose ();
+				TxtRespHistory = null;
+			}
+
+			if (UIDeviceList != null) {
+				UIDeviceList.Dispose ();
+				UIDeviceList = null;
+			}
+
+			if (LblMyID != null) {
+				LblMyID.Dispose ();
+				LblMyID = null;
 			}
 		}
 	}

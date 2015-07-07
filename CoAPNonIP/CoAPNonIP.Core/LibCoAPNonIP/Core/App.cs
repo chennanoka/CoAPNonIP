@@ -156,7 +156,7 @@ namespace LibCoAPNonIP {
             for (int i = 0; i != nProcessers; ++i) {
                 rr_Processers[i] = new MsgQueueThread((object data) => {
                     ProcesserMsg msg = (ProcesserMsg)data;
-                    string URI = msg.Msg.GetURL();
+                    string URI = msg.Msg.GetPath();
                     rr_oplock_resources.AcquireReaderLock(-1);
                     if (!rr_resources.ContainsKey(URI)) {
                         //illegal request (resource not found)
@@ -233,6 +233,7 @@ namespace LibCoAPNonIP {
             //should be considered rewrite later
             rtn.Add("Role" , rr_role2string[(int)rr_network.CurRole]);
             rtn.Add("DeviceCnt" , rr_network.ActivePeers.Count.ToString());
+            rtn.Add("Status" , rr_status2string[(int)rr_network.CurStatus]);
             return rtn;
         }
 
@@ -242,6 +243,16 @@ namespace LibCoAPNonIP {
             "Seeker",
             "N/A",
             "MIX",
+        };
+
+        private static string[] rr_status2string = new string[]{
+            "NONE",
+            "Waiting for devices",
+            "New peer found",
+            "Seeking for peers",
+            "New peer joined",
+            "A peer lost",
+            "Sniffing peers"
         };
 
         private void default_data_recv_callback(Device From, byte[] data) {
