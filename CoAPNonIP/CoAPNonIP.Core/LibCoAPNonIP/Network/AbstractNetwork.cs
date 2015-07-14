@@ -6,7 +6,8 @@ namespace LibCoAPNonIP.Network {
         NONE = 0x00,
         BROADCASTER = 0x01,
         SEEKER = 0x02,
-        MIX = 0x04
+        AUTO = 0x04,
+        MIX = 0x08,
     };
 //    public delegate void MsgSentCallback(int MsgID , CoAPResponse Resp);// should not be implemented at this level
     public delegate void PeerFoundCallback( Device FoundPeer );
@@ -15,11 +16,13 @@ namespace LibCoAPNonIP.Network {
     public abstract class AbstractNetwork {
 
         //boardcast signal
-        abstract public void Broadcast(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost);
+        abstract public void Broadcast(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost , string pattern = "");
         //sinff for devices
-        abstract public bool SniffPeers(int timeout /*s*/);
+        abstract public bool SniffPeers(int timeout /*s*/ , string pattern = "");
         //search devices
-        abstract public void SearchPeers(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, double timeout);
+        abstract public void SearchPeers(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, double timeout , string pattern = "" , bool autostop = false);
+        //working in cluster modes
+        abstract public void Cluster(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, double timeout, string pattern = "");//TODO
         //get nodes
         abstract public Device[] GetNodes();
         //send data

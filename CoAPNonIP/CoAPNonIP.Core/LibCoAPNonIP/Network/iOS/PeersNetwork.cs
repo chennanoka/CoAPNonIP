@@ -41,12 +41,16 @@ namespace LibCoAPNonIP.Network.iOS {
         private void __construct() {
             CurRole = ROLE.NONE;
             rr_myPeerID = new MCPeerID(rr_myDevice.DisplayName);
+            rr_myDevice.PeerID = rr_myPeerID;
             rr_mySession = new MCSession(rr_myPeerID);
             rr_mySession.Delegate = new SessionDelegate(this);
             PeerTimeout = 60;//s
             strSessionState = "";
             SessionState = SESSION_STATUS.INIT;
             rr_WhenDataRecv = null;
+
+            PeersMatchPattern = "";
+            AutoStopSeeking = false;
 
             ActivePeers = new Dictionary<string, Device>();
             oplock_SendQueue = new Mutex();
@@ -74,11 +78,12 @@ namespace LibCoAPNonIP.Network.iOS {
             }
         }
 
-        public override void Broadcast(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost) {
+        public override void Broadcast(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, string pattern = "") {
             CurRole |= ROLE.BROADCASTER;
             CurStatus = NETWORK_STATUS.WAIT_FOR_DEV;
             this.rr_WhenPeerFound = WhenPeerFound;
             this.rr_WhenPeerLost = WhenPeerLost;
+            this.PeersMatchPattern = pattern;
 
             NSDictionary emptyDict = new NSDictionary();
 
@@ -87,10 +92,12 @@ namespace LibCoAPNonIP.Network.iOS {
             rr_broadcaster.StartAdvertisingPeer();
         }
 
-        public override void SearchPeers(PeerFoundCallback WhenPeerFound = null, PeerLostCallback WhenPeerLost = null, double timeout = 60) {
+        public override void SearchPeers(PeerFoundCallback WhenPeerFound = null, PeerLostCallback WhenPeerLost = null, double timeout = 60 , string pattern = "" , bool autostop = false) {
             this.PeerTimeout = timeout;
             this.rr_WhenPeerFound = WhenPeerFound;
             this.rr_WhenPeerLost = WhenPeerLost;
+            this.PeersMatchPattern = pattern;
+            this.AutoStopSeeking = autostop;
             CurRole |= ROLE.SEEKER;
             CurStatus = NETWORK_STATUS.SEEKING_PEERS;
             rr_seeker = new MCNearbyServiceBrowser(rr_myPeerID, rr_basicServiceType);
@@ -98,8 +105,13 @@ namespace LibCoAPNonIP.Network.iOS {
             rr_seeker.StartBrowsingForPeers();
         }
 
-        public override bool SniffPeers(int timeout /*s*/) {
+        public void StopSearching() {
+            rr_seeker.StopBrowsingForPeers();
+        }
+
+        public override bool SniffPeers(int timeout /*s*/, string pattern = "") {
             CurStatus = NETWORK_STATUS.SNIFFING_PEERS;
+            this.PeersMatchPattern = pattern;
             PeerDetected = false;
             MCNearbyServiceBrowser sniffer = new MCNearbyServiceBrowser(rr_myPeerID, rr_basicServiceType);
             sniffer.Delegate = new SnifferDelegate(this);
@@ -122,6 +134,19 @@ namespace LibCoAPNonIP.Network.iOS {
             sniffer_monitor_thread.Join();
             return PeerDetected;
         }
+
+        public override void Cluster(PeerFoundCallback WhenPeerFound, PeerLostCallback WhenPeerLost, double timeout, string pattern = "") {
+            throw new NotImplementedException();
+            //TODO:
+            //Broadcast and Seeking for signal simultaneously. Initiate two dictionaries to store clients & servers list.
+            //Keeping Seeking for timeout period for start-up,
+            //Then set AutoStopSeeking = true, switch off seeking after a new peer joined the cluster
+            //Launch a monitor thread to send PING request to every other nodes in the cluster every 30 seconds
+            //If doesn't receive a PONG request from a remote device, flag it as "potential unavailable",
+            //Then calculate how many other devices have marked it as well. If over half of the nodes voted it as "potential unavailable",
+            //Then mark it as "unavailable", clean it up and send out notification to all other connected nodes.
+        }
+
 
         public override Device[] GetNodes() {
             Device[] rtn = new Device[ActivePeers.Count];
@@ -185,6 +210,9 @@ namespace LibCoAPNonIP.Network.iOS {
         public List< SendQueueElement > SendQueue;
 
         public bool PeerDetected{ get; set; }
+
+        public string PeersMatchPattern{ get; set; }
+        public bool AutoStopSeeking { get; set; }
 
 
         private Device rr_myDevice;
@@ -342,6 +370,9 @@ namespace LibCoAPNonIP.Network.iOS {
         }
 
         public override void DidReceiveInvitationFromPeer(MCNearbyServiceAdvertiser advertiser, MCPeerID peerID, NSData context, MCNearbyServiceAdvertiserInvitationHandler invitationHandler) {
+            if (rr_caller.PeersMatchPattern != "" && !peerID.DisplayName.StartsWith(rr_caller.PeersMatchPattern)) {
+                return;
+            }
             rr_caller.CurStatus = NETWORK_STATUS.NEW_PEER_FOUND;
             invitationHandler(true, rr_caller.GetSession());
         }
@@ -356,6 +387,9 @@ namespace LibCoAPNonIP.Network.iOS {
         }
 
         public override void FoundPeer(MCNearbyServiceBrowser seeker, MCPeerID peerID, NSDictionary info) {
+            if (rr_caller.PeersMatchPattern != "" && !peerID.DisplayName.StartsWith(rr_caller.PeersMatchPattern)) {
+                return;
+            }
             rr_caller.PeerDetected = true;
             Console.WriteLine("Set TRUE");
         }
@@ -377,6 +411,9 @@ namespace LibCoAPNonIP.Network.iOS {
         }
 
         public override void FoundPeer(MCNearbyServiceBrowser seeker, MCPeerID peerID, NSDictionary info) {
+            if (rr_caller.PeersMatchPattern != "" && !peerID.DisplayName.StartsWith(rr_caller.PeersMatchPattern)) {
+                return;
+            }
             rr_caller.CurStatus = NETWORK_STATUS.PEER_JOIN;
             seeker.InvitePeer(peerID, rr_caller.GetSession(), rr_context, rr_PeerTimeout);
             Device new_dev = new Device(peerID.DisplayName , peerID);
@@ -387,6 +424,9 @@ namespace LibCoAPNonIP.Network.iOS {
                 rr_WhenPeerFound(new_dev);
             }
 
+            if (rr_caller.AutoStopSeeking) {
+                rr_caller.StopSearching();
+            }
         }
 
         public override void LostPeer(MCNearbyServiceBrowser seeker, MCPeerID peerID) {
