@@ -20,7 +20,7 @@ namespace LibCoAPNonIP.Network {
         //sinff for devices
         abstract public bool SniffPeers(int timeout /*s*/ , string pattern = "");
         //search devices
-        abstract public void SearchPeers(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, double timeout , string pattern = "" , bool autostop = false);
+        abstract public void SearchPeers(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, double timeout , bool autostop = false ,  string pattern = "");
         //working in cluster modes
         abstract public void Cluster(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, double timeout, string pattern = "");//TODO
         //get nodes

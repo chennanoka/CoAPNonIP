@@ -8,9 +8,9 @@ using LibCoAPNonIP.Exceptions;
 using LibCoAPNonIP.Utils;
 using System.Threading;
 
-
 namespace LibCoAPNonIP.Network.iOS {
     public enum NETWORK_STATUS {
+        INIT = 0,
         WAIT_FOR_DEV = 1,
         NEW_PEER_FOUND,
         SEEKING_PEERS,
@@ -26,223 +26,177 @@ namespace LibCoAPNonIP.Network.iOS {
         PEER_DISCONNECTED
     }
 
-
     public class PeersNetwork : AbstractNetwork {
-        public PeersNetwork() {
-            rr_myDevice = new Device();
-            __construct();
+        public PeersNetwork(string deviceName , string serviceName) {
         }
 
-        public PeersNetwork(string myDeviceName) {
-            rr_myDevice = new Device(myDeviceName);
-            __construct();
-        }
+        #region Public Functions
 
-        private void __construct() {
-            CurRole = ROLE.NONE;
-            rr_myPeerID = new MCPeerID(rr_myDevice.DisplayName);
-            rr_myDevice.PeerID = rr_myPeerID;
-            rr_mySession = new MCSession(rr_myPeerID);
-            rr_mySession.Delegate = new SessionDelegate(this);
-            PeerTimeout = 60;//s
-            strSessionState = "";
-            SessionState = SESSION_STATUS.INIT;
-            rr_WhenDataRecv = null;
-
-            PeersMatchPattern = "";
-            AutoStopSeeking = false;
-
-            ActivePeers = new Dictionary<string, Device>();
-            oplock_SendQueue = new Mutex();
-            SendQueue = new List<SendQueueElement>();
-
-            rr_DataThreads = new Dictionary<string, NetworkTransmissionThread>();
-        }
-
-        public MCSession GetSession() {
-            return rr_mySession;
-        }
-
-        public string GetMyDeviceName() {
-            return rr_myDevice.DisplayName;
-        }
-
-        public void WhenPeerFound(Device peer) {
-            if (rr_WhenPeerFound != null) {
-                rr_WhenPeerFound(peer);
-            }
-        }
-        public void WhenPeerLost(Device peer) {
-            if (rr_WhenPeerLost != null) {
-                rr_WhenPeerLost(peer);
-            }
-        }
-
-        public override void Broadcast(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, string pattern = "") {
-            CurRole |= ROLE.BROADCASTER;
-            CurStatus = NETWORK_STATUS.WAIT_FOR_DEV;
-            this.rr_WhenPeerFound = WhenPeerFound;
-            this.rr_WhenPeerLost = WhenPeerLost;
-            this.PeersMatchPattern = pattern;
-
-            NSDictionary emptyDict = new NSDictionary();
-
-            rr_broadcaster = new MCNearbyServiceAdvertiser(rr_myPeerID, emptyDict, rr_basicServiceType);
-            rr_broadcaster.Delegate = new BroadcastDelegate(this);
-            rr_broadcaster.StartAdvertisingPeer();
-        }
-
-        public override void SearchPeers(PeerFoundCallback WhenPeerFound = null, PeerLostCallback WhenPeerLost = null, double timeout = 60 , string pattern = "" , bool autostop = false) {
-            this.PeerTimeout = timeout;
-            this.rr_WhenPeerFound = WhenPeerFound;
-            this.rr_WhenPeerLost = WhenPeerLost;
-            this.PeersMatchPattern = pattern;
-            this.AutoStopSeeking = autostop;
-            CurRole |= ROLE.SEEKER;
-            CurStatus = NETWORK_STATUS.SEEKING_PEERS;
-            rr_seeker = new MCNearbyServiceBrowser(rr_myPeerID, rr_basicServiceType);
-            rr_seeker.Delegate = new SeekerDelegate(this, rr_WhenPeerFound, rr_WhenPeerLost, PeerTimeout);
-            rr_seeker.StartBrowsingForPeers();
-        }
-
-        public void StopSearching() {
-            rr_seeker.StopBrowsingForPeers();
-        }
-
-        public override bool SniffPeers(int timeout /*s*/, string pattern = "") {
-            CurStatus = NETWORK_STATUS.SNIFFING_PEERS;
-            this.PeersMatchPattern = pattern;
-            PeerDetected = false;
-            MCNearbyServiceBrowser sniffer = new MCNearbyServiceBrowser(rr_myPeerID, rr_basicServiceType);
-            sniffer.Delegate = new SnifferDelegate(this);
-            sniffer.StartBrowsingForPeers();
-            Console.WriteLine("Start sniffing");
-            Thread sniffer_monitor_thread = new Thread(new ThreadStart(() => {
-                int starttime = AbstractTimeUtils.UnixTimestamp();
-                while (true) {
-                    int nowtime = AbstractTimeUtils.UnixTimestamp();
-                    if (PeerDetected || (nowtime - starttime) > timeout) {
-                        Console.WriteLine("----====RETURN===----");
-                        Console.WriteLine(PeerDetected.ToString() + ":" + (nowtime - starttime).ToString());
+        public void DispatchData(Device target) {
+            NSError err = null;
+            NSOutputStream stream = rr_mySession.StartStream(
+                "MSG:" + rr_myDevice.DisplayName + ":" + AbstractTimeUtils.UnixTimestamp().ToString(),
+                target,
+                out err
+            );
+            stream.Delegate = this;
+            stream.OnEvent += (object sender, NSStreamEventArgs e) => {
+                switch(e.StreamEvent) {
+                    case NSStreamEvent.HasSpaceAvailable: {
+                            //TODO: try to store & send data here
+                        }
                         break;
-                    }
+                    default:
+                        break;  
                 }
-                Console.WriteLine("Stop sniffing");
-                sniffer.StopBrowsingForPeers();
-            }));
-            sniffer_monitor_thread.Start();
-            sniffer_monitor_thread.Join();
-            return PeerDetected;
-        }
-
-        public override void Cluster(PeerFoundCallback WhenPeerFound, PeerLostCallback WhenPeerLost, double timeout, string pattern = "") {
-            throw new NotImplementedException();
-            //TODO:
-            //Broadcast and Seeking for signal simultaneously. Initiate two dictionaries to store clients & servers list.
-            //Keeping Seeking for timeout period for start-up,
-            //Then set AutoStopSeeking = true, switch off seeking after a new peer joined the cluster
-            //Launch a monitor thread to send PING request to every other nodes in the cluster every 30 seconds
-            //If doesn't receive a PONG request from a remote device, flag it as "potential unavailable",
-            //Then calculate how many other devices have marked it as well. If over half of the nodes voted it as "potential unavailable",
-            //Then mark it as "unavailable", clean it up and send out notification to all other connected nodes.
-        }
-
-
-        public override Device[] GetNodes() {
-            Device[] rtn = new Device[ActivePeers.Count];
-            int i = 0;
-            foreach (KeyValuePair< string , Device > pair in ActivePeers) {
-                rtn[i++] = pair.Value;
-            }
-            return rtn;
-        }
-
-        public override int SendData(Device[] Destination, byte[] payload) {
-            //simultaneously send out the stream
-            oplock_SendQueue.WaitOne();
-            for (int i = 0; i != Destination.Length; ++i) {
-                if (!ActivePeers.ContainsKey(Destination[i].DisplayName)) {
-                    throw new NetworkException("Device Lost");
+            };
+            int upper;
+            rr_oplock_sendQueue.AcquireReaderLock(-1);
+            upper = rr_sendQueue.Count;
+            rr_oplock_sendQueue.ReleaseReaderLock();
+            for (int i = 0; i != upper;) {
+                rr_oplock_sendQueue.AcquireReaderLock(-1);
+                upper = rr_sendQueue.Count;
+                if (!rr_sendQueue[i].isTarget(target.DisplayName)) {
+                    rr_oplock_sendQueue.ReleaseReaderLock();
+                    continue;
                 }
-                Destination[i].PeerID = ActivePeers[Destination[i].DisplayName].PeerID;
+                byte[] data;
+                rr_sendQueue[i].GetData(out data);
+                rr_oplock_sendQueue.ReleaseReaderLock();
+                /**
+                 * Send out the data
+                 */
+                /*
+                //Try to use stream API which is claimed faster than SendData
+                NSError err = null;
+                rr_mySession.SendData(
+                    NSData.FromArray(data),
+                    new MCPeerID[]{ target.PeerID },
+                    MCSessionSendDataMode.Reliable,
+                    out err
+                );
+                */
             }
-            SendQueue.Add(new SendQueueElement(Destination, payload));
-            oplock_SendQueue.ReleaseMutex();
-            for (int i = 0; i != Destination.Length; ++i) {
-                rr_DataThreads[Destination[i].DisplayName].Signal.Set();
+            /*for (int i = 0; i != rr_Caller.SendQueue.Count;) {
+            if (!rr_Caller.SendQueue[i].isTarget(rr_TargetDev.DisplayName)) {
+                ++i;
+                continue;
             }
-            return payload.Length;
-        }
-
-        public override void SetRecvDataFunc(DataRecvCallback Func) {
-            rr_WhenDataRecv = Func;
-        }
-
-        public DataRecvCallback GetRecvDataFunc() {
-            if (rr_WhenDataRecv == null) {
-                throw new NetworkException("Do not have callback handler for received data");
+            byte[] data;
+            bool is_all_sent;
+            is_all_sent = rr_Caller.SendQueue[i].GetData(out data);
+            NSError err = null;
+            rr_Caller.GetSession().SendData(
+                NSData.FromArray(data),
+                new MCPeerID[]{ rr_TargetDev },
+                MCSessionSendDataMode.Reliable,
+                out err
+            );
+            if (is_all_sent) {
+                rr_Caller.oplock_SendQueue.WaitOne();
+                rr_Caller.SendQueue.RemoveAt(i);
+                rr_Caller.oplock_SendQueue.ReleaseMutex();
+            } else {
+                ++i;
             }
-            return rr_WhenDataRecv;
+            */
         }
+        #endregion
 
-        public void NewDataThread(MCPeerID targetDev) {
-            NetworkTransmissionThread DataThread = new NetworkTransmissionThread(this, targetDev);
-            rr_DataThreads.Add(targetDev.DisplayName, DataThread);
-            rr_DataThreads[targetDev.DisplayName].Run();
+        #region Public Members
+        public string           strSessionState;
+        public SESSION_STATUS   SessionState;
+        public NETWORK_STATUS   CurStatus;
+        public ROLE             CurRole;
+        public int              PeerTimeout{ get; set; }
+        public bool             PeerDetected{ get; set; }//used by Sniffer functions
+        public bool             PeersMatchPattern { get; set; }
+        public bool             AutoStopSearching { get; set; }
+        #endregion
+
+        #region Private Functions
+
+        /// <summary>
+        /// Construct this instance. 
+        /// Initiate every member
+        /// </summary>
+        private void __construct() {
+            //initialize public members
+            strSessionState = "";
+            CurStatus = NETWORK_STATUS.INIT;
+            CurRole = ROLE.NONE;
+            SessionState = SESSION_STATUS.INIT;
+            PeerTimeout = 10;//s
+            PeerDetected = false;
+            PeersMatchPattern = "";
+            AutoStopSearching = false;
+
+            //initialize private members
+            rr_activePeers = new Dictionary<string, Device>();
+            rr_oplock_peers = new ReaderWriterLock();
+
+            rr_activeClients = null;
+            rr_oplock_clients = null;
+            rr_activeServers = null;
+            rr_oplock_servers = null;
+
+            rr_sendQueue = new List<SendQueueElement>();
+            rr_oplock_sendQueue = new ReaderWriterLock();
         }
+        #endregion
 
-        public void DeleteDataThread(string targetDev) {
-            if (!rr_DataThreads.ContainsKey(targetDev)) {
-                throw new NetworkException("Target device:[" + targetDev + "] doesn't exist");
-            }
-            rr_DataThreads[targetDev].Terminate();
-            rr_DataThreads.Remove(targetDev);
-        }
+        #region Private Members;
+        /// <summary>
+        /// current active peers (regardless of it is a client or server)
+        /// </summary>
+        private Dictionary< string , Device >   rr_activePeers;
+        private ReaderWriterLock                rr_oplock_peers;
 
-        public string strSessionState;
-        public SESSION_STATUS SessionState;
-        public NETWORK_STATUS CurStatus;
-        public ROLE CurRole;
-        public double PeerTimeout;
-        public Dictionary< string , Device > ActivePeers;
-        //TODO: add oplock and thread-safe operations to ActivePeers
-        public Mutex oplock_SendQueue;
-        public List< SendQueueElement > SendQueue;
+        /**
+         * If network is set to cluster mode, activeClients will store the current connected clients
+         * and activeServers will store the remote devices that this device is current connecting to.
+         * 
+         * The following 4 member will be set to null if network isn't working in cluster mode
+         */
+        private Dictionary< string , Device >   rr_activeClients;
+        private ReaderWriterLock                rr_oplock_clients;
+        private Dictionary< string , Device >   rr_activeServers;
+        private ReaderWriterLock                rr_oplock_servers;
 
-        public bool PeerDetected{ get; set; }
-
-        public string PeersMatchPattern{ get; set; }
-        public bool AutoStopSeeking { get; set; }
-
-
-        private Device rr_myDevice;
-        private MCPeerID rr_myPeerID;
-        private MCSession rr_mySession;
-        private MCNearbyServiceAdvertiser rr_broadcaster;
-        private MCNearbyServiceBrowser rr_seeker;
-        private const string rr_basicServiceType = "CoAP-NonIP";
-
-        private PeerFoundCallback rr_WhenPeerFound;
-        private PeerLostCallback rr_WhenPeerLost;
-        private DataRecvCallback rr_WhenDataRecv;
+        /// <summary>
+        /// SendQueue stores the data waiting to be sent
+        /// </summary>
+        private List< SendQueueElement >        rr_sendQueue;
+        private ReaderWriterLock                rr_oplock_sendQueue;
 
         private Dictionary< string , NetworkTransmissionThread > rr_DataThreads;
 
+        private MCSession                   rr_mySession;
+        private MCPeerID                    rr_myPeerID;
+        private Device                      rr_myDevice;
+        private MCNearbyServiceAdvertiser   rr_broadcaster;
+        private MCNearbyServiceBrowser      rr_seeker;
+        private string                      rr_serviceName;
+        #endregion
     }
 
     public class SendQueueElement {
-        private MCPeerID[] rr_target;
+
+        public bool ShoudBeDeleted { get; set; }
+        private Device[] rr_target;
         private Mutex rr_oplock;
         private int rr_stock;
         private byte[] rr_data;
 
         public SendQueueElement(Device[] Targets, byte[] payload) {
+            ShoudBeDeleted = false;
             rr_oplock = new Mutex();
             rr_stock = Targets.Length;
             rr_data = payload;
-            rr_target = new MCPeerID[rr_stock];
+            rr_target = new Device[rr_stock];
             for (int i = 0; i != rr_stock; ++i) {
-                rr_target[i] = Targets[i].PeerID;
+                rr_target[i] = Targets[i];
             }
         }
 
@@ -258,8 +212,10 @@ namespace LibCoAPNonIP.Network.iOS {
             data = rr_data;
             bool rtn = false;
             rr_oplock.WaitOne();
-            if (--rr_stock == 0)
+            if (!(--rr_stock)) {
+                ShoudBeDeleted = true;
                 rtn = true;
+            }
             rr_oplock.ReleaseMutex();
             return rtn;
         }
@@ -298,246 +254,11 @@ namespace LibCoAPNonIP.Network.iOS {
             //otherwise, creat new stream
             while (true) {
                 this.Signal.WaitOne();
-                for (int i = 0; i != rr_Caller.SendQueue.Count;) {
-                    if (!rr_Caller.SendQueue[i].isTarget(rr_TargetDev.DisplayName)) {
-                        ++i;
-                        continue;
-                    }
-                    byte[] data;
-                    bool is_all_sent;
-                    is_all_sent = rr_Caller.SendQueue[i].GetData(out data);
-                    NSError err = null;
-                    rr_Caller.GetSession().SendData(
-                        NSData.FromArray(data),
-                        new MCPeerID[]{ rr_TargetDev },
-                        MCSessionSendDataMode.Reliable,
-                        out err
-                    );
-                    if (is_all_sent) {
-                        rr_Caller.oplock_SendQueue.WaitOne();
-                        rr_Caller.SendQueue.RemoveAt(i);
-                        rr_Caller.oplock_SendQueue.ReleaseMutex();
-                    } else {
-                        ++i;
-                    }
-                }
-            }
-        }
-        private void ThreadFuncStreamVersion() {
-            //wait for a semaphore，
-            //Then consume the data from the queue,
-            //If GetData return true, then Remove the message from the queue
-            //if Outstream has already been configured, use it directly,
-            //otherwise, creat new stream
-            while (true) {
-                this.Signal.WaitOne();
-                if (rr_DataStream == null) {
-                    NSError err = null;
-                    rr_DataStream = rr_Caller.GetSession().StartStream(
-                        "MSG:" + rr_Caller.GetMyDeviceName() + ":" + AbstractTimeUtils.UnixTimestamp().ToString(),
-                        rr_TargetDev,
-                        out err
-                    );
-                    if (rr_DataStream == null) {
-                        throw new NetworkException("START STREAM FAIL:" + err.LocalizedDescription);
-                    }
-                }
-                for (int i = 0; i != rr_Caller.SendQueue.Count;) {
-                    if (!rr_Caller.SendQueue[i].isTarget(rr_TargetDev.DisplayName)) {
-                        ++i;
-                        continue;
-                    }
-                    byte[] data;
-                    bool is_all_sent;
-                    is_all_sent = rr_Caller.SendQueue[i].GetData(out data);
-                    rr_DataStream.Write(data);
-                    if (is_all_sent) {
-                        rr_Caller.oplock_SendQueue.WaitOne();
-                        rr_Caller.SendQueue.RemoveAt(i);
-                        rr_Caller.oplock_SendQueue.ReleaseMutex();
-                    } else {
-                        ++i;
-                    }
-                }
+                //TODO
             }
         }
 
-    }
 
-    public class BroadcastDelegate : MCNearbyServiceAdvertiserDelegate {
-        public BroadcastDelegate(PeersNetwork Caller) {
-            this.rr_caller = Caller;
-        }
-
-        public override void DidReceiveInvitationFromPeer(MCNearbyServiceAdvertiser advertiser, MCPeerID peerID, NSData context, MCNearbyServiceAdvertiserInvitationHandler invitationHandler) {
-            if (rr_caller.PeersMatchPattern != "" && !peerID.DisplayName.StartsWith(rr_caller.PeersMatchPattern)) {
-                return;
-            }
-            rr_caller.CurStatus = NETWORK_STATUS.NEW_PEER_FOUND;
-            invitationHandler(true, rr_caller.GetSession());
-        }
-
-        private PeersNetwork rr_caller;
-
-    }
-
-    public class SnifferDelegate : MCNearbyServiceBrowserDelegate {
-        public SnifferDelegate(PeersNetwork Caller) {
-            rr_caller = Caller;
-        }
-
-        public override void FoundPeer(MCNearbyServiceBrowser seeker, MCPeerID peerID, NSDictionary info) {
-            if (rr_caller.PeersMatchPattern != "" && !peerID.DisplayName.StartsWith(rr_caller.PeersMatchPattern)) {
-                return;
-            }
-            rr_caller.PeerDetected = true;
-            Console.WriteLine("Set TRUE");
-        }
-
-        public override void LostPeer(MCNearbyServiceBrowser seeker, MCPeerID peerID) {
-            //Do nothing
-        }
-
-        private PeersNetwork rr_caller;
-    }
-
-    public class SeekerDelegate : MCNearbyServiceBrowserDelegate {
-        public SeekerDelegate(PeersNetwork Caller, PeerFoundCallback PeerFoundFunc, PeerLostCallback PeerLostFunc, double timeout) {
-            this.rr_caller = Caller;
-            this.rr_context = new NSData();
-            this.rr_WhenPeerFound = PeerFoundFunc;
-            this.rr_WhenPeerLost = PeerLostFunc;
-            this.rr_PeerTimeout = timeout;
-        }
-
-        public override void FoundPeer(MCNearbyServiceBrowser seeker, MCPeerID peerID, NSDictionary info) {
-            if (rr_caller.PeersMatchPattern != "" && !peerID.DisplayName.StartsWith(rr_caller.PeersMatchPattern)) {
-                return;
-            }
-            rr_caller.CurStatus = NETWORK_STATUS.PEER_JOIN;
-            seeker.InvitePeer(peerID, rr_caller.GetSession(), rr_context, rr_PeerTimeout);
-            Device new_dev = new Device(peerID.DisplayName , peerID);
-            rr_caller.ActivePeers.Add(peerID.DisplayName, new_dev);
-            //Create a new Data Thread for this Device
-            rr_caller.NewDataThread(peerID);
-            if (rr_WhenPeerFound != null) {
-                rr_WhenPeerFound(new_dev);
-            }
-
-            if (rr_caller.AutoStopSeeking) {
-                rr_caller.StopSearching();
-            }
-        }
-
-        public override void LostPeer(MCNearbyServiceBrowser seeker, MCPeerID peerID) {
-            rr_caller.CurStatus = NETWORK_STATUS.PEER_LOST;
-            Device dev = new Device(peerID.DisplayName , peerID);
-            if (rr_WhenPeerLost != null) {
-                rr_WhenPeerLost(dev);
-            }
-            rr_caller.ActivePeers.Remove(peerID.DisplayName);
-            //Terminate the relate Data Thread;
-            rr_caller.DeleteDataThread(peerID.DisplayName);
-        }
-
-        public override void DidNotStartBrowsingForPeers(MCNearbyServiceBrowser browser, NSError error) {
-            throw new NetworkException("Did not start seeking for peers");
-        }
-
-        private PeersNetwork rr_caller;
-        private NSData rr_context;
-
-        private PeerFoundCallback rr_WhenPeerFound;
-        private PeerLostCallback rr_WhenPeerLost;
-        private double rr_PeerTimeout;
-
-    }
-
-    public class SessionDelegate : MCSessionDelegate {
-
-        public SessionDelegate(PeersNetwork Caller) {
-            rr_caller = Caller;
-        }
-
-        public override void DidChangeState(MCSession session, MCPeerID peerID, MCSessionState state) {
-            switch (state) {
-                case MCSessionState.Connected:
-                    rr_caller.SessionState = SESSION_STATUS.PEER_CONNECTED;
-                    rr_caller.strSessionState = "Connected to: " + peerID.DisplayName;
-                    if ((rr_caller.CurRole & ROLE.BROADCASTER) != ROLE.NONE) {
-                        Device new_dev = new Device(peerID.DisplayName , peerID);
-                        rr_caller.ActivePeers.Add(peerID.DisplayName, new_dev);
-                        //Create a new Data Thread for this Device
-                        rr_caller.NewDataThread(peerID);
-                        rr_caller.WhenPeerFound(new_dev);
-                    }
-                    break;
-                case MCSessionState.Connecting:
-                    rr_caller.CurStatus = NETWORK_STATUS.PEER_JOIN;
-                    rr_caller.SessionState = SESSION_STATUS.PEER_CONNECTING;
-                    rr_caller.strSessionState = "Connecting: " + peerID.DisplayName;
-                    break;
-                case MCSessionState.NotConnected:
-                    rr_caller.SessionState = SESSION_STATUS.PEER_DISCONNECTED;
-                    rr_caller.strSessionState = "Lost connection from: " + peerID.DisplayName;
-                    if ((rr_caller.CurRole & ROLE.BROADCASTER) != ROLE.NONE) {
-                        rr_caller.CurStatus = NETWORK_STATUS.PEER_LOST;
-                        Device dev = new Device(peerID.DisplayName , peerID);
-                        rr_caller.WhenPeerLost(dev);
-                        rr_caller.ActivePeers.Remove(peerID.DisplayName);
-                        //Terminate the relate Data Thread;
-                        rr_caller.DeleteDataThread(peerID.DisplayName);
-                    }
-                    break;
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
-        public override void DidReceiveStream(MCSession session, NSInputStream stream, string streamName, MCPeerID peerID) {
-//            throw new NotImplementedException();
-            stream.Open();
-            int nRecv;
-            int total_len = 0;
-            List< byte[] > data_list = new List<byte[]>();
-            if (stream.HasBytesAvailable()) {
-                while (true) {
-                    byte[] buffer = new byte[1024];
-                    nRecv = (int)stream.Read(buffer, (nuint)1024);
-                    data_list.Add(buffer);
-                    total_len += nRecv;
-                    if (nRecv < 1024) {
-                        break;
-                    }
-                }
-                byte[] data = new byte[total_len];
-                int upper = data_list.Count - 1;
-                int offset = 0;
-                for (int i = 0; i != upper; ++i) {
-                    Array.Copy(data_list[i], 0, data, offset, 1024);
-                    offset += 1024;
-                }
-                Array.Copy(data_list[upper], 0, data, offset, nRecv);
-                //Call User-defined callback function to process the received data;
-                DataRecvCallback Func = rr_caller.GetRecvDataFunc();
-                Func(new Device(peerID.DisplayName, peerID), data);
-            }
-        }
-
-        public override void DidReceiveData(MCSession session, NSData data, MCPeerID peerID) {
-            DataRecvCallback Func = rr_caller.GetRecvDataFunc();
-            Func(new Device(peerID.DisplayName, peerID), data.ToArray());
-        }
-
-        public override void DidStartReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSProgress progress) {
-            throw new NotImplementedException();
-        }
-
-        public override void DidFinishReceivingResource(MCSession session, string resourceName, MCPeerID fromPeer, NSUrl localUrl, NSError error) {
-            throw new NotImplementedException();
-        }
-
-        private PeersNetwork rr_caller;
     }
 }
 
