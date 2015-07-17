@@ -33,23 +33,6 @@ namespace LibCoAPNonIP.Network.iOS {
         #region Public Functions
 
         public void DispatchData(Device target) {
-            NSError err = null;
-            NSOutputStream stream = rr_mySession.StartStream(
-                "MSG:" + rr_myDevice.DisplayName + ":" + AbstractTimeUtils.UnixTimestamp().ToString(),
-                target,
-                out err
-            );
-            stream.Delegate = this;
-            stream.OnEvent += (object sender, NSStreamEventArgs e) => {
-                switch(e.StreamEvent) {
-                    case NSStreamEvent.HasSpaceAvailable: {
-                            //TODO: try to store & send data here
-                        }
-                        break;
-                    default:
-                        break;  
-                }
-            };
             int upper;
             rr_oplock_sendQueue.AcquireReaderLock(-1);
             upper = rr_sendQueue.Count;
@@ -67,6 +50,16 @@ namespace LibCoAPNonIP.Network.iOS {
                 /**
                  * Send out the data
                  */
+                NSError err = null;
+                NSOutputStream stream = rr_mySession.StartStream(
+                    rr_myDevice.DisplayName + "-" + target.DisplayName,
+                    target.PeerID,
+                    out err
+                );
+                if (err != null) {
+                    throw new NetworkException("Can not start stream:" + err.ToString());
+                }
+                stream.Open();
                 /*
                 //Try to use stream API which is claimed faster than SendData
                 NSError err = null;
