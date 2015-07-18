@@ -19,10 +19,10 @@ namespace LibCoAPNonIP.Network {
         abstract public void Broadcast(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost , string pattern = "");
         //sinff for devices
         abstract public bool SniffPeers(int timeout /*s*/ , string pattern = "");
-        //search devices
-        abstract public void SearchPeers(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, double timeout , bool autostop = false ,  string pattern = "");
+        //search devices (if timeout == -1, then will search for peers permanently until manually stop searching)
+        abstract public void SearchPeers(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, int timeout ,  string pattern = "");
         //working in cluster modes
-        abstract public void Cluster(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, double timeout, string pattern = "");//TODO
+        abstract public void Cluster(PeerFoundCallback WhenPeerFound , PeerLostCallback WhenPeerLost, int timeout, string pattern = "");
         //get nodes
         abstract public Device[] GetNodes();
         //send data

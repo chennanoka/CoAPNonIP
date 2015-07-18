@@ -18,7 +18,7 @@ namespace CoAPNonIP.iOS {
         }
         public override bool WillFinishLaunching(UIApplication application, NSDictionary launchOptions) {
             rr_mainviewctl = new MainViewCtl();
-            CoAPService = new App("CoAP_Demo", UIDevice.CurrentDevice.Name);
+            CoAPService = new App("CoAP-Demo", UIDevice.CurrentDevice.Name);
             CoAPService.InitSenders(5);
             CoAPService.InitReceiver();
             CoAPService.InitProcessers(10);

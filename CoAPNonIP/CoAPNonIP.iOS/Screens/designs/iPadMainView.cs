@@ -128,11 +128,13 @@ namespace CoAPNonIP.iOS {
 
         public void UIThreadFunc() {
             while (true) {
-                Dictionary<string , string> status = AppDelegate.CoAPService.GetNetworkStatus();
+                Dictionary<string , string> status = AppDelegate.CoAPService.GetNetworkInstance().GetNetworkStatus();
                 List<string> devlist = new List<string>();
-                string[] devs = AppDelegate.CoAPService.GetDevsInCluster();
-                for (int i = 0; i != devs.Length; ++i) {
-                    devlist.Add(devs[i]);
+                string[] devs = AppDelegate.CoAPService.GetNetworkInstance().GetNodesNames();
+                if (devs != null) {
+                    for (int i = 0; i != devs.Length; ++i) {
+                        devlist.Add(devs[i]);
+                    }
                 }
                 rr_devlist.UpdateList(devlist);
                 uint nSent;
