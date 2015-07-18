@@ -1448,6 +1448,19 @@ BOOL native_to_managed_trampoline_28 (id self, SEL _cmd, MonoMethod **managed_me
 	}
 @end
 
+@interface BenchmarkView : CoAPNonIP_iOS_UIMainView {
+}
+	-(id) init;
+@end
+@implementation BenchmarkView { } 
+
+	-(id) init
+	{
+		static MonoMethod *managed_method = NULL;
+		return native_to_managed_trampoline_5 (self, _cmd, &managed_method, "CoAPNonIP.iOS.BenchmarkView, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", ".ctor");
+	}
+@end
+
 @interface LibCoAPNonIP_Network_iOS_BroadcastDelegate : NSObject<MCNearbyServiceAdvertiserDelegate> {
 	void *__monoObjectGCHandle;
 }
@@ -2484,6 +2497,7 @@ BOOL native_to_managed_trampoline_28 (id self, SEL _cmd, MonoMethod **managed_me
 		{"CoAPNonIP_iOS_MsgCodePickerSource", "CoAPNonIP.iOS.MsgCodePickerSource, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
 		{"UIView", "UIKit.UIView, Xamarin.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065", NULL },
 		{"CoAPNonIP_iOS_UIMainView", "CoAPNonIP.iOS.UIMainView, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
+		{"BenchmarkView", "CoAPNonIP.iOS.BenchmarkView, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
 		{"LibCoAPNonIP_Network_iOS_BroadcastDelegate", "LibCoAPNonIP.Network.iOS.BroadcastDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
 		{"LibCoAPNonIP_Network_iOS_SnifferDelegate", "LibCoAPNonIP.Network.iOS.SnifferDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
 		{"LibCoAPNonIP_Network_iOS_SeekerDelegate", "LibCoAPNonIP.Network.iOS.SeekerDelegate, CoAPNonIP.iOS, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null", NULL },
@@ -2557,66 +2571,67 @@ void xamarin_create_classes () {
 	__xamarin_class_map [5].handle = [CoAPNonIP_iOS_MsgCodePickerSource class];
 	__xamarin_class_map [6].handle = objc_getClass ("UIView");
 	__xamarin_class_map [7].handle = [CoAPNonIP_iOS_UIMainView class];
-	__xamarin_class_map [8].handle = [LibCoAPNonIP_Network_iOS_BroadcastDelegate class];
-	__xamarin_class_map [9].handle = [LibCoAPNonIP_Network_iOS_SnifferDelegate class];
-	__xamarin_class_map [10].handle = [LibCoAPNonIP_Network_iOS_SeekerDelegate class];
-	__xamarin_class_map [11].handle = [LibCoAPNonIP_Network_iOS_SessionDelegate class];
-	__xamarin_class_map [12].handle = [iPadMainView class];
-	__xamarin_class_map [13].handle = [CoAPNonIP_iOS_DeviceListSource class];
-	__xamarin_class_map [14].handle = objc_getClass ("NSArray");
-	__xamarin_class_map [15].handle = objc_getClass ("NSBundle");
-	__xamarin_class_map [16].handle = objc_getClass ("NSCoder");
-	__xamarin_class_map [17].handle = objc_getClass ("NSIndexPath");
-	__xamarin_class_map [18].handle = objc_getClass ("NSStream");
-	__xamarin_class_map [19].handle = objc_getClass ("NSInputStream");
-	__xamarin_class_map [20].handle = objc_getClass ("NSOutputStream");
-	__xamarin_class_map [21].handle = objc_getClass ("NSRunLoop");
-	__xamarin_class_map [22].handle = objc_getClass ("NSString");
-	__xamarin_class_map [23].handle = objc_getClass ("NSURL");
-	__xamarin_class_map [24].handle = objc_getClass ("__MonoMac_NSActionDispatcher");
-	__xamarin_class_map [25].handle = objc_getClass ("__MonoMac_NSAsyncActionDispatcher");
-	__xamarin_class_map [26].handle = objc_getClass ("NSAutoreleasePool");
-	__xamarin_class_map [27].handle = objc_getClass ("NSError");
-	__xamarin_class_map [28].handle = objc_getClass ("MCSession");
-	__xamarin_class_map [29].handle = objc_getClass ("UIAlertView");
-	__xamarin_class_map [30].handle = objc_getClass ("UIApplication");
-	__xamarin_class_map [31].handle = objc_getClass ("UIControl");
-	__xamarin_class_map [32].handle = objc_getClass ("UIButton");
-	__xamarin_class_map [33].handle = objc_getClass ("UIKit_UIControlEventProxy");
-	__xamarin_class_map [34].handle = objc_getClass ("UIDevice");
-	__xamarin_class_map [35].handle = objc_getClass ("UIEvent");
-	__xamarin_class_map [36].handle = objc_getClass ("UIImage");
-	__xamarin_class_map [37].handle = objc_getClass ("UIPickerView");
-	__xamarin_class_map [38].handle = objc_getClass ("UIScreen");
-	__xamarin_class_map [39].handle = objc_getClass ("UIScrollView");
-	__xamarin_class_map [40].handle = objc_getClass ("UITableView");
-	__xamarin_class_map [41].handle = objc_getClass ("UITableViewCell");
-	__xamarin_class_map [42].handle = objc_getClass ("UITextField");
-	__xamarin_class_map [43].handle = objc_getClass ("UIWindow");
-	__xamarin_class_map [44].handle = objc_getClass ("NSEnumerator");
-	__xamarin_class_map [45].handle = objc_getClass ("NSException");
-	__xamarin_class_map [46].handle = objc_getClass ("NSNull");
-	__xamarin_class_map [47].handle = objc_getClass ("NSUserActivity");
-	__xamarin_class_map [48].handle = objc_getClass ("NSProgress");
-	__xamarin_class_map [49].handle = objc_getClass ("MCPeerID");
-	__xamarin_class_map [50].handle = objc_getClass ("MCNearbyServiceAdvertiser");
-	__xamarin_class_map [51].handle = objc_getClass ("MCNearbyServiceBrowser");
-	__xamarin_class_map [52].handle = objc_getClass ("NSTextAttachment");
-	__xamarin_class_map [53].handle = objc_getClass ("NSTextContainer");
-	__xamarin_class_map [54].handle = objc_getClass ("UITextPosition");
-	__xamarin_class_map [55].handle = objc_getClass ("UITextRange");
-	__xamarin_class_map [56].handle = objc_getClass ("UITextSelectionRect");
-	__xamarin_class_map [57].handle = objc_getClass ("UILocalNotification");
-	__xamarin_class_map [58].handle = objc_getClass ("UILabel");
-	__xamarin_class_map [59].handle = objc_getClass ("UISwitch");
-	__xamarin_class_map [60].handle = objc_getClass ("UITraitCollection");
-	__xamarin_class_map [61].handle = objc_getClass ("NSData");
-	__xamarin_class_map [62].handle = objc_getClass ("NSDictionary");
-	__xamarin_class_map [63].handle = objc_getClass ("NSSet");
-	__xamarin_class_map [64].handle = objc_getClass ("__NSObject_Disposer");
-	__xamarin_class_map [65].handle = objc_getClass ("UIKit_UIScrollView__UIScrollViewDelegate");
-	__xamarin_class_map [66].handle = objc_getClass ("UIKit_UITextView__UITextViewDelegate");
-	__xamarin_class_map [67].handle = objc_getClass ("UITextView");
-	xamarin_setup_classmap (__xamarin_class_map, 68);
+	__xamarin_class_map [8].handle = [BenchmarkView class];
+	__xamarin_class_map [9].handle = [LibCoAPNonIP_Network_iOS_BroadcastDelegate class];
+	__xamarin_class_map [10].handle = [LibCoAPNonIP_Network_iOS_SnifferDelegate class];
+	__xamarin_class_map [11].handle = [LibCoAPNonIP_Network_iOS_SeekerDelegate class];
+	__xamarin_class_map [12].handle = [LibCoAPNonIP_Network_iOS_SessionDelegate class];
+	__xamarin_class_map [13].handle = [iPadMainView class];
+	__xamarin_class_map [14].handle = [CoAPNonIP_iOS_DeviceListSource class];
+	__xamarin_class_map [15].handle = objc_getClass ("NSArray");
+	__xamarin_class_map [16].handle = objc_getClass ("NSBundle");
+	__xamarin_class_map [17].handle = objc_getClass ("NSCoder");
+	__xamarin_class_map [18].handle = objc_getClass ("NSIndexPath");
+	__xamarin_class_map [19].handle = objc_getClass ("NSStream");
+	__xamarin_class_map [20].handle = objc_getClass ("NSInputStream");
+	__xamarin_class_map [21].handle = objc_getClass ("NSOutputStream");
+	__xamarin_class_map [22].handle = objc_getClass ("NSRunLoop");
+	__xamarin_class_map [23].handle = objc_getClass ("NSString");
+	__xamarin_class_map [24].handle = objc_getClass ("NSURL");
+	__xamarin_class_map [25].handle = objc_getClass ("__MonoMac_NSActionDispatcher");
+	__xamarin_class_map [26].handle = objc_getClass ("__MonoMac_NSAsyncActionDispatcher");
+	__xamarin_class_map [27].handle = objc_getClass ("NSAutoreleasePool");
+	__xamarin_class_map [28].handle = objc_getClass ("NSError");
+	__xamarin_class_map [29].handle = objc_getClass ("MCSession");
+	__xamarin_class_map [30].handle = objc_getClass ("UIAlertView");
+	__xamarin_class_map [31].handle = objc_getClass ("UIApplication");
+	__xamarin_class_map [32].handle = objc_getClass ("UIControl");
+	__xamarin_class_map [33].handle = objc_getClass ("UIButton");
+	__xamarin_class_map [34].handle = objc_getClass ("UIKit_UIControlEventProxy");
+	__xamarin_class_map [35].handle = objc_getClass ("UIDevice");
+	__xamarin_class_map [36].handle = objc_getClass ("UIEvent");
+	__xamarin_class_map [37].handle = objc_getClass ("UIImage");
+	__xamarin_class_map [38].handle = objc_getClass ("UIPickerView");
+	__xamarin_class_map [39].handle = objc_getClass ("UIScreen");
+	__xamarin_class_map [40].handle = objc_getClass ("UIScrollView");
+	__xamarin_class_map [41].handle = objc_getClass ("UITableView");
+	__xamarin_class_map [42].handle = objc_getClass ("UITableViewCell");
+	__xamarin_class_map [43].handle = objc_getClass ("UITextField");
+	__xamarin_class_map [44].handle = objc_getClass ("UIWindow");
+	__xamarin_class_map [45].handle = objc_getClass ("NSEnumerator");
+	__xamarin_class_map [46].handle = objc_getClass ("NSException");
+	__xamarin_class_map [47].handle = objc_getClass ("NSNull");
+	__xamarin_class_map [48].handle = objc_getClass ("NSUserActivity");
+	__xamarin_class_map [49].handle = objc_getClass ("NSProgress");
+	__xamarin_class_map [50].handle = objc_getClass ("MCPeerID");
+	__xamarin_class_map [51].handle = objc_getClass ("MCNearbyServiceAdvertiser");
+	__xamarin_class_map [52].handle = objc_getClass ("MCNearbyServiceBrowser");
+	__xamarin_class_map [53].handle = objc_getClass ("NSTextAttachment");
+	__xamarin_class_map [54].handle = objc_getClass ("NSTextContainer");
+	__xamarin_class_map [55].handle = objc_getClass ("UITextPosition");
+	__xamarin_class_map [56].handle = objc_getClass ("UITextRange");
+	__xamarin_class_map [57].handle = objc_getClass ("UITextSelectionRect");
+	__xamarin_class_map [58].handle = objc_getClass ("UILocalNotification");
+	__xamarin_class_map [59].handle = objc_getClass ("UILabel");
+	__xamarin_class_map [60].handle = objc_getClass ("UISwitch");
+	__xamarin_class_map [61].handle = objc_getClass ("UITraitCollection");
+	__xamarin_class_map [62].handle = objc_getClass ("NSData");
+	__xamarin_class_map [63].handle = objc_getClass ("NSDictionary");
+	__xamarin_class_map [64].handle = objc_getClass ("NSSet");
+	__xamarin_class_map [65].handle = objc_getClass ("__NSObject_Disposer");
+	__xamarin_class_map [66].handle = objc_getClass ("UIKit_UIScrollView__UIScrollViewDelegate");
+	__xamarin_class_map [67].handle = objc_getClass ("UIKit_UITextView__UITextViewDelegate");
+	__xamarin_class_map [68].handle = objc_getClass ("UITextView");
+	xamarin_setup_classmap (__xamarin_class_map, 69);
 }
 

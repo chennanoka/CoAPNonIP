@@ -72,6 +72,7 @@
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
     <InterfaceDefinition Include="Screens\designs\iPadMainView.xib" />
+    <InterfaceDefinition Include="Screens\designs\BenchmarkView.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -88,6 +89,11 @@
     <Compile Include="Screens\Sources\DeviceListSource.cs" />
     <Compile Include="Screens\Sources\MsgCodePickerSource.cs" />
     <Compile Include="Screens\Bases\UIMainView.cs" />
+    <Compile Include="Screens\BenchmarkCtl.cs" />
+    <Compile Include="Screens\designs\BenchmarkView.cs" />
+    <Compile Include="Screens\designs\BenchmarkView.designer.cs">
+      <DependentUpon>BenchmarkView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="..\CoAPNonIP.Core\CoAPNonIP.Core.projitems" Label="Shared" Condition="Exists('..\CoAPNonIP.Core\CoAPNonIP.Core.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
