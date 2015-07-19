@@ -16,28 +16,37 @@ namespace CoAPNonIP.iOS {
             get;
             set;
         }
+
         public override bool WillFinishLaunching(UIApplication application, NSDictionary launchOptions) {
             rr_mainviewctl = new MainViewCtl();
             CoAPService = new App("CoAP-Demo", UIDevice.CurrentDevice.Name);
             CoAPService.InitSenders(5);
             CoAPService.InitReceiver();
             CoAPService.InitProcessers(10);
-            CoAPService.RegisterResource("benchmark",(Device sender , CoAPRequest request)=>{
+            CoAPService.RegisterResource("benchmark", (Device sender, CoAPRequest request) => {
                 rr_mainviewctl.RequestReceived(
-                    sender.DisplayName , 
+                    sender.DisplayName, 
                     request.GetMessageId(),
                     request.GetPayload()
                 );
-                CoAPResponse resp = new CoAPResponse(CoAPMsgType.ACK , CoAPMsgCode.CONTENT , request);
+                CoAPResponse resp = new CoAPResponse(CoAPMsgType.ACK, CoAPMsgCode.CONTENT, request);
                 resp.AddPayload("OK");
                 return resp;
-            } );
+            });
+            CoAPService.RegisterResource("bandwidth", (Device sender, CoAPRequest request) => {
+                CoAPResponse resp = new CoAPResponse(CoAPMsgType.ACK, CoAPMsgCode.CONTENT, request);
+                CoAPService.GetNetworkInstance().SetRecvDataFunc(BenchmarkView.bandwidth_data_recv_func);
+                resp.AddPayload("ReadyToGo");
+                return resp;
+            });
+
             CoAPService.SetDefaultResponseHandler(((ushort MsgID, CoAPResponse Resp) => {
                 Console.WriteLine("Received Response for " + MsgID.ToString());
             }));
             CoAPService.Run();
             return true;
         }
+
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions) {
             // create a new window instance based on the screen size
             Window = new UIWindow(UIScreen.MainScreen.Bounds);
@@ -77,6 +86,7 @@ namespace CoAPNonIP.iOS {
         }
 
         public static App CoAPService{ get; set; }
+
         private MainViewCtl rr_mainviewctl;
     }
 }

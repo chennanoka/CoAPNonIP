@@ -192,6 +192,10 @@ namespace LibCoAPNonIP {
             rr_default_response_handler = handler;
         }
 
+        public void SetDefaultDataRecvCallback() {
+            rr_network.SetRecvDataFunc(default_data_recv_callback);
+        }
+
         public void SendRequest(Device[] Destinations, CoAPRequest Request, ResponseHandler Callback = null) {
             uint sender = get_current_sender();
             SenderMsg msg = new SenderMsg();
